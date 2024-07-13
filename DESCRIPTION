@@ -1,0 +1,17 @@
+Package: readapra
+Title: Download and tidy data from the Australian Prudential Regulation Authority (APRA)
+Version: 0.0.1
+Authors@R: 
+    person(given = "Jarrod", 
+           familty = "van der Wal", 
+           email = "jarvanderwal@gmail.com",
+           role = c("aut", "cre")
+           )
+Description: Download the latest data from the Australian Prudential Regulation
+    Authority as a tidy data frame (tibble). 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
