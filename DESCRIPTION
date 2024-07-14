@@ -3,7 +3,7 @@ Title: Download and tidy data from the Australian Prudential Regulation Authorit
 Version: 0.0.1
 Authors@R: 
     person(given = "Jarrod", 
-           familty = "van der Wal", 
+           family = "van der Wal", 
            email = "jarvanderwal@gmail.com",
            role = c("aut", "cre")
            )
