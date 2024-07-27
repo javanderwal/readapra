@@ -22,5 +22,7 @@ Imports:
     polite (>= 0.1.0),
     readxl (>= 1.4.0),
     rvest (>= 1.0.0),
+    stringdist,
+    stringr,
     tibble (>= 2.0.0),
     tidyr (>= 1.0.0)

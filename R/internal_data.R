@@ -1,4 +1,4 @@
-abr_abn_search_url <- "https://abr.business.gov.au/Search/ResultsActive?SearchText="
+abr_abn_search_url <- "https://abr.business.gov.au/Search/ResultsAll?SearchText="
 
 apra_scraped_download_links <-
   tibble::tribble(
