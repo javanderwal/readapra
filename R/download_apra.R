@@ -1,40 +1,57 @@
-download_apra <- function(statistics, period) {
-  urls <-
-    get_apra_statistics_url(statistics = statistics, period = period)
-  download_location <-
-    download_file(details = urls$details, urls = urls$url)
-  return(download_location)
-}
+download_apra <- function(publication, cur_hist) {
+  rlang::arg_match(publication, unique(apra_stat_pub_details$publication))
+  rlang::arg_match(cur_hist, c("current", "historic"))
 
-download_file <- function(details, urls, path1 = tempdir()) {
-  list_statistics_file_path_name <-
-    purrr::map2(
-      .x = details,
-      .y = urls,
-      .f = function(x = .x, y = .y, path = path1) {
-
-  file_name <- basename(y)
-  file_path_name <- file.path(path, file_name)
-
-  utils::download.file(
-    url = y,
-    destfile = file_path_name,
-    quiet = FALSE,
-    mode = "wb")
-
-  download_details <-
-    tibble::tibble(
-      details = x,
-      file_path_name = file_path_name
+  selected_stat_pub <-
+    dplyr::filter(
+      apra_stat_pub_details,
+      publication == {{ publication }},
+      cur_hist == {{ cur_hist }}
     )
 
-  return(download_details)
-  })
+  url_session <- polite::bow(selected_stat_pub$webpage)
 
-  tibble_statistics_file_path_name <-
-    dplyr::bind_rows(list_statistics_file_path_name)
+  if (selected_stat_pub$static_link) {
+    temp_link <- selected_stat_pub$link
+  } else {
+    temp_link <-
+      polite::scrape(url_session) |>
+      rvest::html_elements("a") |>
+      rvest::html_attr("href") |>
+      stringr::str_subset(selected_stat_pub$link)
+  }
 
-  return(tibble_statistics_file_path_name)
+  download_outcome <- safely_download_file(url_session, temp_link)
+
+  if (!is.null(download_outcome$error)) {
+    Sys.sleep(10)
+    download_outcome <- safely_download_file(url_session, temp_link)
+  }
+
+  if (!is.null(download_outcome$error)) {
+    cli::cli_abort("Could not download: {.url temp_link} ")
+  }
+
+  return(download_outcome$result)
 }
+
+get_http_status_apra <- function(url) {
+  http_response <- httr::GET(url)
+  if (httr::http_error(http_response)) {
+    status_message <- httr::http_status(http_response)$message
+    cli::cli_abort(
+      c("Could not download {.url {url}}.", c("x" = status_message))
+    )
+  }
+}
+
+download_file <-
+  function(bow, url, ...) {
+  temp_link <-
+    polite::nod(bow, url) |>
+    polite::rip(overwrite = TRUE, ...)
+}
+
+safely_download_file <- purrr::safely(download_file)
 
 
