@@ -18,6 +18,7 @@ download_apra <- function(publication, cur_hist) {
       polite::scrape(url_session) |>
       rvest::html_elements("a") |>
       rvest::html_attr("href") |>
+      stringr::str_subset(".xlsx$") |>
       stringr::str_subset(selected_stat_pub$link)
   }
 
