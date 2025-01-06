@@ -1,5 +1,6 @@
 test_that("download_apra()", {
   local_mocked_bindings(polite_bow = function(...) "bow_object")
+  local_mocked_bindings(sys_sleep_wrapper = function(...) NULL)
 
   test_url_strings <-
     c(
