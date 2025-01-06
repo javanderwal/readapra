@@ -6,6 +6,7 @@
 #' @param backup_remove String matches used to exclude a URL
 #'
 #' @keywords internal
+#'
 download_apra <- function(publication, cur_hist, backup_match, backup_remove = NULL) {
   rlang::arg_match(publication, unique(apra_stat_pub_details$publication))
   rlang::arg_match(cur_hist, c("current", "historic"))
@@ -17,21 +18,17 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
       cur_hist == {{ cur_hist }}
     )
 
-  url_session <- polite::bow(selected_stat_pub$webpage)
+  url_session <- polite_bow(selected_stat_pub$webpage)
 
-  xlsx_urls <-
-    polite::scrape(url_session) |>
-    rvest::html_elements("a") |>
-    rvest::html_attr("href") |>
-    stringr::str_subset(".xlsx$")
+  extracted_urls <- scrape_urls(url_session)
 
   temp_link <-
-    stringr::str_subset(xlsx_urls, selected_stat_pub$link)
+    stringr::str_subset(extracted_urls, selected_stat_pub$link)
 
   if (length(temp_link) != 1) {
     temp_link <-
       backup_link_identifier(
-        x = xlsx_urls,
+        x = extracted_urls,
         to_match = backup_match,
         to_remove = backup_remove
       )
@@ -45,10 +42,35 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
   }
 
   if (!is.null(download_outcome$error)) {
-    cli::cli_abort("Could not download: {.url {temp_link}} ")
+    cli::cli_abort(
+      message = c(
+        "Could not download: {.url {temp_link}}",
+        get_http_status(temp_link)
+      ),
+      class = "read_apra_error_could_not_download"
+    )
   }
 
   return(download_outcome$result)
+}
+
+# Wrapper used for testing purposes
+#' @keywords internal
+#'
+polite_bow <- polite::bow
+
+#' Extract the vector of URLs from the polite bow object
+#'
+#' @url_session The polite bow object to extract the URLs from
+#'
+#' @keywords internal
+#'
+scrape_urls <- function(url_session) {
+  scraped_urls <- polite::scrape(url_session)
+  scraped_urls <- rvest::html_elements(scraped_urls, "a")
+  scraped_urls <- rvest::html_attr(scraped_urls, "href")
+  scraped_urls <- stringr::str_subset(scraped_urls, ".xlsx$")
+  return(scraped_urls)
 }
 
 #' If the original method for selecting the URL to download fails this function
@@ -73,34 +95,33 @@ backup_link_identifier <- function(x, to_match, to_remove = NULL) {
     stringr::str_count(tolower(with_removed), pattern = to_match)
 
   if (all(number_matches == 0)) {
-    cli::cli_abort("No good")
+    cli::cli_abort(
+      message = "Could not identify the correct URL to download from.",
+      class = "read_apra_error_back_url_no_matches"
+    )
   }
 
   which_to_keep <-
     which(number_matches == max(number_matches, na.rm = TRUE))
 
   if (length(which_to_keep) != 1) {
-    cli::cli_abort("No good")
+    cli::cli_abort(
+      message = "Could not identify the correct URL to download from.",
+      class = "read_apra_error_back_url_multiple_matches"
+    )
   }
 
   with_removed[which_to_keep]
 }
 
-#' Check the http status of a URL and if said URL is unavailable throw an error
-#' with the http status code
+#' Check the http status of a URL and return a message about its status
 #'
 #' @param url The URL link to be checked
 #'
 #' @keywords internal
 #'
 get_http_status <- function(url) {
-  http_response <- httr::GET(url)
-  if (httr::http_error(http_response)) {
-    status_message <- httr::http_status(http_response)$message
-    cli::cli_abort(
-      c("Could not download {.url {url}}.", c("x" = status_message))
-    )
-  }
+  httr::http_status(httr::GET(url))$message
 }
 
 #' Politely download a file
