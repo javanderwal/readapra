@@ -37,7 +37,7 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
   download_outcome <- safely_download_file(url_session, temp_link)
 
   if (!is.null(download_outcome$error)) {
-    Sys.sleep(5)
+    sys_sleep_wrapper(5)
     download_outcome <- safely_download_file(url_session, temp_link)
   }
 
@@ -58,6 +58,11 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
 #' @keywords internal
 #'
 polite_bow <- polite::bow
+
+# Wrapper used for testing purposes
+#' @keywords internal
+#'
+sys_sleep_wrapper <- Sys.sleep
 
 #' Extract the vector of URLs from the polite bow object
 #'
