@@ -28,6 +28,10 @@ get_series_dependencies <-
       dplyr::select(sheet, row, col, data_type, character, numeric, indent)
 
     series_dependency_data <-
+      series_dependency_data |>
+      dplyr::mutate(character = clean_series_names(character))
+
+    series_dependency_data <-
       dplyr::mutate(
         .data = series_dependency_data,
         which_identifier = dplyr::if_else(
@@ -57,6 +61,19 @@ get_series_dependencies <-
 
     return(series_dependency_data)
   }
+
+
+#' Cleans the series column of any unusual/unwanted strings
+#'
+#' @param series The series column to be cleaned (character)
+#'
+#' @keywords internal
+#'
+clean_series_names <- function(series) {
+  series_cleaned <- stringr::str_trim(series)
+  series_cleaned <- stringr::str_remove_all(series_cleaned, "[\u2070-\u209F]") #Remove superscript
+  return(series_cleaned)
+}
 
 #' Iterates through a vector of strings containing APRA data series names and
 #' (e.g. Net interest income) and establishes its dependencies
@@ -167,6 +184,17 @@ get_joined_pub_data <- function(tidyxl_data, dependency_names,
       relationship = "many-to-one"
     ) |>
     dplyr::filter(!is.na(date))
+
+  # Format the unit column
+  publication_data <-
+    publication_data |>
+    dplyr::mutate(
+    unit = dplyr::case_when(
+      stringr::str_detect(unit, "\\%") ~ "Percent",
+      stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
+      .default = "$ million"
+    )
+  )
 
   publication_data <-
     dplyr::select(

@@ -4,7 +4,7 @@
 #' Download and import to R the Quarterly Authorised Deposit-taking Institution
 #' Performance Statistics (QADIPS) from APRA's website.
 #'
-#' @return A tibble containing the Quarterly ADI Performance Statistics data
+#' @return A tibble containing the Quarterly ADI Performance Statistics data.
 #' @export
 #'
 #' @examples
@@ -25,7 +25,9 @@ read_qadips <- function() {
 #' Import to R the Quarterly Authorised Deposit-taking Institution
 #' Performance Statistics (QADIPS) from a local file.
 #'
-#' @return A tibble containing the Quarterly ADI Performance Statistics data
+#' @param file_path The file path to the local QADIPS .xlsx file.
+#'
+#' @return A tibble containing the Quarterly ADI Performance Statistics data.
 #' @export
 #'
 #' @examples
@@ -51,14 +53,7 @@ qadip_data <- function(tidyxl_data, formatting_data) {
       attempt_horizontal_tab_data(tidyxl_data, formatting_data)
     ) |>
     dplyr::mutate(
-      unit = dplyr::case_when(
-        stringr::str_detect(unit, "\\%") ~ "Percent",
-        stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
-        .default = "$ million"
-      )
-    ) |>
-    dplyr::mutate(
-      statistics_publication_name = "Quarterly authorised deposit-taking institution performance Statistics",
+      statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Performance Statistics",
       .before = date
     )
 
