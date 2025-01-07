@@ -49,17 +49,14 @@ get_series_dependencies <-
         )
       )
 
-    series_dependency_data <- dplyr::mutate(
-      series_dependency_data,
-      series_dependency = purrr::map_chr(
-        seq_along(character),
-        ~ iterate_series_dependencies(.x, character, indent, which_identifier)
-      ),
-      .by = sheet
-    ) |>
+    cleaned_series_hierarchy_data <-
+      split(series_dependency_data, series_dependency_data$sheet) |>
+      purrr::map(iterate_series_dependencies) |>
+      dplyr::bind_rows() |>
+      dplyr::arrange(match(sheet, unique(series_dependency_data$sheet))) |>
       dplyr::select(sheet, row, series_dependency, series = character)
 
-    return(series_dependency_data)
+    return(cleaned_series_hierarchy_data)
   }
 
 
@@ -71,35 +68,68 @@ get_series_dependencies <-
 #'
 clean_series_names <- function(series) {
   series_cleaned <- stringr::str_trim(series)
-  series_cleaned <- stringr::str_remove_all(series_cleaned, "[\u2070-\u209F]") #Remove superscript
+  series_cleaned <- stringr::str_remove_all(series_cleaned, "[\u2070-\u209F]") # Remove superscript
   return(series_cleaned)
 }
 
-#' Iterates through a vector of strings containing APRA data series names and
-#' (e.g. Net interest income) and establishes its dependencies
+#' Takes the data computed inside get_series_dependencies() and iterates through
+#' each row to work out the series hierarchy
 #'
-#' @param index The index column
-#' @param character The character column
-#' @param indent The column marking the indentation level
-#' @param which_identifier The column marking rows containing "which" needing
-#' indentation
+#' @param data Data computed inside get_series_dependencies()
 #'
 #' @keywords internal
 #'
-iterate_series_dependencies <- function(index, character, indent, which_identifier) {
-  chain <- character[index]
-  current_indent <- indent[index]
-  for (j in index:1) {
-    if (indent[j] < current_indent && which_identifier[j] == 1) {
-      chain <- paste(character[j], chain, sep = " ")
-    } else if (indent[j] < current_indent && which_identifier[j] == 0) {
-      chain <- paste(character[j], chain, sep = "; ")
-      current_indent <- indent[j]
-    } else if (indent[j] == current_indent && indent[j] == 0) {
-      break
+iterate_series_dependencies <- function(data) {
+  data <-
+    adjust_indent(data) |>
+    mutate(series_dependency = vector("list", n()))
+
+  for (i in seq_len(nrow(data))) {
+    current_indent <- data$adjusted_indent[i]
+    current_text <- data$character[i]
+
+    if (current_indent == 0) {
+      data$series_dependency[[i]] <- current_text
+    } else {
+      # Find the parent row
+      parent_index <- max(which(data$adjusted_indent < current_indent & seq_len(nrow(data)) < i))
+      parent_path <- data$series_dependency[[parent_index]]
+      # Combine current text with its parent.
+      if (stringr::str_detect(parent_path, ":$")) {
+        data$series_dependency[[i]] <- paste(parent_path, current_text)
+      } else {
+        data$series_dependency[[i]] <- paste(parent_path, current_text, sep = "; ")
+      }
     }
   }
-  return(chain)
+  data$series_dependency <- unlist(data$series_dependency)
+  return(data)
+}
+
+#' Combines the indent and which_identifier columns generated inside
+#' get_series_dependencies() to create an adjusted_indent column
+#'
+#' @param data Data computed inside get_series_dependencies()
+#'
+#' @keywords internal
+#'
+adjust_indent <- function(data) {
+  data$adjusted_indent <- data$indent
+  for (i in seq_len(nrow(data))) {
+    if (data$which_identifier[i] == 1) {
+      # Increment the current "which" row's indent
+      data$adjusted_indent[i] <- data$adjusted_indent[i] + 1
+      # Propagate the increment to subsequent children
+      for (j in (i + 1):nrow(data)) {
+        if (data$indent[j] > data$indent[i]) {
+          data$adjusted_indent[j] <- data$adjusted_indent[j] + 1
+        } else {
+          break
+        }
+      }
+    }
+  }
+  return(data)
 }
 
 #' Joins the series dependency and formatting data together
@@ -116,7 +146,6 @@ iterate_series_dependencies <- function(index, character, indent, which_identifi
 #'
 get_joined_pub_data <- function(tidyxl_data, dependency_names,
                                 formatting_data, sheet_str_detect) {
-
   # Extract required tidyxl_data and join with dependency_names data
   joined_pub_data <-
     tidyxl_data |>
@@ -189,12 +218,12 @@ get_joined_pub_data <- function(tidyxl_data, dependency_names,
   publication_data <-
     publication_data |>
     dplyr::mutate(
-    unit = dplyr::case_when(
-      stringr::str_detect(unit, "\\%") ~ "Percent",
-      stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
-      .default = "$ million"
+      unit = dplyr::case_when(
+        stringr::str_detect(unit, "\\%") ~ "Percent",
+        stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
+        .default = "$ million"
+      )
     )
-  )
 
   publication_data <-
     dplyr::select(

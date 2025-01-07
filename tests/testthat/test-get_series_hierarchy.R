@@ -67,13 +67,12 @@ test_that("iterate_series_dependencies()", {
 
   output_data <-
     dplyr::mutate(
-      input_data,
+      example_input,
       series_dependency = purrr::map_chr(
         seq_along(character),
         ~ iterate_series_dependencies(.x, character, indent, which_identifier)
-      ),
-      .by = sheet
-    ) |>
+      )
+    )
     dplyr::pull(series_dependency)
 
   expected_output_data <-
