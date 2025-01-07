@@ -54,12 +54,12 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
   return(download_outcome$result)
 }
 
-# Wrapper used for testing purposes
+#' Wrapper used for testing purposes
 #' @keywords internal
 #'
 polite_bow <- polite::bow
 
-# Wrapper used for testing purposes
+#' Wrapper used for testing purposes
 #' @keywords internal
 #'
 sys_sleep_wrapper <- Sys.sleep
