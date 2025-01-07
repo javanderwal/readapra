@@ -19,7 +19,7 @@ test_that("qadip_data()", {
     )
 
   local_mocked_bindings(attempt_qadip_key_stats_data = function(...) input_data)
-  local_mocked_bindings(qadip_tab_data = function(...) NULL)
+  local_mocked_bindings(attempt_horizontal_tab_data = function(...) NULL)
 
   expect_equal(qadip_data(), output_data)
 })
@@ -239,18 +239,4 @@ test_that("attempt_qadip_key_stats_data()", {
     attempt_qadip_key_stats_data("input_a", "input_b"),
     class = "read_apra_warning_key_stats_inaccessible"
   )
-})
-
-
-test_that("qadip_tab_data()", {
-  tidyxl_input <- dummy_horizontal_tidyxl_input()
-  formatting_input <- dummy_horizontal_formatting_input()
-
-  test_output <-
-    qadip_tab_data(tidyxl_data = tidyxl_input, formatting_data = formatting_input) |>
-    dplyr::mutate(series_dependency = paste0("SD_", series_dependency))
-
-  expected_output <- expected_horizontal_test_output()
-
-  expect_equal(test_output, expected_output)
 })

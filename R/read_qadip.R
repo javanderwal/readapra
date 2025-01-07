@@ -47,7 +47,7 @@ qadip_data <- function(tidyxl_data, formatting_data) {
   bound_qadip_data <-
     dplyr::bind_rows(
       attempt_qadip_key_stats_data(tidyxl_data, formatting_data),
-      qadip_tab_data(tidyxl_data, formatting_data)
+      attempt_horizontal_tab_data(tidyxl_data, formatting_data)
     ) |>
     dplyr::mutate(
       unit = dplyr::case_when(
@@ -107,7 +107,7 @@ attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
   results <- safely_qadip_key_stats_data(tidyxl_data, formatting_data)
   if (!is.null(results$error)) {
     cli::cli_warn(
-      message = "Could not extract data from the \"Key Stats\" sheet. Data from the \"Key Stats\" sheet has is omitted.",
+      message = "Could not extract data from the \"Key Stats\" sheet. Data from the \"Key Stats\" sheet has been omitted.",
       class = "read_apra_warning_key_stats_inaccessible"
     )
     return(tibble::tibble())
@@ -186,29 +186,4 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
     )
 
   return(key_stats_names_data)
-}
-
-#' Extracts and formats the data from the QADIP Tab sheets separate from the
-#' Key stats sheet
-#'
-#' @param tidyxl_data The QADIP data sourced using the tidyxl package
-#' @param formatting_data The QADIP excel formatting data sourced using the
-#' tidyxl package
-#'
-#' @keywords internal
-#'
-qadip_tab_data <- function(tidyxl_data, formatting_data) {
-  tab_series_dependencies <- get_series_dependencies(
-    tidyxl_data = tidyxl_data,
-    formatting_data = formatting_data,
-    sheet_str_detect = "Tab|^A\\."
-  )
-  tab_data <-
-    get_joined_pub_data(
-      tidyxl_data = tidyxl_data,
-      dependency_names = tab_series_dependencies,
-      formatting_data = formatting_data,
-      sheet_str_detect = "Tab|^A\\."
-    )
-  return(tab_data)
 }
