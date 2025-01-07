@@ -30,6 +30,7 @@ read_qadips <- function() {
 #'
 #' @examples
 read_qadips_local <- function(file_path) {
+  check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
   qadip_data(tidyxl_data, formatting_data)
