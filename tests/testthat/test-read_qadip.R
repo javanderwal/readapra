@@ -18,7 +18,7 @@ test_that("qadip_data()", {
       value = 1:80
     )
 
-  local_mocked_bindings(qadip_key_stats_data = function(...) input_data)
+  local_mocked_bindings(attempt_qadip_key_stats_data = function(...) input_data)
   local_mocked_bindings(qadip_tab_data = function(...) NULL)
 
   expect_equal(qadip_data(), output_data)
@@ -100,7 +100,6 @@ test_that("qadip_key_stats_names() success", {
 })
 
 test_that("qadip_key_stats_names() sheet change errors", {
-
   # Testing wrong number of cohort rows
 
   series_dependency_input_wrong_number_cohort_rows <-
@@ -223,6 +222,25 @@ test_that("qadip_key_stats_names() sheet change errors", {
     class = "read_apra_error_wrong_number_summary_stat_groups"
   )
 })
+
+test_that("attempt_qadip_key_stats_data()", {
+  local_mocked_bindings(
+    safely_qadip_key_stats_data = function(...) {
+      list(result = NULL, error = "dummy_error")
+    }
+  )
+
+  expect_equal(
+    suppressWarnings(attempt_qadip_key_stats_data("input_a", "input_b")),
+    tibble::tibble()
+  )
+
+  expect_warning(
+    attempt_qadip_key_stats_data("input_a", "input_b"),
+    class = "read_apra_warning_key_stats_inaccessible"
+  )
+})
+
 
 test_that("qadip_tab_data()", {
   tidyxl_input <- dummy_horizontal_tidyxl_input()

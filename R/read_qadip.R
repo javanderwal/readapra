@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-read_qadip <- function() {
+read_qadips <- function() {
   temp_file_path <- download_apra(
     publication = "qadip",
     cur_hist = "current",
@@ -16,6 +16,22 @@ read_qadip <- function() {
   )
   tidyxl_data <- read_tidyxl_data(temp_file_path)
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)
+  qadip_data(tidyxl_data, formatting_data)
+}
+
+#' Read Quarterly ADI Performance Statistics locally
+#'
+#' @description
+#' Import to R the Quarterly Authorised Deposit-taking Institution
+#' Performance Statistics (QADIPS) from a local file.
+#'
+#' @return A tibble containing the Quarterly ADI Performance Statistics data
+#' @export
+#'
+#' @examples
+read_qadips_local <- function(file_path) {
+  tidyxl_data <- read_tidyxl_data(file_path)
+  formatting_data <- read_tidyxl_formatting_data(file_path)
   qadip_data(tidyxl_data, formatting_data)
 }
 
@@ -30,7 +46,7 @@ read_qadip <- function() {
 qadip_data <- function(tidyxl_data, formatting_data) {
   bound_qadip_data <-
     dplyr::bind_rows(
-      qadip_key_stats_data(tidyxl_data, formatting_data),
+      attempt_qadip_key_stats_data(tidyxl_data, formatting_data),
       qadip_tab_data(tidyxl_data, formatting_data)
     ) |>
     dplyr::mutate(
@@ -72,6 +88,32 @@ qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
     formatting_data = formatting_data,
     sheet_str_detect = "Key"
   )
+}
+
+#' Safely get the QADIPS Key Stats sheet data
+#'
+#' @keywords internal
+#'
+safely_qadip_key_stats_data <- purrr::safely(qadip_key_stats_data)
+
+#' Attempts to get the QADIPS Key Stats sheet data and if it encounters an error
+#' it throws a warning and returns a empty tibble
+#'
+#' @param tidyxl_data The QADIP data sourced using the tidyxl package
+#' @param formatting_data The formatting data sourced using
+#' read_tidyxl_formatting_data()
+#'
+attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
+  results <- safely_qadip_key_stats_data(tidyxl_data, formatting_data)
+  if (!is.null(results$error)) {
+    cli::cli_warn(
+      message = "Could not extract data from the \"Key Stats\" sheet. Data from the \"Key Stats\" sheet has is omitted.",
+      class = "read_apra_warning_key_stats_inaccessible"
+    )
+    return(tibble::tibble())
+  } else {
+    return(results$result)
+  }
 }
 
 #' Gets dependency names for the Key Stats sheet in the QADIP. This sheet is
