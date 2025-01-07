@@ -66,7 +66,7 @@ sys_sleep_wrapper <- Sys.sleep
 
 #' Extract the vector of URLs from the polite bow object
 #'
-#' @url_session The polite bow object to extract the URLs from
+#' @param url_session The polite bow object to extract the URLs from
 #'
 #' @keywords internal
 #'
