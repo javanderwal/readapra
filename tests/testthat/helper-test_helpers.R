@@ -78,6 +78,7 @@ expected_horizontal_test_output <- function() {
     sheet = rep("Tab 1a", 28),
     series_dependency = c(rep("SD_example_1", 14), rep("SD_example_2", 14)),
     series = c(rep("example_1",14), rep("example_2",14)),
+    frequency = "Quarterly",
     unit = "#;##0",
     value = c(1:2, rep(NA, 3), 6:14, 16:29)
   )

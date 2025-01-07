@@ -196,7 +196,8 @@ get_joined_pub_data <- function(tidyxl_data, dependency_names,
     dplyr::select(
       .data = publication_data,
       date, sheet, series_dependency, series, unit, value
-    )
+    ) |>
+    dplyr::mutate(frequency = "Quarterly", .before = unit)
 
   return(publication_data)
 }
