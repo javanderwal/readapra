@@ -1,10 +1,89 @@
+#' Read Quarterly ADI Performance Statistics
+#'
+#' @description
+#' Download and import to R the Quarterly Authorised Deposit-taking Institution
+#' Performance Statistics (QADIPS) from APRA's website.
+#'
+#' @return A tibble containing the Quarterly ADI Performance Statistics data
+#' @export
+#'
+#' @examples
 read_qadip <- function() {
-  temp_file_path <- download_apra(publication = "qadip", cur_hist = "current")
+  temp_file_path <- download_apra(
+    publication = "qadip",
+    cur_hist = "current",
+    backup_match = "performance"
+  )
   tidyxl_data <- read_tidyxl_data(temp_file_path)
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)
   qadip_data(tidyxl_data, formatting_data)
 }
 
+#' Combines the various QADIP data tibbles together alongside final formatting
+#'
+#' @param tidyxl_data The QADIP data sourced using the tidyxl package
+#' @param formatting_data The QADIP excel formatting data sourced using the
+#' tidyxl package
+#'
+#' @keywords internal
+#'
+qadip_data <- function(tidyxl_data, formatting_data) {
+  bound_qadip_data <-
+    dplyr::bind_rows(
+      qadip_key_stats_data(tidyxl_data, formatting_data),
+      qadip_tab_data(tidyxl_data, formatting_data)
+    ) |>
+    dplyr::mutate(
+      unit = dplyr::case_when(
+        stringr::str_detect(unit, "\\%") ~ "Percent",
+        stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
+        .default = "$ million"
+      )
+    ) |>
+    dplyr::mutate(
+      statistics_publication_name = "Quarterly authorised deposit-taking institution performance Statistics",
+      .before = date
+    )
+
+  return(bound_qadip_data)
+}
+
+#' Extracts the data from the Key Stats sheet and formats it
+#'
+#' @param tidyxl_data The QADIP data sourced using the tidyxl package
+#' @param formatting_data The formatting data sourced using
+#' read_tidyxl_formatting_data()
+#'
+#' @keywords internal
+#'
+qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
+  series_dependency_data <- get_series_dependencies(
+    tidyxl_data = tidyxl_data,
+    formatting_data = formatting_data,
+    sheet_str_detect = "Key"
+  )
+  dependency_names_data <- qadip_key_stats_names(
+    tidyxl_data = tidyxl_data,
+    series_dependency_data = series_dependency_data
+  )
+  get_joined_pub_data(
+    tidyxl_data = tidyxl_data,
+    dependency_names = dependency_names_data,
+    formatting_data = formatting_data,
+    sheet_str_detect = "Key"
+  )
+}
+
+#' Gets dependency names for the Key Stats sheet in the QADIP. This sheet is
+#' structured differently from the other sheets and needs a lot of tweaking to
+#' get working.
+#'
+#' @param tidyxl_data The QADIP data sourced using the tidyxl package
+#' @param series_dependency_data The series dependency data sourced using
+#' get_series_dependencies()
+#'
+#' @keywords internal
+#'
 qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
   cohort_rows <-
     series_dependency_data |>
@@ -14,8 +93,11 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
   key_figures_row <-
     dplyr::filter(tidyxl_data, character %in% c("Key figures"))$row
 
-  if (length(cohort_rows) != 2) {
-    cli::cli_abort()
+  if (length(cohort_rows) != 2 | length(key_figures_row) != 1) {
+    cli::cli_abort(
+      message = "Structure of the 'Key Stats' sheet has changed. Unable to extract data.",
+      class = "read_apra_error_key_figures_or_cohort_rows_wrong"
+    )
   }
 
   cleaned_key_stats_names <-
@@ -49,59 +131,42 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
     max()
 
   if (max_number_summary_stat_groups != 3) {
-    cli::cli_abort()
+    cli::cli_abort(
+      message = "Structure of the 'Key Stats' sheet has changed. Unable to extract data.",
+      class = "read_apra_error_wrong_number_summary_stat_groups"
+    )
   }
 
-  dplyr::select(
-    .data = cleaned_key_stats_names,
-    sheet, row, series_dependency, series
-  )
+  key_stats_names_data <-
+    dplyr::select(
+      .data = cleaned_key_stats_names,
+      sheet, row, series_dependency, series
+    )
+
+  return(key_stats_names_data)
 }
 
-qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
-  series_dependency_data <- get_series_dependencies(
-    tidyxl_data = tidyxl_data,
-    formatting_data = formatting_data,
-    sheet_str_detect = "Key"
-  )
-  dependency_names_data <- qadip_key_stats_names(
-    tidyxl_data = tidyxl_data,
-    series_dependency_data = series_dependency_data
-  )
-  get_joined_pub_data(
-    tidyxl_data = tidyxl_data,
-    dependency_names = dependency_names_data,
-    formatting_data = formatting_data,
-    sheet_str_detect = "Key"
-  )
-}
-
+#' Extracts and formats the data from the QADIP Tab sheets separate from the
+#' Key stats sheet
+#'
+#' @param tidyxl_data The QADIP data sourced using the tidyxl package
+#' @param formatting_data The QADIP excel formatting data sourced using the
+#' tidyxl package
+#'
+#' @keywords internal
+#'
 qadip_tab_data <- function(tidyxl_data, formatting_data) {
   tab_series_dependencies <- get_series_dependencies(
     tidyxl_data = tidyxl_data,
     formatting_data = formatting_data,
     sheet_str_detect = "Tab|^A\\."
   )
-  get_joined_pub_data(
-    tidyxl_data = tidyxl_data,
-    dependency_names = tab_series_dependencies,
-    formatting_data = formatting_data,
-    sheet_str_detect = "Tab|^A\\."
-  )
-}
-
-qadip_data <- function(tidyxl_data, formatting_data) {
-  bound_qadip_data <-
-    dplyr::bind_rows(
-      qadip_key_stats_data(tidyxl_data, formatting_data),
-      qadip_tab_data(tidyxl_data, formatting_data)
-    ) |>
-    dplyr::mutate(
-      unit = dplyr::case_when(
-        stringr::str_detect(unit, "\\%") ~ "Percent",
-        stringr::str_detect(series, "Number") ~ "No.",
-        .default = "$ million"
-      )
+  tab_data <-
+    get_joined_pub_data(
+      tidyxl_data = tidyxl_data,
+      dependency_names = tab_series_dependencies,
+      formatting_data = formatting_data,
+      sheet_str_detect = "Tab|^A\\."
     )
-  return(bound_qadip_data)
+  return(tab_data)
 }
