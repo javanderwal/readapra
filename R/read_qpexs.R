@@ -40,16 +40,13 @@ read_qpexs <- function(cur_hist) {
 #' Import the Quarterly Authorised Deposit-taking Institution
 #' Property Exposure Statistics (QPEXS) from a local file.
 #'
-#' @param cur_hist Whether to use the current or historical series. Valid
-#' values are `"current"` and `"historical"`.
 #' @param file_path The file path to the local QPEXS .xlsx file.
 #'
 #' @return A tibble containing the Quarterly ADI Performance Statistics data.
 #' @export
 #'
 #' @examples
-read_qpexs_local <- function(cur_hist, file_path) {
-  rlang::arg_match(cur_hist, c("current", "historic"))
+read_qpexs_local <- function(file_path) {
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
@@ -59,9 +56,8 @@ read_qpexs_local <- function(cur_hist, file_path) {
 #' Extracts the QPEXS data from the various sheets and conducts final formatting
 #' tweaks
 #'
-#' @param tidyxl_data The QADIP data sourced using the tidyxl package
-#' @param formatting_data The QADIP excel formatting data sourced using the
-#' tidyxl package
+#' @param tidyxl_data The data sourced using the tidyxl package
+#' @param formatting_data The formatting data sourced using the tidyxl package
 #'
 #' @keywords internal
 #'
