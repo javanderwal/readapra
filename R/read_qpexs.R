@@ -1,7 +1,7 @@
 #' Read Quarterly ADI Property Exposure Statistics
 #'
 #' @description
-#' Download and import to R the Quarterly Authorised Deposit-taking Institution
+#' Download and import the Quarterly Authorised Deposit-taking Institution
 #' Property Exposure Statistics (QPEXS) from APRA's website.
 #'
 #' @param cur_hist Whether to access the current or historical series. Valid
@@ -37,7 +37,7 @@ read_qpexs <- function(cur_hist) {
 #' Read Quarterly ADI Property Exposure Statistics locally
 #'
 #' @description
-#' Import to R the Quarterly Authorised Deposit-taking Institution
+#' Import the Quarterly Authorised Deposit-taking Institution
 #' Property Exposure Statistics (QPEXS) from a local file.
 #'
 #' @param cur_hist Whether to use the current or historical series. Valid
