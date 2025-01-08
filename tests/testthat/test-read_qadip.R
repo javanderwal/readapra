@@ -4,13 +4,13 @@ test_that("qadip_data()", {
       date = seq.Date(as.Date("2004-09-01"), as.Date("2024-06-30"), by = "1 quarter"),
       sheet = rep("Key Stats", 80),
       series = c(rep("Series_A", 20), rep("Series_B", 20), rep("Number Test", 20), rep("Series_D", 20)),
-      unit = c(rep("\\%", 20), rep("#;##0", 20), rep("#;##0", 20), rep("#;##0", 20)),
+      unit = c(rep("Percent", 20), rep("$ million", 20), rep("No.", 20), rep("$ million", 20)),
       value = 1:80
     )
 
   output_data <-
     tibble::tibble(
-      statistics_publication_name = "Quarterly authorised deposit-taking institution performance Statistics",
+      statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Performance Statistics",
       date = seq.Date(as.Date("2004-09-01"), as.Date("2024-06-30"), by = "1 quarter"),
       sheet = rep("Key Stats", 80),
       series = c(rep("Series_A", 20), rep("Series_B", 20), rep("Number Test", 20), rep("Series_D", 20)),
@@ -25,11 +25,11 @@ test_that("qadip_data()", {
 })
 
 test_that("qadip_key_stats_names() success", {
-  series_dependency_input <-
+  series_hierarchy_input <-
     tibble::tibble(
       sheet = "Key Stats",
       row = seq(from = 1, by = 5, length.out = 21),
-      series_dependency =
+      series_hierarchy =
         c(
           "Key Statistics",
           rep(c("ADIs", "ADIs; Banks", "ADIs; Majors", "ADIs; All ADIs"), 2),
@@ -54,20 +54,20 @@ test_that("qadip_key_stats_names() success", {
   tidyxl_input <-
     tibble::tibble(
       row = seq(from = 1, by = 5, length.out = 21),
-      character = series_dependency_input$series
+      character = series_hierarchy_input$series
     )
 
   test_output <-
     qadip_key_stats_names(
       tidyxl_data = tidyxl_input,
-      series_dependency_data = series_dependency_input
+      series_hierarchy_data = series_hierarchy_input
     )
 
   expected_output <-
     tibble::tibble(
       sheet = "Key Stats",
       row = seq(from = 1, by = 5, length.out = 21),
-      series_dependency =
+      series_hierarchy =
         c(
           NA, NA, "Assets; ADIs; Banks", "Assets; ADIs; Majors",
           "Assets; ADIs; All ADIs", "Number of entities; ADIs",
@@ -102,11 +102,11 @@ test_that("qadip_key_stats_names() success", {
 test_that("qadip_key_stats_names() sheet change errors", {
   # Testing wrong number of cohort rows
 
-  series_dependency_input_wrong_number_cohort_rows <-
+  series_hierarchy_input_wrong_number_cohort_rows <-
     tibble::tibble(
       sheet = "Key Stats",
       row = seq(from = 1, by = 5, length.out = 25),
-      series_dependency =
+      series_hierarchy =
         c(
           "Key Statistics",
           rep(c("ADIs", "ADIs; Banks", "ADIs; Majors", "ADIs; All ADIs"), 3),
@@ -131,24 +131,24 @@ test_that("qadip_key_stats_names() sheet change errors", {
   tidyxl_input_wrong_number_cohort_rows <-
     tibble::tibble(
       row = seq(from = 1, by = 5, length.out = 25),
-      character = series_dependency_input_wrong_number_cohort_rows$series
+      character = series_hierarchy_input_wrong_number_cohort_rows$series
     )
 
   expect_error(
     qadip_key_stats_names(
       tidyxl_data = tidyxl_input_wrong_number_cohort_rows,
-      series_dependency_data = series_dependency_input_wrong_number_cohort_rows
+      series_hierarchy_data = series_hierarchy_input_wrong_number_cohort_rows
     ),
     class = "read_apra_error_key_figures_or_cohort_rows_wrong"
   )
 
   # Testing missing key figures row
 
-  series_dependency_input_missing_key_figures <-
+  series_hierarchy_input_missing_key_figures <-
     tibble::tibble(
       sheet = "Key Stats",
       row = seq(from = 1, by = 5, length.out = 20),
-      series_dependency =
+      series_hierarchy =
         c(
           "Key Statistics",
           rep(c("ADIs", "ADIs; Banks", "ADIs; Majors", "ADIs; All ADIs"), 2),
@@ -171,24 +171,24 @@ test_that("qadip_key_stats_names() sheet change errors", {
   tidyxl_input_missing_key_figures <-
     tibble::tibble(
       row = seq(from = 1, by = 5, length.out = 20),
-      character = series_dependency_input_missing_key_figures$series
+      character = series_hierarchy_input_missing_key_figures$series
     )
 
   expect_error(
     qadip_key_stats_names(
       tidyxl_data = tidyxl_input_missing_key_figures,
-      series_dependency_data = series_dependency_input_missing_key_figures
+      series_hierarchy_data = series_hierarchy_input_missing_key_figures
     ),
     class = "read_apra_error_key_figures_or_cohort_rows_wrong"
   )
 
   # Testing missing summary statistics for a stat group (Cohort, i.e. Credit unions)
 
-  series_dependency_input_wrong_number_summary_stat_groups <-
+  series_hierarchy_input_wrong_number_summary_stat_groups <-
     tibble::tibble(
       sheet = "Key Stats",
       row = seq(from = 1, by = 5, length.out = 18),
-      series_dependency =
+      series_hierarchy =
         c(
           "Key Statistics",
           rep(c("ADIs", "ADIs; Banks", "ADIs; Majors", "ADIs; All ADIs"), 2),
@@ -211,13 +211,13 @@ test_that("qadip_key_stats_names() sheet change errors", {
   tidyxl_input_wrong_number_summary_stat_groups <-
     tibble::tibble(
       row = seq(from = 1, by = 5, length.out = 18),
-      character = series_dependency_input_wrong_number_summary_stat_groups$series
+      character = series_hierarchy_input_wrong_number_summary_stat_groups$series
     )
 
   expect_error(
     qadip_key_stats_names(
       tidyxl_data = tidyxl_input_wrong_number_summary_stat_groups,
-      series_dependency_data = series_dependency_input_wrong_number_summary_stat_groups
+      series_hierarchy_data = series_hierarchy_input_wrong_number_summary_stat_groups
     ),
     class = "read_apra_error_wrong_number_summary_stat_groups"
   )
