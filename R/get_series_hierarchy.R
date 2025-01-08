@@ -82,7 +82,7 @@ clean_series_names <- function(series) {
 iterate_series_hierarchy <- function(data) {
   data <-
     adjust_indent(data) |>
-    mutate(series_hierarchy = vector("list", n()))
+    dplyr::mutate(series_hierarchy = vector("list", dplyr::n()))
 
   for (i in seq_len(nrow(data))) {
     current_indent <- data$adjusted_indent[i]

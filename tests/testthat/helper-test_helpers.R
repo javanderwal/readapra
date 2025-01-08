@@ -44,7 +44,7 @@ dummy_horizontal_tidyxl_input <- function() {
     sheet_1a |>
     dplyr::mutate(sheet = "A.1b")
 
-  return(bind_rows(sheet_1a, sheet_1b))
+  return(dplyr::bind_rows(sheet_1a, sheet_1b))
 }
 
 #' Generates the dummy horizontal dependency_names data
@@ -96,7 +96,7 @@ expected_get_joined_pub_data_test_output <- function() {
     sheet_1a |>
     dplyr::mutate(sheet = "A.1b")
 
-  return(bind_rows(sheet_1a, sheet_1b))
+  return(dplyr::bind_rows(sheet_1a, sheet_1b))
 }
 
 
@@ -121,7 +121,7 @@ expected_horizontal_test_output <- function() {
     sheet_1a |>
     dplyr::mutate(sheet = "A.1b")
 
-  return(bind_rows(sheet_1a, sheet_1b))
+  return(dplyr::bind_rows(sheet_1a, sheet_1b))
 }
 
 #' Generates data for iterate_series_hierarchy() and adjust_indent() tests
