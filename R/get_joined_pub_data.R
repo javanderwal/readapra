@@ -24,16 +24,7 @@ get_joined_pub_data <- function(tidyxl_data, series_hierarchy_data,
     dplyr::left_join(series_hierarchy_data, by = dplyr::join_by(sheet, row))
 
   # Join the formatting data with the tidyxl_data
-  number_formatting_data <-
-    dplyr::left_join(
-      tidyxl_data,
-      tibble::tibble(
-        number_format = formatting_data$local$numFmt,
-        local_format_id = 1:length(formatting_data$local$numFmt)
-      ),
-      by = dplyr::join_by(local_format_id)
-    ) |>
-    dplyr::select(sheet, row, col, unit = number_format)
+  number_formatting_data <- joined_formatting_data(tidyxl_data, formatting_data)
 
   # Join the joined_pub_data with the number_formatting_data
   joined_pub_data <-
@@ -81,15 +72,7 @@ get_joined_pub_data <- function(tidyxl_data, series_hierarchy_data,
     dplyr::filter(!is.na(date))
 
   # Format the unit column
-  publication_data <-
-    publication_data |>
-    dplyr::mutate(
-      unit = dplyr::case_when(
-        stringr::str_detect(unit, "\\%") ~ "Percent",
-        stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
-        .default = "$ million"
-      )
-    )
+  publication_data <- clean_unit_data(publication_data)
 
   publication_data <-
     dplyr::select(

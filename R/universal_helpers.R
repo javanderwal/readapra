@@ -69,3 +69,40 @@ check_valid_file_path <- function(file_path) {
 #'
 file_exists_wrapper <- file.exists
 
+#' Joins together the tidyxl_data and formatting_data
+#'
+#' @param tidyxl_data The standard data sourced using read_tidyxl_data()
+#' @param formatting_data The formatting data sourced using
+#' read_tidyxl_formatting_data()
+#'
+#' @keywords internal
+#'
+joined_formatting_data <- function(tidyxl_data, formatting_data) {
+    dplyr::left_join(
+      tidyxl_data,
+      tibble::tibble(
+        unit = formatting_data$local$numFmt,
+        local_format_id = 1:length(formatting_data$local$numFmt)
+      ),
+      by = dplyr::join_by(local_format_id)
+    ) |>
+    dplyr::select(sheet, row, col, unit)
+}
+
+#' Takes a tibble containing a column named "unit" and cleans it
+#'
+#' @param data Tibble containing a unit column to be cleaned
+#'
+#' @keywords internal
+#'
+clean_unit_data <- function(data) {
+  data |>
+    dplyr::mutate(
+    unit = dplyr::case_when(
+      stringr::str_detect(unit, "\\%") ~ "Percent",
+      stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
+      .default = "$ million"
+    )
+  )
+}
+
