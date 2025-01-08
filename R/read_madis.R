@@ -13,15 +13,24 @@
 read_madis <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
 
-  temp_file_path <- download_apra(publication = "madis", cur_hist = cur_hist)
+  if (cur_hist == "current") {
+    backup_match_string <- "back|series"
+    backup_remove_string <- "june_2019"
+  } else {
+    backup_match_string <- "june_2019"
+    backup_remove_string <- NULL
+  }
 
-  madis_data <- clean_madis_raw(
-    file_path = temp_file_path,
-    cur_hist = cur_hist,
-    call = rlang::caller_env()
-  )
-
-  return(madis_data)
+  temp_file_path <-
+    download_apra(
+      publication = "madis",
+      cur_hist = cur_hist,
+      backup_match = backup_match_string,
+      backup_remove = backup_remove_string
+      )
+  tidyxl_data <- read_tidyxl_data(temp_file_path)
+  formatting_data <- read_tidyxl_formatting_data(temp_file_path)
+  madis_data(tidyxl_data, formatting_data, cur_hist)
 }
 
 #' Read Monthly ADI Statistics locally
@@ -30,83 +39,64 @@ read_madis <- function(cur_hist) {
 #' Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 #' from a local file.
 #'
-#' @param cur_hist Character; valid values are `"current"` or `"historical"`.
+#' @param cur_hist Whether to access the current or historical series. Valid
+#' values are `"current"` and `"historical"`.
 #'
-#' @return A tibble containing the Monthly ADI Statistics data
+#' @return A tibble containing the Monthly ADI Statistics data.
 #' @export
 #'
 #' @examples
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
-
-  madis_data <- clean_madis_raw(
-    file_path = file_path,
-    cur_hist = cur_hist,
-    call = rlang::caller_env()
-  )
-
-  return(madis_data)
+  tidyxl_data <- read_tidyxl_data(file_path)
+  formatting_data <- read_tidyxl_formatting_data(file_path)
+  madis_data(tidyxl_data, formatting_data, cur_hist)
 }
 
-#' This function imports the raw MADIS data as a tibble and then proceeds to
-#' tidy it into a usable format for the end user.
+#' Extracts the MADIS data and cleans it
+#'
+#' @param tidyxl_data The data sourced using the tidyxl package
+#' @param formatting_data The formatting data sourced using the tidyxl package
+#' @param cur_hist Whether to access the current or historical series. Valid
+#' values are `"current"` and `"historical"`.
+#'
 #' @keywords internal
-clean_madis_raw <- function(file_path, cur_hist, call = rlang::caller_env()) {
-  stat_pub_name <- "Monthly ADI Statistics"
+#'
+madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
+  table_1_data <-
+    tidyxl_data |>
+    dplyr::filter(stringr::str_detect(tolower(sheet), "table.*1"))
 
-  madis_data <- clean_imported_data(
-    file_path = file_path,
-    sheet = "Table 1",
-    stat_pub_name = stat_pub_name
-  )
+  cleaned_madis_data <-
+    attempt_cleaned_vertical_data(table_1_data, formatting_data, drop_col = FALSE) |>
+    dplyr::mutate(
+      statistics_publication_name = "Monthly Authorised Deposit-taking Institution Statistics",
+      .before = date
+    ) |>
+    add_madis_balance_sheet(cur_hist)
 
-  # Numbering column names for later balance sheet identification
-  names(madis_data) <-
-    stringr::str_c(1:length(names(madis_data)), "_", names(madis_data))
+  return(cleaned_madis_data)
+}
 
-  if (names(madis_data)[[1]] != "1_Period" ||
-    names(madis_data)[[2]] != "2_ABN" ||
-    names(madis_data)[[3]] != "3_Institution Name") {
-    cli::cli_abort(
-      message = "Cannot import {.field {stat_pub_name}}.
-      Spreadsheet is not in a recognised format.",
-      call = call
-    )
-  }
-
-  madis_data <-
-    dplyr::rename(
-      .data = madis_data,
-      "date" = `1_Period`,
-      "abn" = `2_ABN`,
-      "institution_name" = `3_Institution Name`,
-    )
-
-  madis_data <-
-    tidyr::pivot_longer(
-      data = madis_data,
-      cols = !c(date, abn, institution_name),
-      names_to = "series"
-    )
-
-  madis_data <-
-    tidyr::separate_wider_delim(
-      data = madis_data,
-      cols = series,
-      delim = "_",
-      names = c("column_number", "series")
-    )
-
-  # Balance sheet identificaiton
+#' Adds a balance sheet category to the MADIS data. Certain MADIS series have
+#' the same name, adding this column helps distinguish them.
+#'
+#' @param madis_data The cleaned MADIS data
+#' @param cur_hist Whether to access the current or historical series. Valid
+#' values are `"current"` and `"historical"`.
+#'
+#' @keywords internal
+#'
+add_madis_balance_sheet <- function(madis_data, cur_hist) {
   if (cur_hist == "current") {
     madis_data <-
       dplyr::mutate(
         .data = madis_data,
         balance_sheet_category = dplyr::case_when(
-          column_number %in% 4:9 ~ "Selected assets on Australian books of selected individual ADIs",
-          column_number %in% 10:19 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
-          column_number %in% 20:24 ~ "Selected liabilities on Australian books of selected individual ADIs",
-          column_number %in% 25:30 ~ "Deposits on Australian books of selected individual ADIs",
+          col %in% 4:9 ~ "Selected assets on Australian books of selected individual ADIs",
+          col %in% 10:19 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
+          col %in% 20:24 ~ "Selected liabilities on Australian books of selected individual ADIs",
+          col %in% 25:30 ~ "Deposits on Australian books of selected individual ADIs",
           .default = "Unknown category"
         ),
         .before = series
@@ -118,31 +108,15 @@ clean_madis_raw <- function(file_path, cur_hist, call = rlang::caller_env()) {
       dplyr::mutate(
         .data = madis_data,
         balance_sheet_category = dplyr::case_when(
-          column_number %in% 4:14 ~ "Selected assets on Australian books of selected individual ADIs",
-          column_number %in% 15:24 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
-          column_number %in% 25:30 ~ "Selected liabilities on Australian books of selected individual ADIs",
-          column_number %in% 31:38 ~ "Deposits on Australian books of selected individual ADIs",
+          col %in% 4:14 ~ "Selected assets on Australian books of selected individual ADIs",
+          col %in% 15:24 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
+          col %in% 25:30 ~ "Selected liabilities on Australian books of selected individual ADIs",
+          col %in% 31:38 ~ "Deposits on Australian books of selected individual ADIs",
           .default = "Unknown category"
         ),
         .before = series
       )
   }
-
-  # Adding information to tibble
-  madis_data <-
-    tibble::add_column(
-      .data = madis_data,
-      frequency = "Monthly",
-      unit = "$ millions",
-      .after = "series"
-    )
-
-  madis_data <-
-    tibble::add_column(
-      .data = madis_data,
-      stat_pub_name = "Monthly Authorised Deposit-taking Institution Statistics (MADIS)",
-      .before = "date"
-    )
 
   return(madis_data)
 }
