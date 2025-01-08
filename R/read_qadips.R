@@ -1,7 +1,7 @@
 #' Read Quarterly ADI Performance Statistics
 #'
 #' @description
-#' Download and import to R the Quarterly Authorised Deposit-taking Institution
+#' Download and import the Quarterly Authorised Deposit-taking Institution
 #' Performance Statistics (QADIPS) from APRA's website.
 #'
 #' @return A tibble containing the Quarterly ADI Performance Statistics data.
@@ -22,7 +22,7 @@ read_qadips <- function() {
 #' Read Quarterly ADI Performance Statistics locally
 #'
 #' @description
-#' Import to R the Quarterly Authorised Deposit-taking Institution
+#' Import the Quarterly Authorised Deposit-taking Institution
 #' Performance Statistics (QADIPS) from a local file.
 #'
 #' @param file_path The file path to the local QADIPS .xlsx file.
