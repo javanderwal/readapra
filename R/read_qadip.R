@@ -69,18 +69,18 @@ qadip_data <- function(tidyxl_data, formatting_data) {
 #' @keywords internal
 #'
 qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
-  series_dependency_data <- get_series_dependencies(
+  series_hierarchy_data <- get_series_hierarchy(
     tidyxl_data = tidyxl_data,
     formatting_data = formatting_data,
     sheet_str_detect = "Key"
   )
-  dependency_names_data <- qadip_key_stats_names(
+  series_hierarchy_data <- qadip_key_stats_names(
     tidyxl_data = tidyxl_data,
-    series_dependency_data = series_dependency_data
+    series_hierarchy_data = series_hierarchy_data
   )
   get_joined_pub_data(
     tidyxl_data = tidyxl_data,
-    dependency_names = dependency_names_data,
+    series_hierarchy_data = series_hierarchy_data,
     formatting_data = formatting_data,
     sheet_str_detect = "Key"
   )
@@ -122,10 +122,10 @@ attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
 #'
 #' @keywords internal
 #'
-qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
+qadip_key_stats_names <- function(tidyxl_data, series_hierarchy_data) {
   cohort_rows <-
-    series_dependency_data |>
-    dplyr:::filter(series_dependency == "ADIs") |>
+    series_hierarchy_data |>
+    dplyr:::filter(series_hierarchy == "ADIs") |>
     dplyr::pull(row)
 
   key_figures_row <-
@@ -139,8 +139,8 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
   }
 
   cleaned_key_stats_names <-
-    series_dependency_data |>
-    dplyr::mutate(group_id = dplyr::row_number(), .by = series_dependency) |>
+    series_hierarchy_data |>
+    dplyr::mutate(group_id = dplyr::row_number(), .by = series_hierarchy) |>
     dplyr::mutate(
       measure_type =
         dplyr::case_when(
@@ -160,7 +160,7 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
             "Credit unions and building societies",
           .default = measure_type
         ),
-      series_dependency = stringr::str_c(series, "; ", series_dependency)
+      series_hierarchy = stringr::str_c(series, "; ", series_hierarchy)
     )
 
   max_number_summary_stat_groups <-
@@ -178,7 +178,7 @@ qadip_key_stats_names <- function(tidyxl_data, series_dependency_data) {
   key_stats_names_data <-
     dplyr::select(
       .data = cleaned_key_stats_names,
-      sheet, row, series_dependency, series
+      sheet, row, series_hierarchy, series
     )
 
   return(key_stats_names_data)
