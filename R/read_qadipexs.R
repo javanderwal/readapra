@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Download and import the Quarterly Authorised Deposit-taking Institution
-#' Property Exposure Statistics (QPEXS) from APRA's website.
+#' Property Exposure Statistics (QADIPEXS) from APRA's website.
 #'
 #' @param cur_hist Whether to access the current or historical series. Valid
 #' values are `"current"` and `"historical"`.
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' read_qpexs("current")
-read_qpexs <- function(cur_hist) {
+read_qadipexs <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
 
   if (cur_hist == "current") {
@@ -50,7 +50,7 @@ read_qpexs <- function(cur_hist) {
 #' \dontrun{
 #' read_qpexs_local(file_path = ~path/to/xlsx/file)
 #' }
-read_qpexs_local <- function(file_path) {
+read_qadipexs_local <- function(file_path) {
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
