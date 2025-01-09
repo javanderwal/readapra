@@ -7,12 +7,18 @@
 read_madis_local(file_path, cur_hist)
 }
 \arguments{
-\item{cur_hist}{Character; valid values are `"current"` or `"historical"`.}
+\item{cur_hist}{Whether to access the current or historical series. Valid
+values are `"current"` and `"historical"`.}
 }
 \value{
-A tibble containing the Monthly ADI Statistics data
+A tibble containing the Monthly ADI Statistics data.
 }
 \description{
 Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 from a local file.
+}
+\examples{
+\dontrun{
+read_madis_local(file_path = ~path/to/xlsx/file, cur_hist = "current")
+}
 }

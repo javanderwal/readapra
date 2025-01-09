@@ -16,3 +16,6 @@ A tibble containing the Monthly ADI Statistics data
 Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 from APRA's website.
 }
+\examples{
+read_madis("current")
+}

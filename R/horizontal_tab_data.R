@@ -5,6 +5,7 @@
 #' tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 horizontal_tab_data <- function(tidyxl_data, formatting_data) {
   tab_series_dependencies <- get_series_hierarchy(
@@ -25,6 +26,7 @@ horizontal_tab_data <- function(tidyxl_data, formatting_data) {
 #' Safely get the QADIPS tab sheet data
 #'
 #' @keywords internal
+#' @noRd
 #'
 safely_horizontal_tab_data <- purrr::safely(horizontal_tab_data)
 
@@ -34,6 +36,9 @@ safely_horizontal_tab_data <- purrr::safely(horizontal_tab_data)
 #' @param tidyxl_data The QADIPS data sourced using the tidyxl package
 #' @param formatting_data The formatting data sourced using
 #' read_tidyxl_formatting_data()
+#'
+#' @keywords internal
+#' @noRd
 #'
 attempt_horizontal_tab_data <- function(tidyxl_data, formatting_data) {
   results <- safely_horizontal_tab_data(tidyxl_data, formatting_data)

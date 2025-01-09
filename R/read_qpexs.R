@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#' read_qpexs("current")
 read_qpexs <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
 
@@ -46,6 +47,9 @@ read_qpexs <- function(cur_hist) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' read_qpexs_local(file_path = ~path/to/xlsx/file)
+#' }
 read_qpexs_local <- function(file_path) {
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
@@ -60,6 +64,7 @@ read_qpexs_local <- function(file_path) {
 #' @param formatting_data The formatting data sourced using the tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 qpexs_data <- function(tidyxl_data, formatting_data) {
   attempt_horizontal_tab_data(tidyxl_data, formatting_data) |>

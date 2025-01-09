@@ -10,6 +10,7 @@
 #' @export
 #'
 #' @examples
+#' read_madis("current")
 read_madis <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
 
@@ -46,6 +47,9 @@ read_madis <- function(cur_hist) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' read_madis_local(file_path = ~path/to/xlsx/file, cur_hist = "current")
+#' }
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   tidyxl_data <- read_tidyxl_data(file_path)
@@ -61,6 +65,7 @@ read_madis_local <- function(file_path, cur_hist) {
 #' values are `"current"` and `"historical"`.
 #'
 #' @keywords internal
+#' @noRd
 #'
 madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
   table_1_data <-
@@ -86,6 +91,7 @@ madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
 #' values are `"current"` and `"historical"`.
 #'
 #' @keywords internal
+#' @noRd
 #'
 add_madis_balance_sheet <- function(madis_data, cur_hist) {
   if (cur_hist == "current") {

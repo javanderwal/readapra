@@ -3,6 +3,7 @@
 #' @param file_path Path to the downloaded xlsx file to import.
 #'
 #' @keywords internal
+#' @noRd
 #'
 read_tidyxl_data <- function(file_path) {
   tidyxl::xlsx_cells(
@@ -17,6 +18,7 @@ read_tidyxl_data <- function(file_path) {
 #' @param file_path Path to the downloaded xlsx file to import.
 #'
 #' @keywords internal
+#' @noRd
 #'
 read_tidyxl_formatting_data <- function(file_path) {
   tidyxl::xlsx_formats(file_path)
@@ -27,6 +29,7 @@ read_tidyxl_formatting_data <- function(file_path) {
 #' @param file_path the file path to check
 #'
 #' @keywords internal
+#' @noRd
 #'
 check_valid_file_path <- function(file_path) {
   if (!is.character(file_path)) {
@@ -66,6 +69,7 @@ check_valid_file_path <- function(file_path) {
 #' Wrapper used for testing purposes
 #'
 #' @keywords internal
+#' @noRd
 #'
 file_exists_wrapper <- file.exists
 
@@ -76,6 +80,7 @@ file_exists_wrapper <- file.exists
 #' read_tidyxl_formatting_data()
 #'
 #' @keywords internal
+#' @noRd
 #'
 joined_formatting_data <- function(tidyxl_data, formatting_data) {
     dplyr::left_join(
@@ -94,6 +99,7 @@ joined_formatting_data <- function(tidyxl_data, formatting_data) {
 #' @param data Tibble containing a unit column to be cleaned
 #'
 #' @keywords internal
+#' @noRd
 #'
 clean_unit_data <- function(data) {
   data |>

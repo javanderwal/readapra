@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' read_qadicp()
 read_qadicp <- function() {
   temp_file_path <-
     download_apra(
@@ -30,6 +31,9 @@ read_qadicp <- function() {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' read_qadicp_local(file_path = ~path/to/xlsx/file)
+#' }
 read_qadicp_local <- function(file_path) {
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
@@ -42,6 +46,7 @@ read_qadicp_local <- function(file_path) {
 #' @param formatting_data The formatting data sourced using the tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 qadicp_data <- function(tidyxl_data, formatting_data) {
   table_4_data <-

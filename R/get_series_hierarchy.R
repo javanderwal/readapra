@@ -8,6 +8,7 @@
 #' from
 #'
 #' @keywords internal
+#' @noRd
 #'
 get_series_hierarchy <-
   function(tidyxl_data, formatting_data, sheet_str_detect) {
@@ -65,6 +66,7 @@ get_series_hierarchy <-
 #' @param series The series column to be cleaned (character)
 #'
 #' @keywords internal
+#' @noRd
 #'
 clean_series_names <- function(series) {
   series_cleaned <- stringr::str_trim(series)
@@ -78,6 +80,7 @@ clean_series_names <- function(series) {
 #' @param data Data computed inside get_series_hierarchy()
 #'
 #' @keywords internal
+#' @noRd
 #'
 iterate_series_hierarchy <- function(data) {
   data <-
@@ -112,6 +115,7 @@ iterate_series_hierarchy <- function(data) {
 #' @param data Data computed inside get_series_hierarchy()
 #'
 #' @keywords internal
+#' @noRd
 #'
 adjust_indent <- function(data) {
   data$adjusted_indent <- data$indent

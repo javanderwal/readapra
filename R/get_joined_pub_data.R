@@ -9,6 +9,7 @@
 #' from
 #'
 #' @keywords internal
+#' @noRd
 #'
 get_joined_pub_data <- function(tidyxl_data, series_hierarchy_data,
                                 formatting_data, sheet_str_detect) {

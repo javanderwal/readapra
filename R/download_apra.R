@@ -6,6 +6,7 @@
 #' @param backup_remove String matches used to exclude a URL
 #'
 #' @keywords internal
+#' @noRd
 #'
 download_apra <- function(publication, cur_hist, backup_match, backup_remove = NULL) {
   rlang::arg_match(publication, unique(apra_stat_pub_details$publication))
@@ -56,11 +57,13 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
 
 #' Wrapper used for testing purposes
 #' @keywords internal
+#' @noRd
 #'
 polite_bow <- polite::bow
 
 #' Wrapper used for testing purposes
 #' @keywords internal
+#' @noRd
 #'
 sys_sleep_wrapper <- Sys.sleep
 
@@ -69,6 +72,7 @@ sys_sleep_wrapper <- Sys.sleep
 #' @param url_session The polite bow object to extract the URLs from
 #'
 #' @keywords internal
+#' @noRd
 #'
 scrape_urls <- function(url_session) {
   scraped_urls <- polite::scrape(url_session)
@@ -87,6 +91,7 @@ scrape_urls <- function(url_session) {
 #' @param to_remove String matches used to exclude a URL
 #'
 #' @keywords internal
+#' @noRd
 #'
 backup_link_identifier <- function(x, to_match, to_remove = NULL) {
   if (!is.null(to_remove)) {
@@ -124,6 +129,7 @@ backup_link_identifier <- function(x, to_match, to_remove = NULL) {
 #' @param url The URL link to be checked
 #'
 #' @keywords internal
+#' @noRd
 #'
 get_http_status <- function(url) {
   httr::http_status(httr::GET(url))$message
@@ -136,6 +142,7 @@ get_http_status <- function(url) {
 #' @param ... Other parameters passed on to download.file
 #'
 #' @keywords internal
+#' @noRd
 #'
 download_file <-
   function(bow, url, ...) {
@@ -147,5 +154,6 @@ download_file <-
 #' Safely and politely download a file
 #'
 #' @keywords internal
+#' @noRd
 #'
 safely_download_file <- purrr::safely(download_file)

@@ -4,6 +4,7 @@
 #' @param formatting_data The formatting data sourced using the tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 cleaned_vertical_data <- function(tidyxl_data, formatting_data, drop_col = TRUE) {
   existing_cols <- sort(unique(tidyxl_data$col))
@@ -78,6 +79,7 @@ cleaned_vertical_data <- function(tidyxl_data, formatting_data, drop_col = TRUE)
 #' @param data The data to extract column number data from
 #'
 #' @keywords internal
+#' @noRd
 #'
 get_column_data <- function(col_num, data) {
   data |>
@@ -90,6 +92,7 @@ get_column_data <- function(col_num, data) {
 #' Safely get the vertical sheet data
 #'
 #' @keywords internal
+#' @noRd
 #'
 safely_cleaned_vertical_data <- purrr::safely(cleaned_vertical_data)
 
@@ -100,6 +103,7 @@ safely_cleaned_vertical_data <- purrr::safely(cleaned_vertical_data)
 #' @param formatting_data The formatting data sourced using the tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 attempt_cleaned_vertical_data <-
   function(tidyxl_data, formatting_data, drop_col = TRUE) {

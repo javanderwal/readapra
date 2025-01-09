@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' read_qadips()
 read_qadips <- function() {
   temp_file_path <- download_apra(
     publication = "qadip",
@@ -31,6 +32,9 @@ read_qadips <- function() {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' read_qadips_local(file_path = ~path/to/xlsx/file)
+#' }
 read_qadips_local <- function(file_path) {
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
@@ -45,6 +49,7 @@ read_qadips_local <- function(file_path) {
 #' tidyxl package
 #'
 #' @keywords internal
+#' @noRd
 #'
 qadip_data <- function(tidyxl_data, formatting_data) {
   bound_qadip_data <-
@@ -67,6 +72,7 @@ qadip_data <- function(tidyxl_data, formatting_data) {
 #' read_tidyxl_formatting_data()
 #'
 #' @keywords internal
+#' @noRd
 #'
 qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
   series_hierarchy_data <- get_series_hierarchy(
@@ -89,6 +95,7 @@ qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
 #' Safely get the QADIPS Key Stats sheet data
 #'
 #' @keywords internal
+#' @noRd
 #'
 safely_qadip_key_stats_data <- purrr::safely(qadip_key_stats_data)
 
@@ -98,6 +105,9 @@ safely_qadip_key_stats_data <- purrr::safely(qadip_key_stats_data)
 #' @param tidyxl_data The QADIP data sourced using the tidyxl package
 #' @param formatting_data The formatting data sourced using
 #' read_tidyxl_formatting_data()
+#'
+#' @keywords internal
+#' @noRd
 #'
 attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
   results <- safely_qadip_key_stats_data(tidyxl_data, formatting_data)
