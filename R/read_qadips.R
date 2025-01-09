@@ -57,6 +57,7 @@ qadip_data <- function(tidyxl_data, formatting_data) {
       attempt_qadip_key_stats_data(tidyxl_data, formatting_data),
       attempt_horizontal_tab_data(tidyxl_data, formatting_data)
     ) |>
+    get_sector_from_sheet() |>
     dplyr::mutate(
       statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Performance Statistics",
       .before = date

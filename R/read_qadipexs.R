@@ -86,6 +86,7 @@ qpexs_data <- function(tidyxl_data, formatting_data) {
         .default = unit
       )
     ) |>
+    get_sector_from_sheet() |>
     dplyr::mutate(
       statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Property Exposures Statistics",
       .before = date

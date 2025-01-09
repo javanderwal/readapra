@@ -112,3 +112,30 @@ clean_unit_data <- function(data) {
   )
 }
 
+#' Tries to determine the sector for the relevant series using the sheet (and series) column
+#'
+#' @param data The data to be cleaned
+#'
+#' @keywords internal
+#' @noRd
+get_sector_from_sheet <- function(data) {
+  dplyr::mutate(
+    .data = data,
+    sector = dplyr::case_when(
+      stringr::str_detect(sheet, "\\s1[[:alpha:]]") ~ "ADIs (excludes 'other ADIs')",
+      stringr::str_detect(sheet, "\\s2[[:alpha:]]") ~ "Banks",
+      stringr::str_detect(sheet, "\\s3[[:alpha:]]") ~ "Credit unions and building societies",
+      stringr::str_detect(sheet, "\\s4[[:alpha:]]") ~ "Major banks",
+      stringr::str_detect(sheet, "\\s5[[:alpha:]]") ~ "Other domestic banks",
+      stringr::str_detect(sheet, "\\s6[[:alpha:]]") ~ "Foreign subsidiary banks",
+      stringr::str_detect(sheet, "\\s7[[:alpha:]]") ~ "Foreign branch banks",
+      stringr::str_detect(sheet, "\\s8[[:alpha:]]|Tab 8") ~ "Mutual ADIs",
+      stringr::str_detect(sheet, "A\\.1[[:alpha:]]") ~ "Building Societies",
+      stringr::str_detect(sheet, "A\\.2[[:alpha:]]") ~ "Credit Unions",
+      stringr::str_detect(tolower(series), "asset|number") ~ stringr::str_extract(series_hierarchy, "[^;]+$"),
+      stringr::str_detect(series, "ADIs (excludes 'other ADIs')|Banks|Credit unions and building societies") ~ series
+    ),
+    .after = sheet
+  )
+}
+
