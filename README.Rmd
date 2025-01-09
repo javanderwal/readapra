@@ -40,7 +40,7 @@ The following ADI statistical publications can be scraped using *readapra*:
 
 -   [Quarterly Authorised Deposit-taking Institution Centralised Publication (QADICP)](https://www.apra.gov.au/quarterly-authorised-deposit-taking-institution-statistics)
 
--   [Quarterly Authorised Deposit-taking Institution Property Exposures Statistics (QADIPEXs)](https://www.apra.gov.au/quarterly-authorised-deposit-taking-institution-statistics) (Both the current and historic series)
+-   [Quarterly Authorised Deposit-taking Institution Property Exposures Statistics (QADIPEXS)](https://www.apra.gov.au/quarterly-authorised-deposit-taking-institution-statistics) (Both the current and historic series)
 
 -   [Monthly Authorised Deposit- taking Institution Statistics (MADIS)](https://www.apra.gov.au/monthly-authorised-deposit-taking-institution-statistics) (Both the current and historic series)
 
