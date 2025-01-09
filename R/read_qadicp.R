@@ -55,6 +55,7 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
 
   cleaned_qadicp_data <-
     attempt_cleaned_vertical_data(table_4_data, formatting_data) |>
+    add_qadicp_category() |>
     dplyr::mutate(
       statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
       .before = date
@@ -63,4 +64,40 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
   return(cleaned_qadicp_data)
 }
 
+#' Adds a balance sheet category to the MADIS data. Certain MADIS series have
+#' the same name, adding this column helps distinguish them.
+#'
+#' @param qadicp_data The cleaned qadicp data
+#'
+#' @keywords internal
+#' @noRd
+#'
+add_qadicp_category <- function(qadicp_data) {
+  qadicp_data_w_categories <-
+      dplyr::mutate(
+        .data = qadicp_data,
+        series_category = dplyr::case_when(
+          series %in% c(
+            "Total Common Equity Tier 1 capital", "Total Tier 1 capital",
+            "Total capital base", "Total risk-weighted assets",
+            "Common Equity Tier 1 capital ratio", "Tier 1 capital ratio",
+            "Total capital ratio"
+            ) ~ "Regulatory capital",
+          series %in% c(
+            "Credit risk ", "Operational risk", "Market risk",
+            "Other risk charges"
+            ) ~ " Risk-weighted assets (RWA)",
+          stringr::str_detect(series, "Of which:") ~ " Risk-weighted assets (RWA)",
+          series %in% c(
+            "Mean Liquidity coverage ratio (LCR)",
+            "Net stable funding ratio (NSFR)",
+            "Average Minimum liquidity holdings ratio (MLH)"
+            ) ~ "Liquidity ratios",
 
+          .default = "Unknown category"
+        ),
+        .before = series
+      )
+
+  return(qadicp_data_w_categories)
+}
