@@ -50,6 +50,9 @@ The following ADI statistical publications can be scraped using
   (MADIS)](https://www.apra.gov.au/monthly-authorised-deposit-taking-institution-statistics)
   (Both the current and historic series)
 
+- [Authorised Deposit-taking Institution Points of Presence Statistics
+  (ADIPOPS)](https://www.apra.gov.au/authorised-deposit-taking-institutions-points-of-presence-statistics)
+
 ## Example
 
 Using the *readapra* package it is extremely easy to download and import

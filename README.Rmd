@@ -44,6 +44,8 @@ The following ADI statistical publications can be scraped using *readapra*:
 
 -   [Monthly Authorised Deposit- taking Institution Statistics (MADIS)](https://www.apra.gov.au/monthly-authorised-deposit-taking-institution-statistics) (Both the current and historic series)
 
+-   [Authorised Deposit-taking Institution Points of Presence Statistics (ADIPOPS)](https://www.apra.gov.au/authorised-deposit-taking-institutions-points-of-presence-statistics)
+
 ## Example
 
 Using the *readapra* package it is extremely easy to download and import APRA's statistical publication data into R. This allows for the easy visualisation of the data using packages such as ggplot2.
