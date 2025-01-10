@@ -11,7 +11,7 @@
 #' read_qadips()
 read_qadips <- function() {
   temp_file_path <- download_apra(
-    publication = "qadip",
+    publication = "qadips",
     cur_hist = "current",
     backup_match = "performance"
   )

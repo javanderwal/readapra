@@ -16,7 +16,7 @@ test_that("download_apra()", {
 
   expect_equal(
     download_apra(
-      publication = "qadip",
+      publication = "qadips",
       cur_hist = "current",
       backup_match = "performance",
       backup_remove = NULL
@@ -30,7 +30,7 @@ test_that("download_apra()", {
 
   expect_error(
     download_apra(
-      publication = "qadip",
+      publication = "qadips",
       cur_hist = "current",
       backup_match = "performance",
       backup_remove = NULL
@@ -43,7 +43,7 @@ test_that("download_apra()", {
 
   expect_error(
     download_apra(
-      publication = "qadip",
+      publication = "qadips",
       cur_hist = "current",
       backup_match = "performance",
       backup_remove = NULL
@@ -56,7 +56,7 @@ test_that("download_apra()", {
 
   expect_error(
     download_apra(
-      publication = "qadip",
+      publication = "qadips",
       cur_hist = "current",
       backup_match = "performance",
       backup_remove = NULL
