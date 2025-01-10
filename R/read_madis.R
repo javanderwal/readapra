@@ -29,7 +29,7 @@ read_madis <- function(cur_hist) {
       backup_match = backup_match_string,
       backup_remove = backup_remove_string
       )
-  tidyxl_data <- read_tidyxl_data(temp_file_path)
+  tidyxl_data <- read_tidyxl_data(temp_file_path, "table.*1")
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)
   madis_data(tidyxl_data, formatting_data, cur_hist)
 }
@@ -52,7 +52,7 @@ read_madis <- function(cur_hist) {
 #' }
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
-  tidyxl_data <- read_tidyxl_data(file_path)
+  tidyxl_data <- read_tidyxl_data(file_path, "table.*1")
   formatting_data <- read_tidyxl_formatting_data(file_path)
   madis_data(tidyxl_data, formatting_data, cur_hist)
 }
@@ -68,17 +68,14 @@ read_madis_local <- function(file_path, cur_hist) {
 #' @noRd
 #'
 madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
-  table_1_data <-
-    tidyxl_data |>
-    dplyr::filter(stringr::str_detect(tolower(sheet), "table.*1"))
-
   cleaned_madis_data <-
-    attempt_cleaned_vertical_data(table_1_data, formatting_data, drop_col = FALSE) |>
+    attempt_cleaned_vertical_data(tidyxl_data, formatting_data, drop_col = FALSE) |>
     dplyr::mutate(
       statistics_publication_name = "Monthly Authorised Deposit-taking Institution Statistics",
       .before = date
     ) |>
-    add_madis_balance_sheet(cur_hist)
+    add_madis_balance_sheet(cur_hist) |>
+    dplyr::select(!col)
 
   return(cleaned_madis_data)
 }
