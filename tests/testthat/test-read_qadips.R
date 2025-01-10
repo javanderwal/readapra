@@ -3,6 +3,7 @@ test_that("qadip_data()", {
     tibble::tibble(
       date = seq.Date(as.Date("2004-09-01"), as.Date("2024-06-30"), by = "1 quarter"),
       sheet = rep("Key Stats", 80),
+      series_hierarchy = rep("Dummy hierarchy", 80),
       series = c(rep("Series_A", 20), rep("Series_B", 20), rep("Number Test", 20), rep("Series_D", 20)),
       unit = c(rep("Percent", 20), rep("$ million", 20), rep("No.", 20), rep("$ million", 20)),
       value = 1:80
@@ -13,6 +14,8 @@ test_that("qadip_data()", {
       statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Performance Statistics",
       date = seq.Date(as.Date("2004-09-01"), as.Date("2024-06-30"), by = "1 quarter"),
       sheet = rep("Key Stats", 80),
+      sector = c(rep("Unknown", 40), rep("Dummy hierarchy", 20), rep("Unknown", 20)),
+      series_hierarchy = rep("Dummy hierarchy", 80),
       series = c(rep("Series_A", 20), rep("Series_B", 20), rep("Number Test", 20), rep("Series_D", 20)),
       unit = c(rep("Percent", 20), rep("$ million", 20), rep("No.", 20), rep("$ million", 20)),
       value = 1:80
