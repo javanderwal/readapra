@@ -12,8 +12,7 @@
 read_qadips <- function() {
   temp_file_path <- download_apra(
     publication = "qadips",
-    cur_hist = "current",
-    backup_match = "performance"
+    cur_hist = "current"
   )
   tidyxl_data <- read_tidyxl_data(temp_file_path)
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)

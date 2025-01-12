@@ -15,20 +15,9 @@
 #' read_qpexs("current")
 read_qadipexs <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
-
-  if (cur_hist == "current") {
-    backup_match_string <- "property|exposure"
-    backup_remove_string <- "historic"
-  } else {
-    backup_match_string <- "(property|exposure).*historic"
-    backup_remove_string <- NULL
-  }
-
   temp_file_path <- download_apra(
-    publication = "qpex",
-    cur_hist = cur_hist,
-    backup_match = backup_match_string,
-    backup_remove = backup_remove_string
+    publication = "qadipexs",
+    cur_hist = cur_hist
   )
   tidyxl_data <- read_tidyxl_data(temp_file_path)
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)

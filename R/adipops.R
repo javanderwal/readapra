@@ -12,8 +12,7 @@
 read_adipops <- function() {
   temp_file_path <- download_apra(
     publication = "adipops",
-    cur_hist = "current",
-    backup_match = "presence"
+    cur_hist = "current"
   )
   tidyxl_data <- read_tidyxl_data(file_path = temp_file_path, sheets = "table.*1")
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)

@@ -13,21 +13,10 @@
 #' read_madis("current")
 read_madis <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
-
-  if (cur_hist == "current") {
-    backup_match_string <- "back|series"
-    backup_remove_string <- "june_2019"
-  } else {
-    backup_match_string <- "june_2019"
-    backup_remove_string <- NULL
-  }
-
   temp_file_path <-
     download_apra(
       publication = "madis",
-      cur_hist = cur_hist,
-      backup_match = backup_match_string,
-      backup_remove = backup_remove_string
+      cur_hist = cur_hist
       )
   tidyxl_data <- read_tidyxl_data(temp_file_path, "table.*1")
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)
