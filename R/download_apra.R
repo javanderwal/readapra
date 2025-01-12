@@ -2,15 +2,34 @@
 #'
 #' @param publication The publication that you want to download
 #' @param cur_hist Whether to download the current or historic publication
-#' @param backup_match String matches used to include a URL
-#' @param backup_remove String matches used to exclude a URL
+#' @param method Method to be used for downloading files.
+#' @param path path where to save the destfile.
+#' @param overwrite if `TRUE` will overwrite file on disk
+#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
+#' @param call Caller environment for error handling
+#' @param ... Other parameters passed on to download.file
 #'
-#' @keywords internal
 #' @noRd
 #'
-download_apra <- function(publication, cur_hist, backup_match, backup_remove = NULL) {
-  rlang::arg_match(publication, unique(apra_stat_pub_details$publication))
-  rlang::arg_match(cur_hist, c("current", "historic"))
+download_apra <- function(
+    publication,
+    cur_hist,
+    method = getOption("download.file.method"),
+    path = tempdir(),
+    overwrite = TRUE,
+    quiet = FALSE,
+    call = rlang::caller_env(),
+    ...) {
+  rlang::arg_match(
+    arg = publication,
+    values = unique(apra_stat_pub_details$publication),
+    error_call = call
+  )
+  rlang::arg_match(
+    arg = cur_hist,
+    values = c("current", "historic"),
+    error_call = call
+  )
 
   selected_stat_pub <-
     dplyr::filter(
@@ -19,141 +38,185 @@ download_apra <- function(publication, cur_hist, backup_match, backup_remove = N
       cur_hist == {{ cur_hist }}
     )
 
-  url_session <- polite_bow(selected_stat_pub$webpage)
+  check_http_status(
+    url = selected_stat_pub$webpage,
+    error_message = "Could not scrape url to download from:",
+    call = call
+  )
 
-  extracted_urls <- scrape_urls(url_session)
+  bow_obj <- bow_wrapper(selected_stat_pub$webpage)
+  extracted_urls <- scrape_urls(bow_obj)
+  url_to_download <- url_selector(extracted_urls, selected_stat_pub)
 
-  temp_link <-
-    stringr::str_subset(extracted_urls, selected_stat_pub$link)
-
-  if (length(temp_link) != 1) {
-    temp_link <-
-      backup_link_identifier(
-        x = extracted_urls,
-        to_match = backup_match,
-        to_remove = backup_remove
-      )
-  }
-
-  download_outcome <- safely_download_file(url_session, temp_link)
-
-  if (!is.null(download_outcome$error)) {
-    sys_sleep_wrapper(5)
-    download_outcome <- safely_download_file(url_session, temp_link)
-  }
-
-  if (!is.null(download_outcome$error)) {
-    cli::cli_abort(
-      message = c(
-        "Could not download: {.url {temp_link}}",
-        get_http_status(temp_link)
-      ),
-      class = "read_apra_error_could_not_download"
+  download_location <-
+    attempt_polite_file_download(
+      url = url_to_download,
+      bow = bow_obj,
+      method = method,
+      path = path,
+      overwrite = overwrite,
+      quiet = quiet,
+      call = call
     )
-  }
 
-  return(download_outcome$result)
+  return(download_location)
 }
 
-#' Wrapper used for testing purposes
-#' @keywords internal
-#' @noRd
-#'
-polite_bow <- polite::bow
-
-#' Wrapper used for testing purposes
-#' @keywords internal
-#' @noRd
-#'
-sys_sleep_wrapper <- Sys.sleep
-
-#' Extract the vector of URLs from the polite bow object
+#' Scrape URLs from a webpage
 #'
 #' @param url_session The polite bow object to extract the URLs from
 #'
-#' @keywords internal
 #' @noRd
 #'
 scrape_urls <- function(url_session) {
   scraped_urls <- polite::scrape(url_session)
   scraped_urls <- rvest::html_elements(scraped_urls, "a")
   scraped_urls <- rvest::html_attr(scraped_urls, "href")
-  scraped_urls <- stringr::str_subset(scraped_urls, ".xlsx$")
   return(scraped_urls)
 }
 
-#' If the original method for selecting the URL to download fails this function
-#' will attempt to identify the correct URL using string matching. Necessary
-#' because APRA frequently botches the URL names.
+#' Use the httr package to get status information about a URL
 #'
-#' @param x A vector of URL strings to evaluate
-#' @param to_match String matches used to include a URL
-#' @param to_remove String matches used to exclude a URL
+#' @param url The URL link to get status information about
 #'
-#' @keywords internal
-#' @noRd
-#'
-backup_link_identifier <- function(x, to_match, to_remove = NULL) {
-  if (!is.null(to_remove)) {
-    with_removed <-
-      x[stringr::str_detect(tolower(x), to_remove, negate = TRUE)]
-  } else {
-    with_removed <- x
-  }
-
-  number_matches <-
-    stringr::str_count(tolower(with_removed), pattern = to_match)
-
-  if (all(number_matches == 0)) {
-    cli::cli_abort(
-      message = "Could not identify the correct URL to download from.",
-      class = "read_apra_error_back_url_no_matches"
-    )
-  }
-
-  which_to_keep <-
-    which(number_matches == max(number_matches, na.rm = TRUE))
-
-  if (length(which_to_keep) != 1) {
-    cli::cli_abort(
-      message = "Could not identify the correct URL to download from.",
-      class = "read_apra_error_back_url_multiple_matches"
-    )
-  }
-
-  with_removed[which_to_keep]
-}
-
-#' Check the http status of a URL and return a message about its status
-#'
-#' @param url The URL link to be checked
-#'
-#' @keywords internal
 #' @noRd
 #'
 get_http_status <- function(url) {
-  httr::http_status(httr::GET(url))$message
+  httr::http_status(httr::GET(url))
+}
+
+#' Check the http status of a URL and throw an error if unable to get a success
+#'
+#' @param url The URL link to be checked
+#' @param call The caller environment
+#'
+#' @noRd
+#'
+check_http_status <- function(url,
+                              error_message = "Could not access:",
+                              call = rlang::caller_env()) {
+  url_status <- get_http_status(url)
+  if (url_status$category != "Success") {
+    cli::cli_abort(
+      message = c(
+        "{error_message} {.url {url}}",
+        c("x" = url_status$message)
+      ),
+      class = "readapra_error_http_status_error",
+      call = call
+    )
+  }
+
+  return()
 }
 
 #' Politely download a file
 #'
-#' @param bow The bow object obtained using the polite package
-#' @param url The URL to the file to be downloaded
+#' @param url the URL of the file to be downloaded
+#' @param bow host introduction object of class polite, session created by bow() or nod()
+#' @param method Method to be used for downloading files.
+#' @param path path where to save the destfile.
+#' @param overwrite if `TRUE` will overwrite file on disk
+#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
 #' @param ... Other parameters passed on to download.file
 #'
-#' @keywords internal
 #' @noRd
 #'
-download_file <-
-  function(bow, url, ...) {
-    temp_link <-
-      polite::nod(bow, url) |>
-      polite::rip(overwrite = TRUE, ...)
-  }
+polite_file_download <- function(url,
+                                 bow,
+                                 method = getOption("download.file.method"),
+                                 path = tempdir(),
+                                 overwrite = TRUE,
+                                 quiet = FALSE,
+                                 ...) {
+  temp_link <-
+    polite::nod(bow, url) |>
+    polite::rip(
+      method = method,
+      path = path,
+      overwrite = overwrite,
+      quiet = quiet,
+      ...
+    )
+
+  return(temp_link)
+}
 
 #' Safely and politely download a file
 #'
-#' @keywords internal
 #' @noRd
 #'
-safely_download_file <- purrr::safely(download_file)
+safe_polite_file_download <- purrr::safely(polite_file_download)
+
+#' Attempt to politely download a file
+#'
+#' @param url the URL of the file to be downloaded
+#' @param bow host introduction object of class polite, session created by bow() or nod()
+#' @param method Method to be used for downloading files.
+#' @param path path where to save the destfile.
+#' @param overwrite if `TRUE` will overwrite file on disk
+#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
+#' @param ... Other parameters passed on to download.file
+#'
+#' @noRd
+#'
+attempt_polite_file_download <- function(url,
+                                         bow,
+                                         method = getOption("download.file.method"),
+                                         path = tempdir(),
+                                         overwrite = TRUE,
+                                         quiet = FALSE,
+                                         call = rlang::caller_env(),
+                                         ...) {
+  rlang::arg_match(
+    arg = method,
+    values = valid_download_methods(),
+    error_call = call
+  )
+
+  download_outcome <-
+    safe_polite_file_download(
+      url = url,
+      bow = bow,
+      method = method,
+      path = path,
+      overwrite = overwrite,
+      quiet = quiet,
+      ...
+    )
+
+  if (!is.null(download_outcome$error)) {
+    sys_sleep_wrapper(5)
+    download_outcome <-
+      safe_polite_file_download(
+        url = url,
+        bow = bow,
+        method = method,
+        path = path,
+        overwrite = overwrite,
+        quiet = quiet,
+        ...
+      )
+  }
+
+  if (!is.null(download_outcome$error)) {
+    cli::cli_abort(
+      message = c(
+        "Could not download file from: {.url {url}}",
+        get_http_status(url)$message
+      ),
+      class = "readapra_error_could_not_download_file",
+      call = call
+    )
+  }
+
+  return(download_outcome$result)
+}
+
+#' Valid download methods to passed to download.file()
+#'
+#' @noRd
+#'
+valid_download_methods <- function() {
+  c("internal", "libcurl", "wget", "curl", "wininet", "auto")
+}
