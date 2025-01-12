@@ -13,8 +13,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    httptest,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    webmockr
 Config/testthat/edition: 3
 URL: https://github.com/OranjeLlama/readapra
 BugReports: https://github.com/OranjeLlama/readapra/issues
@@ -24,9 +24,11 @@ Imports:
     polite (>= 0.1.0),
     readxl (>= 1.4.0),
     rvest (>= 1.0.0),
+    stringdist,
     stringr,
     tibble (>= 2.0.0),
-    tidyr (>= 1.0.0)
+    tidyr (>= 1.0.0),
+    utils
 Depends: 
     R (>= 3.5)
 RoxygenNote: 7.3.2
