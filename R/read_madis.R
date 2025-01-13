@@ -1,37 +1,56 @@
 #' Read Monthly ADI Statistics
 #'
 #' @description
-#' Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
-#' from APRA's website.
+#' Download and import the Monthly Authorised Deposit-taking Institution
+#' Statistics (MADIS) from APRA's website. Both the current and historical
+#' versions of this statistical publication are available.
 #'
-#' @param cur_hist Character; valid values are `"current"` or `"historical"`.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
+#' @param path path to where the downloaded file should be saved. Uses
+#' [base::tempdir()] by default.
+#' @param overwrite whether to overwrite the downloaded file when re-downloading
+#' the file.
+#' @param quiet whether to suppress the download progress bar.
+#' @param ... additional arguments to be passed to [utils::download.file()].
 #'
-#' @return A tibble containing the Monthly ADI Statistics data
+#' @return A tibble containing the Monthly ADI Statistics data.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' read_madis("current")
-read_madis <- function(cur_hist) {
+#' }
+read_madis <- function(
+    cur_hist,
+    path = tempdir(),
+    overwrite = TRUE,
+    quiet = FALSE,
+    ...
+    ) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   temp_file_path <-
     download_apra(
       publication = "madis",
-      cur_hist = cur_hist
+      cur_hist = cur_hist,
+      path = path,
+      quiet = quiet,
+      overwrite = overwrite,
+      ...
       )
-  tidyxl_data <- read_tidyxl_data(temp_file_path, "table.*1")
-  formatting_data <- read_tidyxl_formatting_data(temp_file_path)
-  madis_data(tidyxl_data, formatting_data, cur_hist)
+  read_madis_local(temp_file_path, cur_hist)
 }
 
 #' Read Monthly ADI Statistics locally
 #'
 #' @description
 #' Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
-#' from a local file.
+#' from a local file. Both the current and historical versions of this
+#' statistical publication are available.
 #'
-#' @param file_path The file path to the local MADIS .xlsx file.
-#' @param cur_hist Whether to access the current or historical series. Valid
-#' values are `"current"` and `"historical"`.
+#' @param file_path path to the .xlsx file.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @return A tibble containing the Monthly ADI Statistics data.
 #' @export
@@ -42,6 +61,7 @@ read_madis <- function(cur_hist) {
 #' }
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
+  check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path, "table.*1")
   formatting_data <- read_tidyxl_formatting_data(file_path)
   madis_data(tidyxl_data, formatting_data, cur_hist)
@@ -49,38 +69,43 @@ read_madis_local <- function(file_path, cur_hist) {
 
 #' Extracts the MADIS data and cleans it
 #'
-#' @param tidyxl_data The data sourced using the tidyxl package
-#' @param formatting_data The formatting data sourced using the tidyxl package
-#' @param cur_hist Whether to access the current or historical series. Valid
-#' values are `"current"` and `"historical"`.
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @keywords internal
 #' @noRd
 #'
 madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
-  cleaned_madis_data <-
-    attempt_cleaned_vertical_data(tidyxl_data, formatting_data, drop_col = FALSE) |>
-    dplyr::mutate(
-      statistics_publication_name = "Monthly Authorised Deposit-taking Institution Statistics",
-      .before = date
-    ) |>
-    add_madis_balance_sheet(cur_hist) |>
-    dplyr::select(!col)
+  madis_data <-
+    attempt_format_vertical_data(
+      tidyxl_data = tidyxl_data,
+      formatting_data = formatting_data,
+      stat_pub_name = "Monthly Authorised Deposit-taking Institution Statistics",
+      drop_col = FALSE)
+  madis_data <- add_madis_balance_sheet(madis_data, cur_hist)
+  madis_data <- dplyr::select(.data = madis_data, !col)
 
-  return(cleaned_madis_data)
+  return(madis_data)
 }
 
 #' Adds a balance sheet category to the MADIS data. Certain MADIS series have
 #' the same name, adding this column helps distinguish them.
 #'
-#' @param madis_data The cleaned MADIS data
-#' @param cur_hist Whether to access the current or historical series. Valid
-#' values are `"current"` and `"historical"`.
+#' @param madis_data the cleaned MADIS data
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @keywords internal
 #' @noRd
 #'
-add_madis_balance_sheet <- function(madis_data, cur_hist) {
+add_madis_balance_sheet <- function(
+    madis_data,
+    cur_hist,
+    call = rlang::caller_env()) {
   if (cur_hist == "current") {
     madis_data <-
       dplyr::mutate(
@@ -90,7 +115,7 @@ add_madis_balance_sheet <- function(madis_data, cur_hist) {
           col %in% 10:19 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
           col %in% 20:24 ~ "Selected liabilities on Australian books of selected individual ADIs",
           col %in% 25:30 ~ "Deposits on Australian books of selected individual ADIs",
-          .default = "Unknown category"
+          .default = NA
         ),
         .before = series
       )
@@ -105,7 +130,7 @@ add_madis_balance_sheet <- function(madis_data, cur_hist) {
           col %in% 15:24 ~ "Loans and finance leases on Australian books of selected individual ADIs ",
           col %in% 25:30 ~ "Selected liabilities on Australian books of selected individual ADIs",
           col %in% 31:38 ~ "Deposits on Australian books of selected individual ADIs",
-          .default = "Unknown category"
+          .default = NA
         ),
         .before = series
       )

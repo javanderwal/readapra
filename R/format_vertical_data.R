@@ -185,8 +185,10 @@ safe_format_vertical_data <- purrr::safely(format_vertical_data)
 #' Attempts to get the QADIPS Key Stats sheet data and if it encounters an error
 #' it throws a warning and returns a empty tibble
 #'
-#' @param tidyxl_data The data sourced using the tidyxl package
-#' @param formatting_data The formatting data sourced using the tidyxl package
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
 #'
 #' @keywords internal
 #' @noRd

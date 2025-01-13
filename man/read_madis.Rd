@@ -4,18 +4,32 @@
 \alias{read_madis}
 \title{Read Monthly ADI Statistics}
 \usage{
-read_madis(cur_hist)
+read_madis(cur_hist, path = tempdir(), overwrite = TRUE, quiet = FALSE, ...)
 }
 \arguments{
-\item{cur_hist}{Character; valid values are `"current"` or `"historical"`.}
+\item{cur_hist}{character vector determining whether to download the current
+publication (\code{"current"}) or the historic publication (\code{"historic"}).}
+
+\item{path}{path to where the downloaded file should be saved. Uses
+\code{\link[base:tempfile]{base::tempdir()}} by default.}
+
+\item{overwrite}{whether to overwrite the downloaded file when re-downloading
+the file.}
+
+\item{quiet}{whether to suppress the download progress bar.}
+
+\item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
 }
 \value{
-A tibble containing the Monthly ADI Statistics data
+A tibble containing the Monthly ADI Statistics data.
 }
 \description{
-Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
-from APRA's website.
+Download and import the Monthly Authorised Deposit-taking Institution
+Statistics (MADIS) from APRA's website. Both the current and historical
+versions of this statistical publication are available.
 }
 \examples{
+\dontrun{
 read_madis("current")
+}
 }
