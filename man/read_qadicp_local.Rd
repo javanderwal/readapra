@@ -7,7 +7,7 @@
 read_qadicp_local(file_path)
 }
 \arguments{
-\item{file_path}{The file path to the local QADICP .xlsx file.}
+\item{file_path}{path to the .xlsx file.}
 }
 \value{
 A tibble containing the Quarterly ADI Centralised Publication data.
@@ -18,6 +18,6 @@ Publication (QADICP) from a local file.
 }
 \examples{
 \dontrun{
-read_qadicp_local(file_path = ~path/to/xlsx/file)
+read_qadicp_local(file_path = ~ path / to / xlsx / file)
 }
 }

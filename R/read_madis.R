@@ -26,8 +26,7 @@ read_madis <- function(
     path = tempdir(),
     overwrite = TRUE,
     quiet = FALSE,
-    ...
-    ) {
+    ...) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   temp_file_path <-
     download_apra(

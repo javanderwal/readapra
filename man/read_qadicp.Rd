@@ -4,15 +4,31 @@
 \alias{read_qadicp}
 \title{Read Quarterly ADI Centralised Publication}
 \usage{
-read_qadicp()
+read_qadicp(path = tempdir(), overwrite = TRUE, quiet = FALSE, ...)
+}
+\arguments{
+\item{path}{path to where the downloaded file should be saved. Uses
+\code{\link[base:tempfile]{base::tempdir()}} by default.}
+
+\item{overwrite}{whether to overwrite the downloaded file when re-downloading
+the file.}
+
+\item{quiet}{whether to suppress the download progress bar.}
+
+\item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
+
+\item{cur_hist}{character vector determining whether to download the current
+publication (\code{"current"}) or the historic publication (\code{"historic"}).}
 }
 \value{
 A tibble containing the Quarterly ADI Centralised Publication data.
 }
 \description{
-Download and import Read in the Quarterly Authorised Deposit-taking
+Download and import the Quarterly Authorised Deposit-taking
 Institution Centralised Publication (QADICP) from APRA's website.
 }
 \examples{
+\dontrun{
 read_qadicp()
+}
 }

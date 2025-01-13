@@ -1,23 +1,40 @@
 #' Read Quarterly ADI Centralised Publication
 #'
 #' @description
-#' Download and import Read in the Quarterly Authorised Deposit-taking
+#' Download and import the Quarterly Authorised Deposit-taking
 #' Institution Centralised Publication (QADICP) from APRA's website.
+#'
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
+#' @param path path to where the downloaded file should be saved. Uses
+#' [base::tempdir()] by default.
+#' @param overwrite whether to overwrite the downloaded file when re-downloading
+#' the file.
+#' @param quiet whether to suppress the download progress bar.
+#' @param ... additional arguments to be passed to [utils::download.file()].
 #'
 #' @return A tibble containing the Quarterly ADI Centralised Publication data.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' read_qadicp()
-read_qadicp <- function() {
+#' }
+read_qadicp <- function(
+    path = tempdir(),
+    overwrite = TRUE,
+    quiet = FALSE,
+    ...) {
   temp_file_path <-
     download_apra(
       publication = "qadicp",
-      cur_hist = "current"
+      cur_hist = "current",
+      path = path,
+      quiet = quiet,
+      overwrite = overwrite,
+      ...
     )
-  tidyxl_data <- read_tidyxl_data(temp_file_path)
-  formatting_data <- read_tidyxl_formatting_data(temp_file_path)
-  qadicp_data(tidyxl_data, formatting_data)
+  read_qadicp_local(temp_file_path)
 }
 
 #' Read Quarterly ADI Centralised Publication locally
@@ -26,43 +43,42 @@ read_qadicp <- function() {
 #' Import the Quarterly Authorised Deposit-taking Institution Centralised
 #' Publication (QADICP) from a local file.
 #'
-#' @param file_path The file path to the local QADICP .xlsx file.
+#' @param file_path path to the .xlsx file.
 #'
 #' @return A tibble containing the Quarterly ADI Centralised Publication data.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' read_qadicp_local(file_path = ~path/to/xlsx/file)
+#' read_qadicp_local(file_path = ~ path / to / xlsx / file)
 #' }
 read_qadicp_local <- function(file_path) {
-  tidyxl_data <- read_tidyxl_data(file_path)
+  check_valid_file_path(file_path)
+  tidyxl_data <- read_tidyxl_data(file_path, "table.*4")
   formatting_data <- read_tidyxl_formatting_data(file_path)
   qadicp_data(tidyxl_data, formatting_data)
 }
 
 #' Combines the various QADICP data tibbles together alongside final formatting
 #'
-#' @param tidyxl_data The data sourced using the tidyxl package
-#' @param formatting_data The formatting data sourced using the tidyxl package
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
 #'
-#' @keywords internal
 #' @noRd
 #'
 qadicp_data <- function(tidyxl_data, formatting_data) {
-  table_4_data <-
-    tidyxl_data |>
-    dplyr::filter(stringr::str_detect(tolower(sheet), "table.*4"))
-
-  cleaned_qadicp_data <-
-    attempt_cleaned_vertical_data(table_4_data, formatting_data) |>
-    add_qadicp_category() |>
-    dplyr::mutate(
-      statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
-      .before = date
+  qadicp_data <-
+    attempt_format_vertical_data(
+      tidyxl_data = tidyxl_data,
+      formatting_data = formatting_data,
+      stat_pub_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
+      drop_col = FALSE
     )
-
-  return(cleaned_qadicp_data)
+  qadicp_data <- add_qadicp_category(qadicp_data)
+  qadicp_data <- dplyr::select(.data = qadicp_data, !col)
+  return(qadicp_data)
 }
 
 #' Adds a balance sheet category to the MADIS data. Certain MADIS series have
@@ -75,30 +91,16 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
 #'
 add_qadicp_category <- function(qadicp_data) {
   qadicp_data_w_categories <-
-      dplyr::mutate(
-        .data = qadicp_data,
-        series_category = dplyr::case_when(
-          series %in% c(
-            "Total Common Equity Tier 1 capital", "Total Tier 1 capital",
-            "Total capital base", "Total risk-weighted assets",
-            "Common Equity Tier 1 capital ratio", "Tier 1 capital ratio",
-            "Total capital ratio"
-            ) ~ "Regulatory capital",
-          series %in% c(
-            "Credit risk ", "Operational risk", "Market risk",
-            "Other risk charges"
-            ) ~ " Risk-weighted assets (RWA)",
-          stringr::str_detect(series, "Of which:") ~ " Risk-weighted assets (RWA)",
-          series %in% c(
-            "Mean Liquidity coverage ratio (LCR)",
-            "Net stable funding ratio (NSFR)",
-            "Average Minimum liquidity holdings ratio (MLH)"
-            ) ~ "Liquidity ratios",
-
-          .default = "Unknown category"
-        ),
-        .before = series
-      )
+    dplyr::mutate(
+      .data = qadicp_data,
+      series_category = dplyr::case_when(
+        col %in% 7:13 ~ "Regulatory capital",
+        col %in% 14:20 ~ " Risk-weighted assets (RWA)",
+        col %in% 21:23 ~ "Liquidity ratios",
+        .default = NA
+      ),
+      .before = series
+    )
 
   return(qadicp_data_w_categories)
 }
