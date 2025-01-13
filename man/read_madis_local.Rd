@@ -16,7 +16,7 @@ publication (\code{"current"}) or the historic publication (\code{"historic"}).}
 A tibble containing the Monthly ADI Statistics data.
 }
 \description{
-Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
+Import the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 from a local file. Both the current and historical versions of this
 statistical publication are available.
 }

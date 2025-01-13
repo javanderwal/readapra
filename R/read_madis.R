@@ -44,7 +44,7 @@ read_madis <- function(
 #' Read Monthly ADI Statistics locally
 #'
 #' @description
-#' Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
+#' Import the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 #' from a local file. Both the current and historical versions of this
 #' statistical publication are available.
 #'
@@ -76,7 +76,6 @@ read_madis_local <- function(file_path, cur_hist) {
 #' @param cur_hist character vector determining whether to download the current
 #' publication (`"current"`) or the historic publication (`"historic"`).
 #'
-#' @keywords internal
 #' @noRd
 #'
 madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
