@@ -194,13 +194,13 @@ safe_format_vertical_data <- purrr::safely(format_vertical_data)
 attempt_format_vertical_data <-
   function(tidyxl_data, formatting_data, stat_pub_name, drop_col = TRUE) {
     outcome <- safe_format_vertical_data(
-      tidyxl_data, formatting_data,
+      tidyxl_data, formatting_data, stat_pub_name,
       drop_col = drop_col
     )
     if (!is.null(outcome$error)) {
       cli::cli_abort(
         message = "The .xlsx file was in an unrecognised structure and could not be imported.",
-        class = "read_apra_error_horizontal_data_unreadable"
+        class = "readapra_error_vertical_data_unreadable"
       )
     } else {
       return(outcome$result)
