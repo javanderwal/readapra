@@ -3,8 +3,8 @@ test_xlsx <- create_test_xlsx_file()
 
 expected_outputs <-
   list(
-    data = read_tidyxl_data(test_xlsx),
-    formatting = read_tidyxl_formatting_data(test_xlsx)
+    data = tidyxl::xlsx_cells(test_xlsx),
+    formatting = tidyxl::xlsx_formats(test_xlsx)
   )
 
 saveRDS(
