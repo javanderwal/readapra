@@ -24,6 +24,7 @@ Imports:
     cli,
     dplyr (>= 1.0.0),
     httr,
+    janitor,
     lubridate,
     memoise,
     polite (>= 0.1.0),
