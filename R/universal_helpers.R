@@ -5,14 +5,15 @@
 #' @keywords internal
 #' @noRd
 #'
-check_valid_file_path <- function(file_path) {
+check_valid_file_path <- function(file_path, call = rlang::caller_env()) {
   if (!is.character(file_path)) {
     cli::cli_abort(
       message = c(
         "{.arg file_path} must be a string of length 1.",
         c("x" = "Supplied argument is of class {.cls {class(file_path)}}.")
       ),
-      class = "read_apra_error_file_path_not_string"
+      class = "read_apra_error_file_path_not_string",
+      call = call
     )
   }
 
@@ -22,7 +23,8 @@ check_valid_file_path <- function(file_path) {
         "{.arg file_path} must be a string of length 1.",
         c("x" = "Supplied argument is of length {.val {length(file_path)}}.")
       ),
-      class = "read_apra_error_file_path_not_length_one"
+      class = "read_apra_error_file_path_not_length_one",
+      call = call
     )
   }
 
@@ -35,7 +37,8 @@ check_valid_file_path <- function(file_path) {
           c("x" = "No such file exists at: {.path {normalised_file_path}}."),
           c("!" = "Please check you have specified the correct file path.")
         ),
-      class = "read_apra_error_file_path_does_not_exist"
+      class = "read_apra_error_file_path_does_not_exist",
+      call = call
     )
   }
 }
