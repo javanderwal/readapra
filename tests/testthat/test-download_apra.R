@@ -2,15 +2,29 @@ test_that("download_apra() real file download", {
   skip_if_offline()
   skip_on_cran()
 
-  # Test correct QADIPS download
-  expect_true(
-    file.exists(download_apra(publication = "qadips", cur_hist = "current", quiet = TRUE))
-  )
+  with_tempdir({
+    # Test correct QADIPS download
+    expect_true(
+      file.exists(
+        download_apra(
+          publication = "qadips",
+          cur_hist = "current",
+          quiet = TRUE
+        )
+      )
+    )
 
-  # Test correct MADIS download
-  expect_true(
-    file.exists(download_apra(publication = "madis", cur_hist = "historic", quiet = TRUE))
-  )
+    # Test correct MADIS download
+    expect_true(
+      file.exists(
+        download_apra(
+          publication = "madis",
+          cur_hist = "historic",
+          quiet = TRUE
+        )
+      )
+    )
+  })
 })
 
 test_that("download_apra() error handling", {
@@ -165,18 +179,20 @@ test_that("get_http_status() returns http details", {
   disable(quiet = TRUE)
 })
 
-test_that("download_file() file download", {
+test_that("download_file() real file download", {
   skip_if_offline()
   skip_on_cran()
 
-  expect_true(
-    file.exists(
-      polite_file_download(
-        bow = bow_wrapper("https://httpbin.org/bytes/512"),
-        url = "https://httpbin.org/bytes/512", quiet = TRUE
+  with_tempdir({
+    expect_true(
+      file.exists(
+        polite_file_download(
+          bow = bow_wrapper("https://httpbin.org/bytes/512"),
+          url = "https://httpbin.org/bytes/512", quiet = TRUE
+        )
       )
     )
-  )
+  })
 })
 
 test_that("attempt_polite_file_download() error behaviour", {
@@ -204,12 +220,15 @@ test_that("attempt_polite_file_download() real file download", {
   skip_if_offline()
   skip_on_cran()
 
-  expect_true(
-    file.exists(
-      attempt_polite_file_download(
-        bow = bow_wrapper("https://httpbin.org/bytes/512"),
-        url = "https://httpbin.org/bytes/512", quiet = TRUE
+  with_tempdir({
+    expect_true(
+      file.exists(
+        attempt_polite_file_download(
+          bow = bow_wrapper("https://httpbin.org/bytes/512"),
+          url = "https://httpbin.org/bytes/512",
+          quiet = TRUE
+        )
       )
     )
-  )
+  })
 })
