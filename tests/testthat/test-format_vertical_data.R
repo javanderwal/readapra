@@ -21,6 +21,19 @@ test_that("format_vertical_data() behaves as expected", {
   )
 })
 
+test_that("get_col_names() behaves as expected", {
+  expect_equal(
+    get_col_names(vertical_data_input(), 1:8)$character,
+    c("Period", "ABN", "Entity", "Field 1", "Field 2", "Field 3", "Field 4", "Field 5")
+  )
+
+  expect_error(
+    get_col_names(vertical_data_input(), 0),
+    regexp = "Could not extract row names from the xlsx file.",
+    class = "readapra_error_could_not_get_row_names"
+  )
+})
+
 test_that("attempt_format_vertical_data() behaves as expected", {
 
   # Standard case
