@@ -1,3 +1,51 @@
+#' Creates data that mimics a .xlsx file
+#'
+#' @noRd
+#'
+create_test_xlsx_data <- function() {
+  tibble::tibble(
+    date = lubridate::rollforward(
+      seq.Date(
+        as.Date("2015-12-01"),
+        as.Date("2016-12-01"),
+        by = "1 month"
+      )
+    ),
+    name = "Entity A",
+    std_value = 1:13,
+    per_value = seq(0.2, 0.8, 0.05)
+  )
+}
+
+
+#' Creates a temporary .xlsx file for testing purposes.
+#'
+#' @noRd
+#'
+create_test_xlsx_file <- function() {
+  temp_file <- tempfile(fileext = ".xlsx")
+  wb <- openxlsx::createWorkbook()
+  openxlsx::addWorksheet(wb, "Sheet1")
+  openxlsx::addWorksheet(wb, "Sheet2")
+  openxlsx::writeData(wb, "Sheet1", create_test_xlsx_data())
+  openxlsx::addStyle(
+    wb = wb,
+    sheet = "Sheet1",
+    style = openxlsx::createStyle(numFmt = "0%"),
+    cols = 4,
+    rows = 2:14,
+    gridExpand = TRUE
+  )
+  openxlsx::saveWorkbook(wb, temp_file, overwrite = TRUE)
+  return(temp_file)
+}
+
+
+
+
+
+
+
 #' Generate the dummy horizontal tidyxl_input data
 #'
 #' @keywords internal
