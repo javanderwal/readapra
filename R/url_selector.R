@@ -13,7 +13,6 @@ url_selector <- function(
     urls_to_check,
     selected_stat_pub,
     call = rlang::caller_env()) {
-
   regex_matched_url <-
     stringr::str_subset(
       urls_to_check,
@@ -29,14 +28,16 @@ url_selector <- function(
 
   stringdist_match_result <-
     stringdist::amatch(
-    x = file_to_find ,
-    table = files_to_compare,
-    nomatch = NULL,
-    method = "jw",
-    maxDist = Inf
+      x = file_to_find,
+      table = files_to_compare,
+      nomatch = NULL,
+      method = "jw",
+      maxDist = 100
     )
 
-  if (is.null(stringdist_match_result) | length(stringdist_match_result) != 1) {
+  if (is.null(stringdist_match_result) |
+    length(stringdist_match_result) != 1 |
+    length(files_to_compare) < 1) {
     cli::cli_abort(
       message = "Could not determine correct URL to download.",
       class = "readapra_could_not_find_right_file_url",
@@ -66,13 +67,9 @@ prepare_name_comparison <- function(url) {
       pattern = stringr::regex(month_pattern, ignore_case = TRUE)
     )
 
-  url_no_numbers <- stringr::str_remove_all(url_no_month , "\\d+")
+  url_no_numbers <- stringr::str_remove_all(url_no_month, "\\d+")
 
   url_no_whitespace <- stringr::str_trim(url_no_numbers)
 
   return(url_no_whitespace)
 }
-
-
-
-

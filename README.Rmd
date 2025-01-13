@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # readapra <img src="man/figures/readapra_hex_sticker.png" align="right" height="139"/>
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/OranjeLlama/readapra/graph/badge.svg)](https://app.codecov.io/gh/OranjeLlama/readapra)
+[![Codecov test coverage](https://codecov.io/gh/javanderwal/readapra/graph/badge.svg)](https://app.codecov.io/gh/javanderwal/readapra)
 <!-- badges: end -->
 
 The R package *readapra* provides a series of function to easily scrape data from the [Australian Prudential Regulation Authority's (APRA)](https://www.apra.gov.au/) statistical publications and return them as a [tibble](https://tibble.tidyverse.org/) object.

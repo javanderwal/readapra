@@ -1,5 +1,4 @@
 test_that("url_selector() behaves as expected", {
-
   input_urls_to_check <-
     c(
       "#main-content",
@@ -18,7 +17,7 @@ test_that("url_selector() behaves as expected", {
     dplyr::filter(
       .data = apra_stat_pub_details,
       publication == "madis", cur_hist == "current"
-      )
+    )
 
   # Regex behaves as expected
   expect_equal(
@@ -31,6 +30,23 @@ test_that("url_selector() behaves as expected", {
   expect_equal(
     url_selector(input_urls_to_check, input_selected_stat_pub),
     input_urls_to_check[4]
+  )
+})
+
+test_that("url_selector() errors correctly", {
+  input_selected_stat_pub <-
+    dplyr::filter(
+      .data = apra_stat_pub_details,
+      publication == "madis", cur_hist == "current"
+    )
+
+  expect_error(
+    url_selector(
+      urls_to_check = character(),
+      selected_stat_pub = input_selected_stat_pub
+    ),
+    regexp = "Could not determine correct URL to download.",
+    class = "readapra_could_not_find_right_file_url"
   )
 })
 

@@ -4,6 +4,9 @@
 # readapra <img src="man/figures/readapra_hex_sticker.png" align="right" height="139"/>
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/javanderwal/readapra/graph/badge.svg)](https://app.codecov.io/gh/javanderwal/readapra)
 <!-- badges: end -->
 
 The R package *readapra* provides a series of function to easily scrape
