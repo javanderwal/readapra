@@ -28,7 +28,7 @@ format_vertical_data <- function(
   pivoted_data <-
     tidyr::pivot_longer(
       data = restructured_data,
-      cols = !tidyselect::matches("^abn$", ignore.case = TRUE) &
+      cols = !tidyselect::contains("abn", ignore.case = TRUE) &
         dplyr::where(is.numeric),
       names_to = "series",
       values_to = "value"
@@ -42,7 +42,11 @@ format_vertical_data <- function(
       row_names, existing_cols, data_below_top_row, formatting_data
     )
 
-  cleaned_data <- dplyr::left_join(name_cleaned_data, extra_meta_data, by = "series")
+  cleaned_data <- dplyr::left_join(
+    x = name_cleaned_data,
+    y = extra_meta_data,
+    by = dplyr::join_by("col", "series")
+  )
   cleaned_data <- dplyr::relocate(.data = cleaned_data, unit, .before = value)
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, statistics_publication_name, .before = 1
@@ -105,16 +109,35 @@ restructure_as_in_xlsx <- function(
       .f = dplyr::left_join,
       by = dplyr::join_by("row")
     )
+
   renamed_column_data <-
     rlang::set_names(
       x = dplyr::select(.data = rejoined_column_data, !row),
-      nm = row_names$character
+      nm = paste0(row_names$character, "_", existing_cols)
     )
   return(renamed_column_data)
 }
 
+#' Takes the pivoted data and cleans the column names and extracts the col column
+#'
+#' @param data data to be cleaned
+#'
+#' @noRd
+#'
 clean_col_names <- function(data) {
   cleaned_names_data <- janitor::clean_names(data)
+
+  names(cleaned_names_data) <-
+    stringr::str_remove_all(names(cleaned_names_data), "_\\d$")
+
+  cleaned_names_data <-
+    tidyr::separate_wider_regex(
+      data = cleaned_names_data,
+      cols = series,
+      c(series = ".*?", "_", col = ".*")
+    )
+
+  cleaned_names_data$col <- as.numeric(cleaned_names_data$col)
 
   names(cleaned_names_data) <-
     dplyr::case_when(
@@ -129,7 +152,6 @@ clean_col_names <- function(data) {
 
   return(cleaned_names_data)
 }
-
 
 #' Takes a tibble containing column data and extracts each column irrespective
 #' of its data type
