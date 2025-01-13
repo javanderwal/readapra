@@ -26,6 +26,8 @@ read_qadicp <- function() {
 #' Import the Quarterly Authorised Deposit-taking Institution Centralised
 #' Publication (QADICP) from a local file.
 #'
+#' @param file_path The file path to the local QADICP .xlsx file.
+#'
 #' @return A tibble containing the Quarterly ADI Centralised Publication data.
 #' @export
 #'

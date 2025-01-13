@@ -7,6 +7,8 @@
 read_madis_local(file_path, cur_hist)
 }
 \arguments{
+\item{file_path}{The file path to the local MADIS .xlsx file.}
+
 \item{cur_hist}{Whether to access the current or historical series. Valid
 values are `"current"` and `"historical"`.}
 }

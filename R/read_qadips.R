@@ -127,7 +127,7 @@ attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
 #' get working.
 #'
 #' @param tidyxl_data The QADIP data sourced using the tidyxl package
-#' @param series_dependency_data The series dependency data sourced using
+#' @param series_hierarchy_data The series dependency data sourced using
 #' get_series_dependencies()
 #'
 #' @keywords internal
@@ -135,7 +135,7 @@ attempt_qadip_key_stats_data <- function(tidyxl_data, formatting_data) {
 qadip_key_stats_names <- function(tidyxl_data, series_hierarchy_data) {
   cohort_rows <-
     series_hierarchy_data |>
-    dplyr:::filter(series_hierarchy == "ADIs") |>
+    dplyr::filter(series_hierarchy == "ADIs") |>
     dplyr::pull(row)
 
   key_figures_row <-

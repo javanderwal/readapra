@@ -8,10 +8,22 @@ bow_wrapper <- polite::bow
 #'
 #' @noRd
 #'
-sys_sleep_wrapper <- Sys.sleep
+sys_sleep_wrapper <- function(time) {
+  base::Sys.sleep(time = time)
+}
 
 #' Wrapper of polite scrape for testing purposes
 #'
 #' @noRd
 #'
 scrape_wrapper <- polite::scrape
+
+#' Wrapper of base file.exists for testing purposes
+#'
+#' @keywords internal
+#' @noRd
+#'
+file_exists_wrapper <- function(...) {
+  base::file.exists(...)
+}
+

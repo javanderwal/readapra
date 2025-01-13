@@ -8,7 +8,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' read_adipops("current")
+#' }
 read_adipops <- function() {
   temp_file_path <- download_apra(
     publication = "adipops",

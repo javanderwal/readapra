@@ -12,7 +12,9 @@
 #' @export
 #'
 #' @examples
-#' read_qpexs("current")
+#' \dontrun{
+#' read_qadipexs("current")
+#' }
 read_qadipexs <- function(cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   temp_file_path <- download_apra(
@@ -37,7 +39,7 @@ read_qadipexs <- function(cur_hist) {
 #'
 #' @examples
 #' \dontrun{
-#' read_qpexs_local(file_path = ~path/to/xlsx/file)
+#' read_qadipexs_local(file_path = ~path/to/xlsx/file)
 #' }
 read_qadipexs_local <- function(file_path) {
   check_valid_file_path(file_path)

@@ -19,5 +19,7 @@ Download and import the Quarterly Authorised Deposit-taking Institution
 Property Exposure Statistics (QADIPEXS) from APRA's website.
 }
 \examples{
-read_qpexs("current")
+\dontrun{
+read_qadipexs("current")
+}
 }

@@ -11,7 +11,7 @@ qadip_key_stats_names(tidyxl_data, series_hierarchy_data)
 \arguments{
 \item{tidyxl_data}{The QADIP data sourced using the tidyxl package}
 
-\item{series_dependency_data}{The series dependency data sourced using
+\item{series_hierarchy_data}{The series dependency data sourced using
 get_series_dependencies()}
 }
 \description{

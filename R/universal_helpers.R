@@ -87,13 +87,6 @@ check_valid_file_path <- function(file_path) {
   }
 }
 
-#' Wrapper used for testing purposes
-#'
-#' @keywords internal
-#' @noRd
-#'
-file_exists_wrapper <- file.exists
-
 #' Joins together the tidyxl_data and formatting_data
 #'
 #' @param tidyxl_data The standard data sourced using read_tidyxl_data()

@@ -2,7 +2,6 @@
 #'
 #' @param publication The publication that you want to download
 #' @param cur_hist Whether to download the current or historic publication
-#' @param method Method to be used for downloading files.
 #' @param path path where to save the destfile.
 #' @param overwrite if `TRUE` will overwrite file on disk
 #' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
@@ -14,7 +13,6 @@
 download_apra <- function(
     publication,
     cur_hist,
-    method = getOption("download.file.method"),
     path = tempdir(),
     overwrite = TRUE,
     quiet = FALSE,
@@ -52,7 +50,6 @@ download_apra <- function(
     attempt_polite_file_download(
       url = url_to_download,
       bow = bow_obj,
-      method = method,
       path = path,
       overwrite = overwrite,
       quiet = quiet,
@@ -82,6 +79,10 @@ scrape_urls <- function(url_session) {
 #' @noRd
 #'
 get_http_status <- function(url) {
+  old_dl_method <- getOption("download.file.method")
+  on.exit(options(old_dl_method))
+  readapra_dl_method <- Sys.getenv("R_READAPRA_DL_METHOD", unset = "auto")
+  options("download.file.method" = readapra_dl_method)
   httr::http_status(httr::GET(url))
 }
 
@@ -124,7 +125,7 @@ check_http_status <- function(url,
 #'
 polite_file_download <- function(url,
                                  bow,
-                                 method = getOption("download.file.method"),
+                                 method = Sys.getenv("R_READAPRA_DL_METHOD", unset = "auto"),
                                  path = tempdir(),
                                  overwrite = TRUE,
                                  quiet = FALSE,
@@ -152,7 +153,6 @@ safe_polite_file_download <- purrr::safely(polite_file_download)
 #'
 #' @param url the URL of the file to be downloaded
 #' @param bow host introduction object of class polite, session created by bow() or nod()
-#' @param method Method to be used for downloading files.
 #' @param path path where to save the destfile.
 #' @param overwrite if `TRUE` will overwrite file on disk
 #' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
@@ -162,23 +162,15 @@ safe_polite_file_download <- purrr::safely(polite_file_download)
 #'
 attempt_polite_file_download <- function(url,
                                          bow,
-                                         method = getOption("download.file.method"),
                                          path = tempdir(),
                                          overwrite = TRUE,
                                          quiet = FALSE,
                                          call = rlang::caller_env(),
                                          ...) {
-  rlang::arg_match(
-    arg = method,
-    values = valid_download_methods(),
-    error_call = call
-  )
-
   download_outcome <-
     safe_polite_file_download(
       url = url,
       bow = bow,
-      method = method,
       path = path,
       overwrite = overwrite,
       quiet = quiet,
@@ -191,7 +183,6 @@ attempt_polite_file_download <- function(url,
       safe_polite_file_download(
         url = url,
         bow = bow,
-        method = method,
         path = path,
         overwrite = overwrite,
         quiet = quiet,
@@ -211,12 +202,4 @@ attempt_polite_file_download <- function(url,
   }
 
   return(download_outcome$result)
-}
-
-#' Valid download methods to passed to download.file()
-#'
-#' @noRd
-#'
-valid_download_methods <- function() {
-  c("internal", "libcurl", "wget", "curl", "wininet", "auto")
 }

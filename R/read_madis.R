@@ -29,6 +29,7 @@ read_madis <- function(cur_hist) {
 #' Read in the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 #' from a local file.
 #'
+#' @param file_path The file path to the local MADIS .xlsx file.
 #' @param cur_hist Whether to access the current or historical series. Valid
 #' values are `"current"` and `"historical"`.
 #'

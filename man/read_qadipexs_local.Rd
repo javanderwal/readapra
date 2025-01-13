@@ -18,6 +18,6 @@ Property Exposure Statistics (QPEXS) from a local file.
 }
 \examples{
 \dontrun{
-read_qpexs_local(file_path = ~path/to/xlsx/file)
+read_qadipexs_local(file_path = ~path/to/xlsx/file)
 }
 }

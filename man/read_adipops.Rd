@@ -14,5 +14,7 @@ Read in the Authorised Deposit-taking Institution Points of Presence
 Statistics (ADIPOPS) from APRA's website.
 }
 \examples{
+\dontrun{
 read_adipops("current")
+}
 }
