@@ -76,7 +76,7 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
       stat_pub_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
       drop_col = FALSE
     )
-  qadicp_data <- add_qadicp_category(qadicp_data)
+  qadicp_data <- add_qadicp_regulatory_category(qadicp_data)
   qadicp_data <- dplyr::select(.data = qadicp_data, !col)
   return(qadicp_data)
 }
@@ -89,18 +89,29 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
 #' @keywords internal
 #' @noRd
 #'
-add_qadicp_category <- function(qadicp_data) {
-  qadicp_data_w_categories <-
-    dplyr::mutate(
-      .data = qadicp_data,
-      series_category = dplyr::case_when(
-        col %in% 7:13 ~ "Regulatory capital",
-        col %in% 14:20 ~ " Risk-weighted assets (RWA)",
-        col %in% 21:23 ~ "Liquidity ratios",
-        .default = NA
-      ),
-      .before = series
+add_qadicp_regulatory_category <- function(qadicp_data) {
+  original_col <- qadicp_data$col
+  qadicp_data$col <- qadicp_data$col - min(qadicp_data$col) + 1
+
+  qadicp_data <-
+    dplyr::left_join(
+      x = qadicp_data,
+      y = qadicp_risk_metric_category,
+      by = dplyr::join_by("series", "col")
     )
 
-  return(qadicp_data_w_categories)
+  if (any(is.na(qadicp_data$risk_metric_category))) {
+    cli::cli_warn(
+      message = "Could not successfully attach contents of {.code risk_metric_category} column. The contents of this column are incomplete.",
+      class = "readapra_warning_nas_in_qadicp_risk_metric_category"
+    )
+  }
+
+  qadicp_data <- dplyr::relocate(
+    .data = qadicp_data, risk_metric_category, .before = series
+  )
+
+  qadicp_data$col <- original_col
+
+  return(qadicp_data)
 }

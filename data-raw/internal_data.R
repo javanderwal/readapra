@@ -30,12 +30,18 @@ madis_current_balance_sheet <-
 madis_historic_balance_sheet <-
   readr::read_csv("data-raw/madis_historic_balance_sheet.csv")
 
+# QADICP risk metric category ---------------------------------------------
+qadicp_risk_metric_category <-
+  readr::read_csv("data-raw/qadicp_risk_metric_category.csv")
+
+
 
 # Building system data ----------------------------------------------------
 usethis::use_data(
   apra_stat_pub_details,
   madis_current_balance_sheet,
   madis_historic_balance_sheet,
+  qadicp_risk_metric_category,
   internal = TRUE,
   overwrite = TRUE
 )

@@ -1,0 +1,18 @@
+col,series,risk_metric_category
+1,Total Common Equity Tier 1 capital,Regulatory capital
+2,Total Tier 1 capital,Regulatory capital
+3,Total capital base,Regulatory capital
+4,Total risk-weighted assets,Regulatory capital
+5,Common Equity Tier 1 capital ratio,Regulatory capital
+6,Tier 1 capital ratio,Regulatory capital
+7,Total capital ratio,Regulatory capital
+8,Credit risk,Risk-weighted assets (RWA)
+9,Operational risk,Risk-weighted assets (RWA)
+10,Market risk,Risk-weighted assets (RWA)
+11,Of which: IRRBB - Internal model approach,Risk-weighted assets (RWA)
+12,Of which: Traded market risk under standard method,Risk-weighted assets (RWA)
+13,Of which: Traded market risk under internal model approach,Risk-weighted assets (RWA)
+14,Other risk charges,Risk-weighted assets (RWA)
+15,Mean Liquidity coverage ratio (LCR),Liquidity ratios
+16,Net stable funding ratio (NSFR),Liquidity ratios
+17,Average Minimum liquidity holdings ratio (MLH),Liquidity ratios
