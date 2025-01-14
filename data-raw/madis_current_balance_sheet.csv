@@ -1,0 +1,28 @@
+col,series,balance_sheet_category
+1,Cash and deposits with financial institutions,Selected assets on Australian books of selected individual ADIs
+2,Trading securities,Selected assets on Australian books of selected individual ADIs
+3,Investment securities,Selected assets on Australian books of selected individual ADIs
+4,Net acceptances of customers,Selected assets on Australian books of selected individual ADIs
+5,Total residents assets,Selected assets on Australian books of selected individual ADIs
+6,Total securitised assets on balance sheet,Selected assets on Australian books of selected individual ADIs
+7,Loans to non-financial businesses,Loans and finance leases on Australian books of selected individual ADIs
+8,Loans to financial institutions,Loans and finance leases on Australian books of selected individual ADIs
+9,Loans to general government,Loans and finance leases on Australian books of selected individual ADIs
+10,Loans to households: Housing: Owner-occupied,Loans and finance leases on Australian books of selected individual ADIs
+11,Loans to households: Housing: Investment,Loans and finance leases on Australian books of selected individual ADIs
+12,Loans to households: Credit cards,Loans and finance leases on Australian books of selected individual ADIs
+13,Loans to households: Other,Loans and finance leases on Australian books of selected individual ADIs
+14,Loans to community service organisations,Loans and finance leases on Australian books of selected individual ADIs
+15,Total residents loans and finance leases,Loans and finance leases on Australian books of selected individual ADIs
+16,Intra-group loans and finance leases,Loans and finance leases on Australian books of selected individual ADIs
+17,Acceptances,Selected liabilities on Australian books of selected individual ADIs
+18,Intra-group deposits,Selected liabilities on Australian books of selected individual ADIs
+19,Negotiable Certificates of Deposit,Selected liabilities on Australian books of selected individual ADIs
+20,Total short-term borrowings,Selected liabilities on Australian books of selected individual ADIs
+21,Total long-term borrowings,Selected liabilities on Australian books of selected individual ADIs
+22,Deposits by non-financial businesses,Deposits on Australian books of selected individual ADIs
+23,Deposits by financial institutions,Deposits on Australian books of selected individual ADIs
+24,Deposits by general government,Deposits on Australian books of selected individual ADIs
+25,Deposits by households,Deposits on Australian books of selected individual ADIs
+26,Deposits by community service organisations,Deposits on Australian books of selected individual ADIs
+27,Total residents deposits,Deposits on Australian books of selected individual ADIs

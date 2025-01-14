@@ -1,0 +1,36 @@
+col,series,balance_sheet_category
+1,Cash and liquid assets,Selected assets on Australian books of selected individual ADIs
+2,Trading securities,Selected assets on Australian books of selected individual ADIs
+3,Investment securities,Selected assets on Australian books of selected individual ADIs
+4,Acceptances of customers,Selected assets on Australian books of selected individual ADIs
+5,Gross loans and advances,Selected assets on Australian books of selected individual ADIs
+6,Other investments,Selected assets on Australian books of selected individual ADIs
+7,Total resident assets,Selected assets on Australian books of selected individual ADIs
+8,Outstanding value of all assets that have been securitised,Selected assets on Australian books of selected individual ADIs
+9,Outstanding principal balance of securitised assets,Selected assets on Australian books of selected individual ADIs
+10,Value of housing loans securitised,Selected assets on Australian books of selected individual ADIs
+11,Value of housing loans securitised during the month,Selected assets on Australian books of selected individual ADIs
+12,Loans to non-financial corporations,Loans and finance leases on Australian books of selected individual ADIs
+13,Loans to financial corporations,Loans and finance leases on Australian books of selected individual ADIs
+14,Loans to general government,Loans and finance leases on Australian books of selected individual ADIs
+15,Loans to households: Housing: Owner-occupied,Loans and finance leases on Australian books of selected individual ADIs
+16,Loans to households: Housing: Investment,Loans and finance leases on Australian books of selected individual ADIs
+17,Loans to households: Credit cards,Loans and finance leases on Australian books of selected individual ADIs
+18,Loans to households: Other,Loans and finance leases on Australian books of selected individual ADIs
+19,Loans to community service organisations and non-profit institutions,Loans and finance leases on Australian books of selected individual ADIs
+20,Total gross loans and advances,Loans and finance leases on Australian books of selected individual ADIs
+21,Intra-group loans and advances,Loans and finance leases on Australian books of selected individual ADIs
+22,Due to clearing houses and financial institutions,Selected liabilities on Australian books of selected individual ADIs
+23,Acceptances,Selected liabilities on Australian books of selected individual ADIs
+24,Total deposits,Selected liabilities on Australian books of selected individual ADIs
+25,Intra-group deposits,Selected liabilities on Australian books of selected individual ADIs
+26,"Bonds, notes and long-term borrowings",Selected liabilities on Australian books of selected individual ADIs
+27,Other borrowings,Selected liabilities on Australian books of selected individual ADIs
+28,Deposits from non-financial corporations,Deposits on Australian books of selected individual ADIs
+29,Deposits from financial corporations,Deposits on Australian books of selected individual ADIs
+30,Deposits from general government,Deposits on Australian books of selected individual ADIs
+31,Deposits from households,Deposits on Australian books of selected individual ADIs
+32,Deposits from community service organisations and non-profit institutions,Deposits on Australian books of selected individual ADIs
+33,Other deposit accounts,Deposits on Australian books of selected individual ADIs
+34,Certificates of deposit,Deposits on Australian books of selected individual ADIs
+35,Total deposits,Deposits on Australian books of selected individual ADIs

@@ -1,3 +1,5 @@
+
+# URL data for download_apra ----------------------------------------------
 clean_apra_url <- function(url) {
   cleaned_url <- stringr::str_replace_all(
     url,
@@ -20,8 +22,20 @@ apra_stat_pub_details <-
     file_name = basename(link)
   )
 
+
+# MADIS balance sheet category data ---------------------------------------
+madis_current_balance_sheet <-
+  readr::read_csv("data-raw/madis_current_balance_sheet.csv")
+
+madis_historic_balance_sheet <-
+  readr::read_csv("data-raw/madis_historic_balance_sheet.csv")
+
+
+# Building system data ----------------------------------------------------
 usethis::use_data(
   apra_stat_pub_details,
+  madis_current_balance_sheet,
+  madis_historic_balance_sheet,
   internal = TRUE,
   overwrite = TRUE
 )
