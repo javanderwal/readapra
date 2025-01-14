@@ -47,7 +47,7 @@ read_adipops <- function(
 #'
 #' @examples
 #' \dontrun{
-#' read_adipops_local(file_path = ~path/to/xlsx/file)
+#' read_adipops_local(file_path = ~ path / to / xlsx / file)
 #' }
 read_adipops_local <- function(file_path) {
   check_valid_file_path(file_path)
@@ -71,7 +71,7 @@ adipops_data <- function(tidyxl_data, formatting_data) {
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
       stat_pub_name = "Authorised Deposit-taking Institutions' Points of Presence statistics"
-      )
+    )
   adipops_data <- convert_adipops_units(adipops_data)
   return(adipops_data)
 }
@@ -86,8 +86,11 @@ convert_adipops_units <- function(data) {
   adipops_correct_units <-
     data |>
     dplyr::mutate(unit = dplyr::case_when(
-      stringr::str_detect(series, stringr::regex("number", ignore_case = TRUE)) ~ unit,
-      .default = series
+      stringr::str_detect(
+        string = .data$series,
+        pattern = stringr::regex("number", ignore_case = TRUE)
+      ) ~ unit,
+      .default = .data$series
     ))
   return(adipops_correct_units)
 }

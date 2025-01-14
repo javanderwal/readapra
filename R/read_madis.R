@@ -134,7 +134,7 @@ add_madis_balance_sheet <- function(
   }
 
   madis_data <- dplyr::relocate(
-    .data = madis_data, balance_sheet_category, .before = series
+    .data = madis_data, .data$balance_sheet_category, .before = .data$series
   )
 
   madis_data$col <- original_col

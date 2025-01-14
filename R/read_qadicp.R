@@ -106,7 +106,7 @@ add_qadicp_regulatory_category <- function(qadicp_data) {
   }
 
   qadicp_data <- dplyr::relocate(
-    .data = qadicp_data, risk_metric_category, .before = series
+    .data = qadicp_data, .data$risk_metric_category, .before = .data$series
   )
 
   qadicp_data$col <- original_col

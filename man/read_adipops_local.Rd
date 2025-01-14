@@ -18,6 +18,6 @@ Statistics (ADIPOPS) from a local file.
 }
 \examples{
 \dontrun{
-read_adipops_local(file_path = ~path/to/xlsx/file)
+read_adipops_local(file_path = ~ path / to / xlsx / file)
 }
 }
