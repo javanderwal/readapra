@@ -34,6 +34,37 @@ test_that("get_col_names() behaves as expected", {
   )
 })
 
+test_that("restructure_as_in_xlsx() behaves as expected", {
+  expect_equal(
+    restructure_as_in_xlsx(
+      existing_cols = existing_cols_input(),
+      row_names = row_names_input(),
+      data_below_top_row = data_below_top_row_input()
+    ),
+    restructure_as_in_xlsx_output()
+  )
+})
+
+test_that("clean_col_names() behaves as expected", {
+  expect_equal(
+    clean_col_names(pivoted_data = clean_col_names_input()),
+    clean_col_names_output()
+  )
+})
+
+test_that("extra_meta_data() behaves as expected", {
+  expect_equal(
+    get_extra_meta_data(
+      stat_pub_name = "Test name",
+      row_names = row_names_input(),
+      existing_cols = existing_cols_input(),
+      data_below_top_row = data_below_top_row_input(),
+      formatting_data = vertical_formatting_input()
+    ),
+    get_extra_meta_data_output()
+  )
+})
+
 test_that("attempt_format_vertical_data() behaves as expected", {
 
   # Standard case
@@ -42,7 +73,7 @@ test_that("attempt_format_vertical_data() behaves as expected", {
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
       stat_pub_name = "Test"
-      ),
+    ),
     vertical_data_output()
   )
 
@@ -74,5 +105,3 @@ test_that("attempt_format_vertical_data() behaves as expected", {
     class = "readapra_error_vertical_data_unreadable"
   )
 })
-
-

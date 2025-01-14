@@ -118,24 +118,48 @@ restructure_as_in_xlsx <- function(
   return(renamed_column_data)
 }
 
+#' Takes a tibble containing column data and extracts each column irrespective
+#' of its data type
+#'
+#' @param col_num the column number in the sheet to extract
+#' @param data the data to extract column number data from
+#'
+#' @noRd
+#'
+get_column_data <- function(col_num, data) {
+  col_data <- dplyr::filter(.data = data, col == col_num)
+  col_data <- dplyr::mutate(.data = col_data, date = lubridate::as_date(date))
+  col_data <- dplyr::select(.data = col_data, row, error, logical, numeric, date, character)
+  col_data <- dplyr::select(.data = col_data, dplyr::where(~ !all(is.na(.))))
+}
+
 #' Takes the pivoted data and cleans the column names and extracts the col column
 #'
 #' @param data data to be cleaned
 #'
 #' @noRd
 #'
-clean_col_names <- function(data) {
-  cleaned_names_data <- janitor::clean_names(data)
+clean_col_names <- function(pivoted_data) {
+  cleaned_names_data <- janitor::clean_names(pivoted_data)
 
   names(cleaned_names_data) <-
-    stringr::str_remove_all(names(cleaned_names_data), "_\\d$")
+    stringr::str_remove_all(names(cleaned_names_data), "_\\d+$")
+
+  cleaned_names_data$series <-
+    stringr::str_replace_all(cleaned_names_data$series, "[\\r\\n\\t]+", " ")
+  cleaned_names_data$series <-
+    stringr::str_replace_all(cleaned_names_data$series, "\\s{2,}", " ")
+  cleaned_names_data$series <- stringr::str_trim(cleaned_names_data$series)
 
   cleaned_names_data <-
     tidyr::separate_wider_regex(
       data = cleaned_names_data,
       cols = series,
-      c(series = ".*?", "_", col = ".*")
+      patterns = c(series = ".*", "_", col = ".*")
     )
+
+  cleaned_names_data <-
+    dplyr::relocate(cleaned_names_data, col, .after = tidyselect::last_col())
 
   cleaned_names_data$col <- as.numeric(cleaned_names_data$col)
 
@@ -151,21 +175,6 @@ clean_col_names <- function(data) {
     )
 
   return(cleaned_names_data)
-}
-
-#' Takes a tibble containing column data and extracts each column irrespective
-#' of its data type
-#'
-#' @param col_num the column number in the sheet to extract
-#' @param data the data to extract column number data from
-#'
-#' @noRd
-#'
-get_column_data <- function(col_num, data) {
-  col_data <- dplyr::filter(.data = data, col == col_num)
-  col_data <- dplyr::mutate(.data = col_data, date = lubridate::as_date(date))
-  col_data <- dplyr::select(.data = col_data, row, error, logical, numeric, date, character)
-  col_data <- dplyr::select(.data = col_data, dplyr::where(~ !all(is.na(.))))
 }
 
 #' Generates additional meta data to attach to the output tibble using the
