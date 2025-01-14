@@ -16,9 +16,6 @@ the file.}
 \item{quiet}{whether to suppress the download progress bar.}
 
 \item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
-
-\item{cur_hist}{character vector determining whether to download the current
-publication (\code{"current"}) or the historic publication (\code{"historic"}).}
 }
 \value{
 A tibble containing the ADIPOPS data.

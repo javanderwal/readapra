@@ -6,6 +6,9 @@
 \usage{
 read_adipops_local(file_path)
 }
+\arguments{
+\item{file_path}{path to the .xlsx file.}
+}
 \value{
 A tibble containing the ADIPOPS data.
 }

@@ -4,8 +4,6 @@
 #' Download and import the Quarterly Authorised Deposit-taking
 #' Institution Centralised Publication (QADICP) from APRA's website.
 #'
-#' @param cur_hist character vector determining whether to download the current
-#' publication (`"current"`) or the historic publication (`"historic"`).
 #' @param path path to where the downloaded file should be saved. Uses
 #' [base::tempdir()] by default.
 #' @param overwrite whether to overwrite the downloaded file when re-downloading

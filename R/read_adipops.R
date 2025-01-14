@@ -4,8 +4,6 @@
 #' Download and import the Authorised Deposit-taking Institution Points of
 #' Presence Statistics (ADIPOPS) from APRA's website.
 #'
-#' @param cur_hist character vector determining whether to download the current
-#' publication (`"current"`) or the historic publication (`"historic"`).
 #' @param path path to where the downloaded file should be saved. Uses
 #' [base::tempdir()] by default.
 #' @param overwrite whether to overwrite the downloaded file when re-downloading
@@ -41,6 +39,8 @@ read_adipops <- function(
 #' @description
 #' Import the Authorised Deposit-taking Institution Points of Presence
 #' Statistics (ADIPOPS) from a local file.
+#'
+#' @param file_path path to the .xlsx file.
 #'
 #' @return A tibble containing the ADIPOPS data.
 #' @export
