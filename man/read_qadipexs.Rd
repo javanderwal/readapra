@@ -8,7 +8,7 @@ read_qadipexs(cur_hist)
 }
 \arguments{
 \item{cur_hist}{Whether to access the current or historical series. Valid
-values are `"current"` and `"historical"`.}
+values are \code{"current"} and \code{"historical"}.}
 }
 \value{
 A tibble containing the Quarterly ADI Property Exposure Statistics

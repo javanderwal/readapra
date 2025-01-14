@@ -23,7 +23,7 @@ read_qadipexs <- function(cur_hist) {
   )
   tidyxl_data <- read_tidyxl_data(temp_file_path)
   formatting_data <- read_tidyxl_formatting_data(temp_file_path)
-  qpexs_data(tidyxl_data, formatting_data)
+  qadipexs_data(tidyxl_data, formatting_data)
 }
 
 #' Read Quarterly ADI Property Exposure Statistics locally
@@ -48,8 +48,8 @@ read_qadipexs_local <- function(file_path) {
   qpexs_data(tidyxl_data, formatting_data)
 }
 
-#' Extracts the QPEXS data from the various sheets and conducts final formatting
-#' tweaks
+#' Extracts the QADIPEXS data from the various sheets and conducts final
+#' formatting tweaks
 #'
 #' @param tidyxl_data The data sourced using the tidyxl package
 #' @param formatting_data The formatting data sourced using the tidyxl package
@@ -57,7 +57,7 @@ read_qadipexs_local <- function(file_path) {
 #' @keywords internal
 #' @noRd
 #'
-qpexs_data <- function(tidyxl_data, formatting_data) {
+qadipexs_data <- function(tidyxl_data, formatting_data) {
   attempt_horizontal_tab_data(tidyxl_data, formatting_data) |>
     dplyr::mutate(
       unit = dplyr::case_when(
