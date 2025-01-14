@@ -88,6 +88,7 @@ clean_unit_data <- function(data) {
 #'
 #' @keywords internal
 #' @noRd
+#'
 get_sector_from_sheet <- function(data) {
   dplyr::mutate(
     .data = data,
@@ -109,3 +110,16 @@ get_sector_from_sheet <- function(data) {
     .after = sheet
   )
 }
+
+#' Removes escapes sequences from a vector of characters and any trailing spaces.
+#'
+#' @param x vector of characters
+#'
+#' @noRd
+#'
+remove_escape_sequences <- function(x) {
+  x <- stringr::str_replace_all(x, "[\\r\\n\\t]+", " ")
+  x <- stringr::str_replace_all(x, "\\s{2,}", " ")
+  x <- stringr::str_trim(x)
+}
+

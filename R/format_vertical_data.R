@@ -145,11 +145,7 @@ clean_col_names <- function(pivoted_data) {
   names(cleaned_names_data) <-
     stringr::str_remove_all(names(cleaned_names_data), "_\\d+$")
 
-  cleaned_names_data$series <-
-    stringr::str_replace_all(cleaned_names_data$series, "[\\r\\n\\t]+", " ")
-  cleaned_names_data$series <-
-    stringr::str_replace_all(cleaned_names_data$series, "\\s{2,}", " ")
-  cleaned_names_data$series <- stringr::str_trim(cleaned_names_data$series)
+  cleaned_names_data$series <- remove_escape_sequences(cleaned_names_data$series)
 
   cleaned_names_data <-
     tidyr::separate_wider_regex(
@@ -157,6 +153,9 @@ clean_col_names <- function(pivoted_data) {
       cols = series,
       patterns = c(series = ".*", "_", col = ".*")
     )
+
+  # Second run to align with meta data
+  cleaned_names_data$series <- remove_escape_sequences(cleaned_names_data$series)
 
   cleaned_names_data <-
     dplyr::relocate(cleaned_names_data, col, .after = tidyselect::last_col())
@@ -202,6 +201,7 @@ get_extra_meta_data <- function(
   extra_meta_data <- dplyr::distinct(.data = extra_meta_data)
   extra_meta_data <- dplyr::left_join(column_binder, extra_meta_data, by = "col")
   extra_meta_data <- clean_unit_data(extra_meta_data)
+  extra_meta_data$series <- remove_escape_sequences(extra_meta_data$series)
   extra_meta_data$statistics_publication_name <- stat_pub_name
 
   return(extra_meta_data)
