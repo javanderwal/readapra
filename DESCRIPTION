@@ -1,5 +1,5 @@
 Package: readapra
-Title: Download and tidy data from APRA
+Title: Download and tidy data from the Australian Prudential Regulation
 Version: 0.1.0
 Authors@R: 
     person(given = "Jarrod", 
@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre")
            )
 Description: Download data from the Australian Prudential Regulation
-    Authority (APRA) and import it into R as a tidy data frame (tibble). 
+    Authority and import it into R as a tidy data frame. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

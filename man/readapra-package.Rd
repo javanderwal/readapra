@@ -4,9 +4,9 @@
 \name{readapra-package}
 \alias{readapra}
 \alias{readapra-package}
-\title{readapra: Download and tidy data from the Australian Prudential Regulation Authority (APRA)}
+\title{readapra: Download and tidy data from the Australian Prudential Regulation}
 \description{
-Download the latest data from the Australian Prudential Regulation Authority as a tidy data frame (tibble).
+Download data from the Australian Prudential Regulation Authority and import it into R as a tidy data frame.
 }
 \seealso{
 Useful links:
