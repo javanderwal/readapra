@@ -87,10 +87,10 @@ convert_adipops_units <- function(data) {
     data |>
     dplyr::mutate(unit = dplyr::case_when(
       stringr::str_detect(
-        string = .data$series,
+        string = series,
         pattern = stringr::regex("number", ignore_case = TRUE)
       ) ~ unit,
-      .default = .data$series
+      .default = series
     ))
   return(adipops_correct_units)
 }

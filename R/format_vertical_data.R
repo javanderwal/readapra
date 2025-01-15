@@ -48,10 +48,10 @@ format_vertical_data <- function(
     by = dplyr::join_by("col", "series")
   )
   cleaned_data <- dplyr::relocate(
-    .data = cleaned_data, .data$unit, .before = .data$value
+    .data = cleaned_data, unit, .before = value
     )
   cleaned_data <- dplyr::relocate(
-    .data = cleaned_data, .data$statistics_publication_name, .before = 1
+    .data = cleaned_data, statistics_publication_name, .before = 1
   )
 
   if (drop_col) {
@@ -73,7 +73,7 @@ get_col_names <- function(tidyxl_data, existing_cols) {
   row_names <-
     dplyr::filter(
       .data = tidyxl_data,
-      all(.data$data_type == "character"), setequal(existing_cols, col),
+      all(data_type == "character"), setequal(existing_cols, col),
       .by = "row"
     )
 
@@ -131,7 +131,7 @@ restructure_as_in_xlsx <- function(
 get_column_data <- function(col_num, data) {
   col_data <- dplyr::filter(.data = data, col == col_num)
   col_data <- dplyr::mutate(.data = col_data, date = lubridate::as_date(date))
-  col_data <- dplyr::select(.data = col_data, row, .data$error, logical, numeric, date, character)
+  col_data <- dplyr::select(.data = col_data, row, error, logical, numeric, date, character)
   col_data <- dplyr::select(.data = col_data, dplyr::where(~ !all(is.na(.))))
 }
 
@@ -152,7 +152,7 @@ clean_col_names <- function(pivoted_data) {
   cleaned_names_data <-
     tidyr::separate_wider_regex(
       data = cleaned_names_data,
-      cols = .data$series,
+      cols = series,
       patterns = c(series = ".*", "_", col = ".*")
     )
 
@@ -199,11 +199,12 @@ get_extra_meta_data <- function(
     )
 
   extra_meta_data <- joined_formatting_data(data_below_top_row, formatting_data)
-  extra_meta_data <- dplyr::select(.data = extra_meta_data, col, .data$unit)
+  extra_meta_data <- dplyr::select(.data = extra_meta_data, col, unit)
   extra_meta_data <- dplyr::distinct(.data = extra_meta_data)
   extra_meta_data <- dplyr::left_join(column_binder, extra_meta_data, by = "col")
   extra_meta_data <- clean_unit_data(extra_meta_data)
   extra_meta_data$series <- remove_escape_sequences(extra_meta_data$series)
+  extra_meta_data$statistics_publication_name <- stat_pub_name
   extra_meta_data$statistics_publication_name <- stat_pub_name
 
   return(extra_meta_data)
