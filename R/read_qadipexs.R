@@ -37,7 +37,7 @@ read_qadipexs <- function(
     overwrite = overwrite,
     ...
   )
-  read_qadipexs_local(temp_file_path)
+  read_qadipexs_local(temp_file_path, cur_hist)
 }
 
 #' Read Quarterly ADI Property Exposure Statistics locally
@@ -81,6 +81,7 @@ read_qadipexs_local <- function(file_path, cur_hist) {
 qadipexs_data <- function(
     tidyxl_data,
     formatting_data,
+    cur_hist,
     call = rlang::caller_env()) {
   qadipexs_data <-
     attempt_format_horizontal_data(
