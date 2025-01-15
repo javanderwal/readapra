@@ -1,0 +1,16 @@
+Period_1,Entity_2,ABN_30,series,value
+30/06/2024,Entity A,1111111,Test Field_1,0.67
+30/06/2024,Entity A,1111111,Test Field_2,0.56
+30/06/2024,Entity A,1111111,Test_Field _1,1234
+30/06/2024,Entity A,1111111,Test Field_99,72456
+30/06/2024,Entity A,1111111,Field: \r\n Very messy regex_17,0.88
+31/07/2024,Entity A,1111111,Test Field_1,0.78
+31/07/2024,Entity A,1111111,Test Field_2,0.78
+31/07/2024,Entity A,1111111,Test_Field _1,5678
+31/07/2024,Entity A,1111111,Test Field_99,56743
+31/07/2024,Entity A,1111111,Field: \r\n Very messy regex_17,0.76
+31/08/2024,Entity A,1111111,Test Field_1,0.17
+31/08/2024,Entity A,1111111,Test Field_2,0.25
+31/08/2024,Entity A,1111111,Test_Field _1,9012
+31/08/2024,Entity A,1111111,Test Field_99,83565
+31/08/2024,Entity A,1111111,Field: \r\n Very messy regex_17,0.09

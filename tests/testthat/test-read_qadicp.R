@@ -17,6 +17,7 @@ test_that("read_qadicp() real download", {
         sector = "character",
         risk_metric_category = "character",
         series = "character",
+        frequency = "character",
         unit = "character",
         value = "numeric"
       )

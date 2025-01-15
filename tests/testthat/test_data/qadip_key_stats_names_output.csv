@@ -1,0 +1,82 @@
+sheet,sheet_details,row,series_hierarchy,series
+Key Stats,Key statistics,1,,
+Key Stats,Key statistics,3,,
+Key Stats,Key statistics,9,,
+Key Stats,Key statistics,10,Assets; ADIs; Banks,Assets
+Key Stats,Key statistics,11,Assets; ADIs; Banks; Major banks,Assets
+Key Stats,Key statistics,12,Assets; ADIs; Banks; Other domestic banks,Assets
+Key Stats,Key statistics,13,Assets; ADIs; Banks; Foreign subsidiary banks,Assets
+Key Stats,Key statistics,14,Assets; ADIs; Banks; Foreign branch banks,Assets
+Key Stats,Key statistics,15,Assets; ADIs; Banks; All banks,Assets
+Key Stats,Key statistics,16,Assets; ADIs; Credit unions and building societies,Assets
+Key Stats,Key statistics,17,Assets; ADIs; Other ADIs,Assets
+Key Stats,Key statistics,18,Assets; ADIs; All ADIs a,Assets
+Key Stats,Key statistics,19,Assets; ADIs; All ADIs a; of which: mutual ADIs,Assets
+Key Stats,Key statistics,24,Number of entities; ADIs,Number of entities
+Key Stats,Key statistics,25,Number of entities; ADIs; Banks,Number of entities
+Key Stats,Key statistics,26,Number of entities; ADIs; Banks; Major banks,Number of entities
+Key Stats,Key statistics,27,Number of entities; ADIs; Banks; Other domestic banks,Number of entities
+Key Stats,Key statistics,28,Number of entities; ADIs; Banks; Foreign subsidiary banks,Number of entities
+Key Stats,Key statistics,29,Number of entities; ADIs; Banks; Foreign branch banks,Number of entities
+Key Stats,Key statistics,30,Number of entities; ADIs; Banks; All banks,Number of entities
+Key Stats,Key statistics,31,Number of entities; ADIs; Credit unions and building societies,Number of entities
+Key Stats,Key statistics,32,Number of entities; ADIs; Other ADIs,Number of entities
+Key Stats,Key statistics,33,Number of entities; ADIs; Restricted ADIs,Number of entities
+Key Stats,Key statistics,34,Number of entities; ADIs; All ADIs,Number of entities
+Key Stats,Key statistics,35,Number of entities; ADIs; All ADIs; of which: mutual ADIs,Number of entities
+Key Stats,Key statistics,37,Number of entities; a Assets for All ADIs exclude Restricted ADIs,Number of entities
+Key Stats,Key statistics,38,ADIs (excludes 'other ADIs'); Key figures,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,44,ADIs (excludes 'other ADIs'); Net interest income ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,45,ADIs (excludes 'other ADIs'); Other operating income ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,46,ADIs (excludes 'other ADIs'); Total operating income ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,47,ADIs (excludes 'other ADIs'); Operating expenses ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,48,ADIs (excludes 'other ADIs'); Net profit (loss) after tax ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,49,ADIs (excludes 'other ADIs'); Total assets ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,50,ADIs (excludes 'other ADIs'); Total shareholders' equity ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,51,ADIs (excludes 'other ADIs'); Return on assets (after tax) a,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,52,ADIs (excludes 'other ADIs'); Return on equity (after tax) a,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,53,ADIs (excludes 'other ADIs'); Total non-performing exposures ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,54,ADIs (excludes 'other ADIs'); Total capital base ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,55,ADIs (excludes 'other ADIs'); Total risk-weighted assets ($m),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,56,ADIs (excludes 'other ADIs'); Total capital ratio,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,57,ADIs (excludes 'other ADIs'); Liquidity coverage ratio (LCR),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,58,ADIs (excludes 'other ADIs'); Minimum liquidity holdings (MLH) ratio,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,59,ADIs (excludes 'other ADIs'); Number of entities,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,61,ADIs (excludes 'other ADIs'); a Quarterly figures expressed as annual percentage rates. See Glossary.,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,62,ADIs (excludes 'other ADIs'); For those ADIs subject to liquidity coverage ratio (LCR) requirements.,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,63,ADIs (excludes 'other ADIs'); For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.,ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,64,ADIs (excludes 'other ADIs'); Key statistics (continued),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,66,ADIs (excludes 'other ADIs'); Key figures (continued),ADIs (excludes 'other ADIs')
+Key Stats,Key statistics,72,Banks; Net interest income ($m),Banks
+Key Stats,Key statistics,73,Banks; Other operating income ($m),Banks
+Key Stats,Key statistics,74,Banks; Total operating income ($m),Banks
+Key Stats,Key statistics,75,Banks; Operating expenses ($m),Banks
+Key Stats,Key statistics,76,Banks; Net profit (loss) after tax ($m),Banks
+Key Stats,Key statistics,77,Banks; Total assets ($m),Banks
+Key Stats,Key statistics,78,Banks; Total shareholders' equity ($m),Banks
+Key Stats,Key statistics,79,Banks; Return on assets (after tax) a,Banks
+Key Stats,Key statistics,80,Banks; Return on equity (after tax) a,Banks
+Key Stats,Key statistics,81,Banks; Total non-performing exposures ($m),Banks
+Key Stats,Key statistics,82,Banks; Total capital base ($m),Banks
+Key Stats,Key statistics,83,Banks; Total risk-weighted assets ($m),Banks
+Key Stats,Key statistics,84,Banks; Total capital ratio,Banks
+Key Stats,Key statistics,85,Banks; Liquidity coverage ratio (LCR),Banks
+Key Stats,Key statistics,86,Banks; Minimum liquidity holdings (MLH) ratio,Banks
+Key Stats,Key statistics,87,Banks; Number of entities,Banks
+Key Stats,Key statistics,90,Credit unions and building societies; Net interest income ($m),Credit unions and building societies
+Key Stats,Key statistics,91,Credit unions and building societies; Other operating income ($m),Credit unions and building societies
+Key Stats,Key statistics,92,Credit unions and building societies; Total operating income ($m),Credit unions and building societies
+Key Stats,Key statistics,93,Credit unions and building societies; Operating expenses ($m),Credit unions and building societies
+Key Stats,Key statistics,94,Credit unions and building societies; Net profit (loss) after tax ($m),Credit unions and building societies
+Key Stats,Key statistics,95,Credit unions and building societies; Total assets ($m),Credit unions and building societies
+Key Stats,Key statistics,96,Credit unions and building societies; Total shareholders' equity ($m),Credit unions and building societies
+Key Stats,Key statistics,97,Credit unions and building societies; Return on assets (after tax) a,Credit unions and building societies
+Key Stats,Key statistics,98,Credit unions and building societies; Return on equity (after tax) a,Credit unions and building societies
+Key Stats,Key statistics,99,Credit unions and building societies; Total non-performing exposures ($m),Credit unions and building societies
+Key Stats,Key statistics,100,Credit unions and building societies; Total capital base ($m),Credit unions and building societies
+Key Stats,Key statistics,101,Credit unions and building societies; Total risk-weighted assets ($m),Credit unions and building societies
+Key Stats,Key statistics,102,Credit unions and building societies; Total capital ratio,Credit unions and building societies
+Key Stats,Key statistics,103,Credit unions and building societies; Minimum liquidity holdings (MLH) ratio,Credit unions and building societies
+Key Stats,Key statistics,104,Credit unions and building societies; Number of entities,Credit unions and building societies
+Key Stats,Key statistics,105,Banks; For those ADIs subject to liquidity coverage ratio (LCR) requirements.,Banks
+Key Stats,Key statistics,106,Banks; For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.,Banks

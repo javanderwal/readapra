@@ -1,0 +1,35 @@
+sheet,row,col,character,indent,which_identifier,expected_output
+Dummy Sheet,1,1,Dummy Sheet Details,0,0,Dummy Sheet Details
+Dummy Sheet,2,1,Impaired facilities,0,0,Impaired facilities
+Dummy Sheet,3,1,Non-accrual items with provisions,1,0,Impaired facilities; Non-accrual items with provisions
+Dummy Sheet,4,1,Non-accrual items without provisions,1,0,Impaired facilities; Non-accrual items without provisions
+Dummy Sheet,5,1,Restructured items with provisions,1,0,Impaired facilities; Restructured items with provisions
+Dummy Sheet,6,1,Restructured items without provisions,1,0,Impaired facilities; Restructured items without provisions
+Dummy Sheet,7,1,Other real estate owned,1,0,Impaired facilities; Other real estate owned
+Dummy Sheet,8,1,Other assets acquired through security enforcement,1,0,Impaired facilities; Other assets acquired through security enforcement
+Dummy Sheet,9,1,Total Impaired facilities,0,0,Total Impaired facilities
+Dummy Sheet,10,1,of which: Facilities in Australia,0,1,Total Impaired facilities; of which: Facilities in Australia
+Dummy Sheet,11,1,Provisions held,0,0,Provisions held
+Dummy Sheet,12,1,Specific provisions,1,0,Provisions held; Specific provisions
+Dummy Sheet,13,1,Security held,1,0,Provisions held; Security held
+Dummy Sheet,14,1,Total provisions held,0,0,Total provisions held
+Dummy Sheet,15,1,of which: Facilities in Australia,0,1,Total provisions held; of which: Facilities in Australia
+Dummy Sheet,16,1,Past due items,0,0,Past due items
+Dummy Sheet,17,1,of which: Facilities in Australia,0,1,Past due items; of which: Facilities in Australia
+Dummy Sheet,18,1,Interest income,0,0,Interest income
+Dummy Sheet,19,1,of which:,0,1,Interest income; of which:
+Dummy Sheet,20,1,Cash and liquid assets,1,0,Interest income; of which: Cash and liquid assets
+Dummy Sheet,21,1,Loans and advances,1,0,Interest income; of which: Loans and advances
+Dummy Sheet,22,1,Housing loans,2,0,Interest income; of which: Loans and advances; Housing loans
+Dummy Sheet,23,1,Term loans,2,0,Interest income; of which: Loans and advances; Term loans
+Dummy Sheet,24,1,Other,2,0,Interest income; of which: Loans and advances; Other
+Dummy Sheet,25,1,Other interest earning assets,1,0,Interest income; of which: Other interest earning assets
+Dummy Sheet,26,1,Credit exposures,0,0,Credit exposures
+Dummy Sheet,27,1,Non-performing,1,0,Credit exposures; Non-performing
+Dummy Sheet,28,1,Well-secured,2,0,Credit exposures; Non-performing; Well-secured
+Dummy Sheet,29,1,Not well-secured or unsecured,2,0,Credit exposures; Non-performing; Not well-secured or unsecured
+Dummy Sheet,30,1,Of which: >=90 days past-due,2,1,Credit exposures; Non-performing; Not well-secured or unsecured; Of which: >=90 days past-due
+Dummy Sheet,31,1,Well-secured,3,0,Credit exposures; Non-performing; Not well-secured or unsecured; Of which: >=90 days past-due; Well-secured
+Dummy Sheet,32,1,Not well-secured or unsecured,3,0,Credit exposures; Non-performing; Not well-secured or unsecured; Of which: >=90 days past-due; Not well-secured or unsecured
+Dummy Sheet,33,1,Of which: Facilities in Australia,2,0,Credit exposures; Non-performing; Of which: Facilities in Australia
+Dummy Sheet,34,1,Restructured,1,0,Credit exposures; Restructured

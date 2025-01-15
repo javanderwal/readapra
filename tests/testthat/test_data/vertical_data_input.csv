@@ -1,0 +1,61 @@
+sheet,address,row,col,is_blank,content,data_type,error,logical,numeric,date,character,formula,is_array,formula_ref,formula_group,comment,height,width,row_outline_level,col_outline_level,style_format,local_format_id
+Cover,A1,1,1,FALSE,12,character,,,,,This is a test cover sheet,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Notes,A1,1,1,FALSE,13,character,,,,,Notes,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Notes,A2,2,1,FALSE,14,character,,,,,This file is for testing purposes,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,A1,1,1,FALSE,0,character,,,,,($million),,FALSE,,,,14.4,10.5546875,1,1,Normal,1
+Table 1,A3,3,1,FALSE,1,character,,,,,Period,,FALSE,,,,14.4,10.5546875,1,1,Normal,1
+Table 1,B3,3,2,FALSE,2,character,,,,,ABN,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C3,3,3,FALSE,3,character,,,,,Entity,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D3,3,4,FALSE,4,character,,,,,Field 1,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,E3,3,5,FALSE,5,character,,,,,Field 2,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,F3,3,6,FALSE,6,character,,,,,Field 3,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,G3,3,7,FALSE,7,character,,,,,Field 4,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,H3,3,8,FALSE,8,character,,,,,Field 5,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,A4,4,1,FALSE,42035,date,,,,31/01/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B4,4,2,FALSE,1111111,numeric,,,1111111,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C4,4,3,FALSE,9,character,,,,,Entity 1,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D4,4,4,FALSE,0.585,numeric,,,0.585,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E4,4,5,FALSE,173274.6,numeric,,,173274.6,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F4,4,6,FALSE,950842.4,numeric,,,950842.4,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G4,4,7,FALSE,1287,numeric,,,1287,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H4,4,8,FALSE,0.145,numeric,,,0.145,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,A5,5,1,FALSE,42063,date,,,,28/02/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B5,5,2,FALSE,1111111,numeric,,,1111111,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C5,5,3,FALSE,9,character,,,,,Entity 1,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D5,5,4,FALSE,0.429,numeric,,,0.429,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E5,5,5,FALSE,105928.2,numeric,,,105928.2,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F5,5,6,FALSE,842715.7,numeric,,,842715.7,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G5,5,7,FALSE,8168.7,numeric,,,8168.7,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H5,5,8,FALSE,0.616,numeric,,,0.616,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,A6,6,1,FALSE,42035,date,,,,31/01/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B6,6,2,FALSE,2222222,numeric,,,2222222,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C6,6,3,FALSE,10,character,,,,,Entity 2,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D6,6,4,FALSE,0.043,numeric,,,0.043,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E6,6,5,FALSE,474678.9,numeric,,,474678.9,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F6,6,6,FALSE,837229.9,numeric,,,837229.9,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G6,6,7,FALSE,453505.1,numeric,,,453505.1,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H6,6,8,FALSE,0.868,numeric,,,0.868,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,A7,7,1,FALSE,42063,date,,,,28/02/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B7,7,2,FALSE,2222222,numeric,,,2222222,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C7,7,3,FALSE,10,character,,,,,Entity 2,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D7,7,4,FALSE,0.913,numeric,,,0.913,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E7,7,5,FALSE,267300.8,numeric,,,267300.8,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F7,7,6,FALSE,352735.9,numeric,,,352735.9,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G7,7,7,FALSE,275364.7,numeric,,,275364.7,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H7,7,8,FALSE,0.02,numeric,,,0.02,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,A8,8,1,FALSE,42035,date,,,,31/01/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B8,8,2,FALSE,3333333,numeric,,,3333333,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C8,8,3,FALSE,11,character,,,,,Entity 3,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D8,8,4,FALSE,0.924,numeric,,,0.924,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E8,8,5,FALSE,575370.1,numeric,,,575370.1,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F8,8,6,FALSE,46911.1,numeric,,,46911.1,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G8,8,7,FALSE,83551.4,numeric,,,83551.4,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H8,8,8,FALSE,0.045,numeric,,,0.045,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,A9,9,1,FALSE,42063,date,,,,28/02/2015,,,FALSE,,,,14.4,10.5546875,1,1,Normal,2
+Table 1,B9,9,2,FALSE,3333333,numeric,,,3333333,,,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,C9,9,3,FALSE,11,character,,,,,Entity 3,,FALSE,,,,14.4,8.38,1,1,Normal,1
+Table 1,D9,9,4,FALSE,0.889,numeric,,,0.889,,,,FALSE,,,,14.4,8.38,1,1,Percent,3
+Table 1,E9,9,5,FALSE,103494.9,numeric,,,103494.9,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,F9,9,6,FALSE,500367.3,numeric,,,500367.3,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,G9,9,7,FALSE,742331.1,numeric,,,742331.1,,,,FALSE,,,,14.4,8.38,1,1,Percent,4
+Table 1,H9,9,8,FALSE,0.236,numeric,,,0.236,,,,FALSE,,,,14.4,8.38,1,1,Percent,3

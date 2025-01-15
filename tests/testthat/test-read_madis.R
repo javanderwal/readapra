@@ -18,6 +18,7 @@ test_that("read_madis() real download", {
       institution_name = "character",
       balance_sheet_category = "character",
       series = "character",
+      frequency = "character",
       unit = "character",
       value = "numeric"
     )
@@ -34,6 +35,7 @@ test_that("read_madis() real download", {
       institution_name = "character",
       balance_sheet_category = "character",
       series = "character",
+      frequency = "character",
       unit = "character",
       value = "numeric"
     )
@@ -119,7 +121,3 @@ set.seed(123)
     class = "readapra_warning_nas_in_madis_balance_sheet_category"
   )
 })
-
-
-
-

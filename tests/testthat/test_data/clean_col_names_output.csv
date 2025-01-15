@@ -1,0 +1,16 @@
+date,entity,abn,series,value,col
+30/06/2024,Entity A,1111111,Test Field,0.67,1
+30/06/2024,Entity A,1111111,Test Field,0.56,2
+30/06/2024,Entity A,1111111,Test_Field,1234,1
+30/06/2024,Entity A,1111111,Test Field,72456,99
+30/06/2024,Entity A,1111111,Field: Very messy regex,0.88,17
+31/07/2024,Entity A,1111111,Test Field,0.78,1
+31/07/2024,Entity A,1111111,Test Field,0.78,2
+31/07/2024,Entity A,1111111,Test_Field,5678,1
+31/07/2024,Entity A,1111111,Test Field,56743,99
+31/07/2024,Entity A,1111111,Field: Very messy regex,0.76,17
+31/08/2024,Entity A,1111111,Test Field,0.17,1
+31/08/2024,Entity A,1111111,Test Field,0.25,2
+31/08/2024,Entity A,1111111,Test_Field,9012,1
+31/08/2024,Entity A,1111111,Test Field,83565,99
+31/08/2024,Entity A,1111111,Field: Very messy regex,0.09,17

@@ -1,0 +1,31 @@
+statistics_publication_name,date,abn,entity,series,frequency,unit,value
+Test,31/01/2015,1111111,Entity 1,Field 1,Test frequency,Percent,0.585
+Test,31/01/2015,1111111,Entity 1,Field 2,Test frequency,$ million,173274.6
+Test,31/01/2015,1111111,Entity 1,Field 3,Test frequency,$ million,950842.4
+Test,31/01/2015,1111111,Entity 1,Field 4,Test frequency,$ million,1287
+Test,31/01/2015,1111111,Entity 1,Field 5,Test frequency,Percent,0.145
+Test,28/02/2015,1111111,Entity 1,Field 1,Test frequency,Percent,0.429
+Test,28/02/2015,1111111,Entity 1,Field 2,Test frequency,$ million,105928.2
+Test,28/02/2015,1111111,Entity 1,Field 3,Test frequency,$ million,842715.7
+Test,28/02/2015,1111111,Entity 1,Field 4,Test frequency,$ million,8168.7
+Test,28/02/2015,1111111,Entity 1,Field 5,Test frequency,Percent,0.616
+Test,31/01/2015,2222222,Entity 2,Field 1,Test frequency,Percent,0.043
+Test,31/01/2015,2222222,Entity 2,Field 2,Test frequency,$ million,474678.9
+Test,31/01/2015,2222222,Entity 2,Field 3,Test frequency,$ million,837229.9
+Test,31/01/2015,2222222,Entity 2,Field 4,Test frequency,$ million,453505.1
+Test,31/01/2015,2222222,Entity 2,Field 5,Test frequency,Percent,0.868
+Test,28/02/2015,2222222,Entity 2,Field 1,Test frequency,Percent,0.913
+Test,28/02/2015,2222222,Entity 2,Field 2,Test frequency,$ million,267300.8
+Test,28/02/2015,2222222,Entity 2,Field 3,Test frequency,$ million,352735.9
+Test,28/02/2015,2222222,Entity 2,Field 4,Test frequency,$ million,275364.7
+Test,28/02/2015,2222222,Entity 2,Field 5,Test frequency,Percent,0.02
+Test,31/01/2015,3333333,Entity 3,Field 1,Test frequency,Percent,0.924
+Test,31/01/2015,3333333,Entity 3,Field 2,Test frequency,$ million,575370.1
+Test,31/01/2015,3333333,Entity 3,Field 3,Test frequency,$ million,46911.1
+Test,31/01/2015,3333333,Entity 3,Field 4,Test frequency,$ million,83551.4
+Test,31/01/2015,3333333,Entity 3,Field 5,Test frequency,Percent,0.045
+Test,28/02/2015,3333333,Entity 3,Field 1,Test frequency,Percent,0.889
+Test,28/02/2015,3333333,Entity 3,Field 2,Test frequency,$ million,103494.9
+Test,28/02/2015,3333333,Entity 3,Field 3,Test frequency,$ million,500367.3
+Test,28/02/2015,3333333,Entity 3,Field 4,Test frequency,$ million,742331.1
+Test,28/02/2015,3333333,Entity 3,Field 5,Test frequency,Percent,0.236

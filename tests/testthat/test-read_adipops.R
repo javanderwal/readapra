@@ -21,6 +21,7 @@ test_that("read_adipops() real download", {
         suburb_or_locality = "character",
         remoteness = "character",
         series = "character",
+        frequency = "character",
         unit = "character",
         value = "numeric"
       )

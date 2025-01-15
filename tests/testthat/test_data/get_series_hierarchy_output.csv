@@ -1,0 +1,233 @@
+sheet,sheet_details,row,series_hierarchy,series
+A.1a,Table A.1a Building societies' financial performance,1,Table A.1a Building societies' financial performance,Table A.1a Building societies' financial performance
+A.1a,Table A.1a Building societies' financial performance,2,"($ million, consolidated group)","($ million, consolidated group)"
+A.1a,Table A.1a Building societies' financial performance,6,Interest income,Interest income
+A.1a,Table A.1a Building societies' financial performance,7,Interest income; of which:,of which:
+A.1a,Table A.1a Building societies' financial performance,8,Interest income; of which: Cash and liquid assets,Cash and liquid assets
+A.1a,Table A.1a Building societies' financial performance,9,Interest income; of which: Loans and advances,Loans and advances
+A.1a,Table A.1a Building societies' financial performance,10,Interest income; of which: Loans and advances; Housing loans,Housing loans
+A.1a,Table A.1a Building societies' financial performance,11,Interest income; of which: Loans and advances; Term loans,Term loans
+A.1a,Table A.1a Building societies' financial performance,12,Interest income; of which: Loans and advances; Other,Other
+A.1a,Table A.1a Building societies' financial performance,13,Interest income; of which: Other interest earning assets,Other interest earning assets
+A.1a,Table A.1a Building societies' financial performance,14,Interest expense,Interest expense
+A.1a,Table A.1a Building societies' financial performance,15,Interest expense; of which:,of which:
+A.1a,Table A.1a Building societies' financial performance,16,Interest expense; of which: Deposits,Deposits
+A.1a,Table A.1a Building societies' financial performance,17,Interest expense; of which: Borrowings,Borrowings
+A.1a,Table A.1a Building societies' financial performance,18,Interest expense; of which: Other interest bearing liabilities,Other interest bearing liabilities
+A.1a,Table A.1a Building societies' financial performance,19,Net interest income,Net interest income
+A.1a,Table A.1a Building societies' financial performance,20,Other operating income,Other operating income
+A.1a,Table A.1a Building societies' financial performance,21,Other operating income; of which:,of which:
+A.1a,Table A.1a Building societies' financial performance,22,Other operating income; of which: Fee and commission,Fee and commission
+A.1a,Table A.1a Building societies' financial performance,23,Other operating income; of which: Fee and commission; Lending,Lending
+A.1a,Table A.1a Building societies' financial performance,24,Other operating income; of which: Fee and commission; Transaction/deposit account service fee,Transaction/deposit account service fee
+A.1a,Table A.1a Building societies' financial performance,25,Other operating income; of which: Fee and commission; Other fee based activities,Other fee based activities
+A.1a,Table A.1a Building societies' financial performance,26,Other operating income; of which: Other,Other
+A.1a,Table A.1a Building societies' financial performance,27,Total operating income,Total operating income
+A.1a,Table A.1a Building societies' financial performance,28,Charge for bad or doubtful debts,Charge for bad or doubtful debts
+A.1a,Table A.1a Building societies' financial performance,29,Operating expenses,Operating expenses
+A.1a,Table A.1a Building societies' financial performance,30,Operating expenses; of which:,of which:
+A.1a,Table A.1a Building societies' financial performance,31,Operating expenses; of which: Personnel,Personnel
+A.1a,Table A.1a Building societies' financial performance,32,Operating expenses; of which: Fees and commissions,Fees and commissions
+A.1a,Table A.1a Building societies' financial performance,33,Operating expenses; of which: Other,Other
+A.1a,Table A.1a Building societies' financial performance,34,Profit before tax,Profit before tax
+A.1a,Table A.1a Building societies' financial performance,35,Profit before tax; Income tax,Income tax
+A.1a,Table A.1a Building societies' financial performance,36,Net profit (loss) after taxa,Net profit (loss) after taxa
+A.1a,Table A.1a Building societies' financial performance,38,Number of entities,Number of entities
+Key Stats,Key statistics,1,Key statistics,Key statistics
+Key Stats,Key statistics,3,ADI industry profile,ADI industry profile
+Key Stats,Key statistics,9,ADIs,ADIs
+Key Stats,Key statistics,10,ADIs; Banks,Banks
+Key Stats,Key statistics,11,ADIs; Banks; Major banks,Major banks
+Key Stats,Key statistics,12,ADIs; Banks; Other domestic banks,Other domestic banks
+Key Stats,Key statistics,13,ADIs; Banks; Foreign subsidiary banks,Foreign subsidiary banks
+Key Stats,Key statistics,14,ADIs; Banks; Foreign branch banks,Foreign branch banks
+Key Stats,Key statistics,15,ADIs; Banks; All banks,All banks
+Key Stats,Key statistics,16,ADIs; Credit unions and building societies,Credit unions and building societies
+Key Stats,Key statistics,17,ADIs; Other ADIs,Other ADIs
+Key Stats,Key statistics,18,ADIs; All ADIs a,All ADIs a
+Key Stats,Key statistics,19,ADIs; All ADIs a; of which: mutual ADIs,of which: mutual ADIs
+Key Stats,Key statistics,24,ADIs,ADIs
+Key Stats,Key statistics,25,ADIs; Banks,Banks
+Key Stats,Key statistics,26,ADIs; Banks; Major banks,Major banks
+Key Stats,Key statistics,27,ADIs; Banks; Other domestic banks,Other domestic banks
+Key Stats,Key statistics,28,ADIs; Banks; Foreign subsidiary banks,Foreign subsidiary banks
+Key Stats,Key statistics,29,ADIs; Banks; Foreign branch banks,Foreign branch banks
+Key Stats,Key statistics,30,ADIs; Banks; All banks,All banks
+Key Stats,Key statistics,31,ADIs; Credit unions and building societies,Credit unions and building societies
+Key Stats,Key statistics,32,ADIs; Other ADIs,Other ADIs
+Key Stats,Key statistics,33,ADIs; Restricted ADIs,Restricted ADIs
+Key Stats,Key statistics,34,ADIs; All ADIs,All ADIs
+Key Stats,Key statistics,35,ADIs; All ADIs; of which: mutual ADIs,of which: mutual ADIs
+Key Stats,Key statistics,37,a Assets for All ADIs exclude Restricted ADIs,a Assets for All ADIs exclude Restricted ADIs
+Key Stats,Key statistics,38,Key figures,Key figures
+Key Stats,Key statistics,44,Net interest income ($m),Net interest income ($m)
+Key Stats,Key statistics,45,Other operating income ($m),Other operating income ($m)
+Key Stats,Key statistics,46,Total operating income ($m),Total operating income ($m)
+Key Stats,Key statistics,47,Operating expenses ($m),Operating expenses ($m)
+Key Stats,Key statistics,48,Net profit (loss) after tax ($m),Net profit (loss) after tax ($m)
+Key Stats,Key statistics,49,Total assets ($m),Total assets ($m)
+Key Stats,Key statistics,50,Total shareholders' equity ($m),Total shareholders' equity ($m)
+Key Stats,Key statistics,51,Return on assets (after tax) a,Return on assets (after tax) a
+Key Stats,Key statistics,52,Return on equity (after tax) a,Return on equity (after tax) a
+Key Stats,Key statistics,53,Total non-performing exposures ($m),Total non-performing exposures ($m)
+Key Stats,Key statistics,54,Total capital base ($m),Total capital base ($m)
+Key Stats,Key statistics,55,Total risk-weighted assets ($m),Total risk-weighted assets ($m)
+Key Stats,Key statistics,56,Total capital ratio,Total capital ratio
+Key Stats,Key statistics,57,Liquidity coverage ratio (LCR),Liquidity coverage ratio (LCR)
+Key Stats,Key statistics,58,Minimum liquidity holdings (MLH) ratio,Minimum liquidity holdings (MLH) ratio
+Key Stats,Key statistics,59,Number of entities,Number of entities
+Key Stats,Key statistics,61,a Quarterly figures expressed as annual percentage rates. See Glossary.,a Quarterly figures expressed as annual percentage rates. See Glossary.
+Key Stats,Key statistics,62,For those ADIs subject to liquidity coverage ratio (LCR) requirements.,For those ADIs subject to liquidity coverage ratio (LCR) requirements.
+Key Stats,Key statistics,63,For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.,For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.
+Key Stats,Key statistics,64,Key statistics (continued),Key statistics (continued)
+Key Stats,Key statistics,66,Key figures (continued),Key figures (continued)
+Key Stats,Key statistics,72,Net interest income ($m),Net interest income ($m)
+Key Stats,Key statistics,73,Other operating income ($m),Other operating income ($m)
+Key Stats,Key statistics,74,Total operating income ($m),Total operating income ($m)
+Key Stats,Key statistics,75,Operating expenses ($m),Operating expenses ($m)
+Key Stats,Key statistics,76,Net profit (loss) after tax ($m),Net profit (loss) after tax ($m)
+Key Stats,Key statistics,77,Total assets ($m),Total assets ($m)
+Key Stats,Key statistics,78,Total shareholders' equity ($m),Total shareholders' equity ($m)
+Key Stats,Key statistics,79,Return on assets (after tax) a,Return on assets (after tax) a
+Key Stats,Key statistics,80,Return on equity (after tax) a,Return on equity (after tax) a
+Key Stats,Key statistics,81,Total non-performing exposures ($m),Total non-performing exposures ($m)
+Key Stats,Key statistics,82,Total capital base ($m),Total capital base ($m)
+Key Stats,Key statistics,83,Total risk-weighted assets ($m),Total risk-weighted assets ($m)
+Key Stats,Key statistics,84,Total capital ratio,Total capital ratio
+Key Stats,Key statistics,85,Liquidity coverage ratio (LCR),Liquidity coverage ratio (LCR)
+Key Stats,Key statistics,86,Minimum liquidity holdings (MLH) ratio,Minimum liquidity holdings (MLH) ratio
+Key Stats,Key statistics,87,Number of entities,Number of entities
+Key Stats,Key statistics,90,Net interest income ($m),Net interest income ($m)
+Key Stats,Key statistics,91,Other operating income ($m),Other operating income ($m)
+Key Stats,Key statistics,92,Total operating income ($m),Total operating income ($m)
+Key Stats,Key statistics,93,Operating expenses ($m),Operating expenses ($m)
+Key Stats,Key statistics,94,Net profit (loss) after tax ($m),Net profit (loss) after tax ($m)
+Key Stats,Key statistics,95,Total assets ($m),Total assets ($m)
+Key Stats,Key statistics,96,Total shareholders' equity ($m),Total shareholders' equity ($m)
+Key Stats,Key statistics,97,Return on assets (after tax) a,Return on assets (after tax) a
+Key Stats,Key statistics,98,Return on equity (after tax) a,Return on equity (after tax) a
+Key Stats,Key statistics,99,Total non-performing exposures ($m),Total non-performing exposures ($m)
+Key Stats,Key statistics,100,Total capital base ($m),Total capital base ($m)
+Key Stats,Key statistics,101,Total risk-weighted assets ($m),Total risk-weighted assets ($m)
+Key Stats,Key statistics,102,Total capital ratio,Total capital ratio
+Key Stats,Key statistics,103,Minimum liquidity holdings (MLH) ratio,Minimum liquidity holdings (MLH) ratio
+Key Stats,Key statistics,104,Number of entities,Number of entities
+Key Stats,Key statistics,105,For those ADIs subject to liquidity coverage ratio (LCR) requirements.,For those ADIs subject to liquidity coverage ratio (LCR) requirements.
+Key Stats,Key statistics,106,For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.,For those ADIs subject to minimum liquidity holdings (MLH) ratio requirements.
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),1,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks)
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),2,"($ million, Level 2)","($ million, Level 2)"
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),6,ADIs subject to liquidity coverage ratio (LCR) requirements,ADIs subject to liquidity coverage ratio (LCR) requirements
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),7,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets,LCR liquid assets
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),8,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA),High quality liquid assets (HQLA)
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),9,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1,HQLA1
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),10,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; Notes and coin,Notes and coin
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),11,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; Central bank balances,Central bank balances
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),12,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities,HQLA1 securities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),13,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities; of which:,of which:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),14,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities; of which: Issued by Australian Commonwealth,Issued by Australian Commonwealth
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),15,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities; of which: Issued by Australian State or Territory,Issued by Australian State or Territory
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),16,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities; of which: Issued by foreign sovereigns,Issued by foreign sovereigns
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),17,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA1; HQLA1 securities; of which: Other HQLA1 securities,Other HQLA1 securities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),18,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA2,HQLA2
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),19,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA2; HQLA2 securities,HQLA2 securities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),20,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; High quality liquid assets (HQLA); HQLA2; Covered bonds,Covered bonds
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),21,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Total HQLA,Total HQLA
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),22,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Adjustment to the amount of HQLA for the inclusion of other liquid assets as approved by APRA,Adjustment to the amount of HQLA for the inclusion of other liquid assets as approved by APRA
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),24,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; RBNZ eligible securities,RBNZ eligible securities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),26,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Alternative liquid assets (ALAs),Alternative liquid assets (ALAs)
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),27,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Alternative liquid assets (ALAs); Eligible assets for secured committed liquidity facility (CLF),Eligible assets for secured committed liquidity facility (CLF)
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),28,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Alternative liquid assets (ALAs); CLF assets available for LCR calculation,CLF assets available for LCR calculation
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),29,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Alternative liquid assets (ALAs); ALA in offshore jurisdictions,ALA in offshore jurisdictions
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),31,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Total LCR liquid assets,Total LCR liquid assets
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),32,ADIs subject to liquidity coverage ratio (LCR) requirements; LCR liquid assets; Total LCR liquid assets; of which: Denominated in Australian dollars,of which: Denominated in Australian dollars
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),34,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows,Expected cash outflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),35,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Retail deposits,Retail deposits
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),36,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Retail deposits; of which:,of which:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),37,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Retail deposits; of which: Stable deposits,Stable deposits
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),38,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Retail deposits; of which: Less stable deposits,Less stable deposits
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),39,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding,Unsecured wholesale funding
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),40,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which:,of which:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),41,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which: Small and medium enterprise,Small and medium enterprise
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),42,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which: Non-financial corporate,Non-financial corporate
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),43,"ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which: Sovereigns, central banks, PSEs and MDBs.","Sovereigns, central banks, PSEs and MDBs."
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),44,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which: ADIs,ADIs
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),45,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured wholesale funding; of which: Other financial institutions and other legal entities,Other financial institutions and other legal entities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),46,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Unsecured debt issued,Unsecured debt issued
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),47,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Secured funding,Secured funding
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),48,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Increased liquidity needs related to derivatives and other transactions,Increased liquidity needs related to derivatives and other transactions
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),49,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Increased liquidity needs related to derivatives and other transactions; of which:,of which:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),50,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Increased liquidity needs related to derivatives and other transactions; of which: Derivatives,Derivatives
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),51,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Committed facilities,Committed facilities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),52,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Other contingent funding obligations,Other contingent funding obligations
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),53,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Other contingent funding obligations; of which:,of which:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),54,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Other contingent funding obligations; of which: Uncommitted credit and liquidity facilities,Uncommitted credit and liquidity facilities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),55,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Other contingent funding obligations; of which: Buyback of own debt securities,Buyback of own debt securities
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),56,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Other cash outflow items,Other cash outflow items
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),57,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Total cash outflows,Total cash outflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),58,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Total cash outflows; of which: Denominated in Australian dollars,of which: Denominated in Australian dollars
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),59,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash outflows; Net cash outflows overlay,Net cash outflows overlay
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),61,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows,Expected cash inflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),62,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Secured lending,Secured lending
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),63,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows by counterparty:,Other inflows by counterparty:
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),64,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows by counterparty: Retail and SME,Retail and SME
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),65,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows by counterparty: Non-financial corporate,Non-financial corporate
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),66,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows by counterparty: Financial institutions and central banks,Financial institutions and central banks
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),67,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows by counterparty: Other counterparties,Other counterparties
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),68,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Derivatives,Derivatives
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),69,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Other inflows,Other inflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),70,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Total cash inflows,Total cash inflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),71,ADIs subject to liquidity coverage ratio (LCR) requirements; Expected cash inflows; Total cash inflows; of which: Denominated in Australian dollars,of which: Denominated in Australian dollars
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),73,ADIs subject to liquidity coverage ratio (LCR) requirements; Total cash inflows after applying inflow cap,Total cash inflows after applying inflow cap
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),74,ADIs subject to liquidity coverage ratio (LCR) requirements; Total cash inflows after applying inflow cap; of which: Denominated in Australian dollars,of which: Denominated in Australian dollars
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),75,ADIs subject to liquidity coverage ratio (LCR) requirements; Net cash outflows,Net cash outflows
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),76,ADIs subject to liquidity coverage ratio (LCR) requirements; Net cash outflows; of which: Denominated in Australian dollars,of which: Denominated in Australian dollars
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),78,ADIs subject to liquidity coverage ratio (LCR) requirements; Liquidity coverage ratio (LCR),Liquidity coverage ratio (LCR)
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),79,ADIs subject to liquidity coverage ratio (LCR) requirements; Liquidity coverage ratio (LCR); AUD only,AUD only
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),81,ADIs subject to liquidity coverage ratio (LCR) requirements; Minimum LCR requirement,Minimum LCR requirement
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),83,ADIs subject to liquidity coverage ratio (LCR) requirements; NSFR ratio,NSFR ratio
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),85,ADIs subject to liquidity coverage ratio (LCR) requirements; Minimum NSFR requirement,Minimum NSFR requirement
+Tab 1e,Table 1e LCR ADIs' liquidity (excludes 'other ADIs' and foreign branch banks),87,ADIs subject to liquidity coverage ratio (LCR) requirements; Number of entities,Number of entities
+Tab 4a,Table 4a Major banks' commercial property exposures,1,Table 4a Major banks' commercial property exposures,Table 4a Major banks' commercial property exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,2,"($ million, consolidated group)","($ million, consolidated group)"
+Tab 4a,Table 4a Major banks' commercial property exposures,6,Commercial property exposure limits,Commercial property exposure limits
+Tab 4a,Table 4a Major banks' commercial property exposures,7,Commercial property exposure limits; Office,Office
+Tab 4a,Table 4a Major banks' commercial property exposures,8,Commercial property exposure limits; Retail,Retail
+Tab 4a,Table 4a Major banks' commercial property exposures,9,Commercial property exposure limits; Industrial,Industrial
+Tab 4a,Table 4a Major banks' commercial property exposures,10,Commercial property exposure limits; Land development/subdivisions,Land development/subdivisions
+Tab 4a,Table 4a Major banks' commercial property exposures,11,Commercial property exposure limits; Other residential,Other residential
+Tab 4a,Table 4a Major banks' commercial property exposures,12,Commercial property exposure limits; Tourism and leisure,Tourism and leisure
+Tab 4a,Table 4a Major banks' commercial property exposures,13,Commercial property exposure limits; Other,Other
+Tab 4a,Table 4a Major banks' commercial property exposures,14,Total commercial property limits,Total commercial property limits
+Tab 4a,Table 4a Major banks' commercial property exposures,15,Total commercial property limits; of which: Exposure limits in Australia,of which: Exposure limits in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,17,Commercial property actual exposures,Commercial property actual exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,18,Commercial property actual exposures; Office,Office
+Tab 4a,Table 4a Major banks' commercial property exposures,19,Commercial property actual exposures; Retail,Retail
+Tab 4a,Table 4a Major banks' commercial property exposures,20,Commercial property actual exposures; Industrial,Industrial
+Tab 4a,Table 4a Major banks' commercial property exposures,21,Commercial property actual exposures; Land development/subdivisions,Land development/subdivisions
+Tab 4a,Table 4a Major banks' commercial property exposures,22,Commercial property actual exposures; Other residential,Other residential
+Tab 4a,Table 4a Major banks' commercial property exposures,23,Commercial property actual exposures; Tourism and leisure,Tourism and leisure
+Tab 4a,Table 4a Major banks' commercial property exposures,24,Commercial property actual exposures; Other,Other
+Tab 4a,Table 4a Major banks' commercial property exposures,25,Total commercial property exposures,Total commercial property exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,26,Total commercial property exposures; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,28,Impaired Commercial property exposures,Impaired Commercial property exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,29,Impaired Commercial property exposures; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,31,Specific provisions,Specific provisions
+Tab 4a,Table 4a Major banks' commercial property exposures,32,Specific provisions; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,34,Specific provisions and security,Specific provisions and security
+Tab 4a,Table 4a Major banks' commercial property exposures,35,Specific provisions and security; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,37,Impaired assets to exposures,Impaired assets to exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,38,Specific provisions to exposures,Specific provisions to exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,39,Specific provisions to impaired exposures,Specific provisions to impaired exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,40,Specific provisions and security held to impaired exposures,Specific provisions and security held to impaired exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,42,Non-performing commercial property exposures,Non-performing commercial property exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,43,Non-performing commercial property exposures; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,45,Specific provisions,Specific provisions
+Tab 4a,Table 4a Major banks' commercial property exposures,46,Specific provisions; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,48,Specific provisions and security,Specific provisions and security
+Tab 4a,Table 4a Major banks' commercial property exposures,49,Specific provisions and security; of which: Exposures in Australia,of which: Exposures in Australia
+Tab 4a,Table 4a Major banks' commercial property exposures,51,Non-performing to total exposures,Non-performing to total exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,52,Specific provisions to total exposures,Specific provisions to total exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,53,Specific provisions to non-performing exposures,Specific provisions to non-performing exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,54,Specific provisions and security held to non-performing exposures,Specific provisions and security held to non-performing exposures
+Tab 4a,Table 4a Major banks' commercial property exposures,56,Number of entitiesa,Number of entitiesa
+Tab 4a,Table 4a Major banks' commercial property exposures,58,a Domestic subsidiary ADIs are consolidated into their parents,a Domestic subsidiary ADIs are consolidated into their parents

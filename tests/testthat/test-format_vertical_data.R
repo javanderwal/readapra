@@ -5,7 +5,9 @@ test_that("format_vertical_data() behaves as expected", {
     format_vertical_data(
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
-      stat_pub_name = "Test"),
+      stat_pub_name = "Test",
+      frequency = "Test frequency"
+      ),
     vertical_data_output()
   )
 
@@ -15,7 +17,8 @@ test_that("format_vertical_data() behaves as expected", {
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
       drop_col = FALSE,
-      stat_pub_name = "Test"
+      stat_pub_name = "Test",
+      frequency = "Test frequency"
       ),
     dplyr::mutate(.data = vertical_data_output(), col = rep(4:8, 6))
   )
@@ -56,6 +59,7 @@ test_that("extra_meta_data() behaves as expected", {
   expect_equal(
     get_extra_meta_data(
       stat_pub_name = "Test name",
+      frequency = "Test frequency",
       row_names = row_names_input(),
       existing_cols = existing_cols_input(),
       data_below_top_row = data_below_top_row_input(),
@@ -72,7 +76,8 @@ test_that("attempt_format_vertical_data() behaves as expected", {
     attempt_format_vertical_data(
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
-      stat_pub_name = "Test"
+      stat_pub_name = "Test",
+      frequency = "Test frequency"
     ),
     vertical_data_output()
   )
@@ -83,7 +88,8 @@ test_that("attempt_format_vertical_data() behaves as expected", {
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
       drop_col = FALSE,
-      stat_pub_name = "Test"
+      stat_pub_name = "Test",
+      frequency = "Test frequency"
     ),
     dplyr::mutate(.data = vertical_data_output(), col = rep(4:8, 6))
   )
@@ -99,7 +105,8 @@ test_that("attempt_format_vertical_data() behaves as expected", {
     attempt_format_vertical_data(
       tidyxl_data = vertical_data_input(),
       formatting_data = vertical_formatting_input(),
-      stat_pub_name = "Test"
+      stat_pub_name = "Test",
+      frequency = "Test frequency"
     ),
     regexp = "The .xlsx file was in an unrecognised structure and could not be imported.",
     class = "readapra_error_vertical_data_unreadable"
