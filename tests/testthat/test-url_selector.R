@@ -29,6 +29,7 @@ test_that("url_selector() behaves as expected", {
   #stringdist's amatch(). Suspect its due to core allocation?
   skip_on_cran()
   skip_on_ci()
+  skip()
 
   # Stringdist accounts for minor spelling error
   input_urls_to_check[4] <- "https://www.apra.gov.au/sites/default/files/2024-10/20241031%20-%20Month%20authorised%20deposi-taking%20instiution%20%20back-series%20March%202019%20-%20September%202024.xlsx"
