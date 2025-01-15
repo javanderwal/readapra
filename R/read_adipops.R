@@ -70,7 +70,8 @@ adipops_data <- function(tidyxl_data, formatting_data) {
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
-      stat_pub_name = "Authorised Deposit-taking Institutions' Points of Presence statistics"
+      stat_pub_name = "Authorised Deposit-taking Institutions' Points of Presence statistics",
+      frequency = "Quarterly"
     )
   adipops_data <- convert_adipops_units(adipops_data)
   return(adipops_data)

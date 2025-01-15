@@ -72,6 +72,7 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
       stat_pub_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
+      frequency = "Quarterly",
       drop_col = FALSE
     )
   qadicp_data <- add_qadicp_regulatory_category(qadicp_data)

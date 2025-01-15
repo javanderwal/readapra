@@ -4,7 +4,7 @@
 #' package
 #' @param formatting_data formatting data extracted from a .xlsx file using the
 #' tidyxl package
-#' @param stat_pub_name the name of the statistical publication series
+#' @param stat_pub_name the name of the statistical publication
 #' @param drop_col whether or not to drop the column identifier column for each
 #' series
 #'
@@ -14,6 +14,7 @@ format_vertical_data <- function(
     tidyxl_data,
     formatting_data,
     stat_pub_name,
+    frequency,
     drop_col = TRUE) {
   existing_cols <- sort(unique(tidyxl_data$col))
 
@@ -38,6 +39,7 @@ format_vertical_data <- function(
 
   extra_meta_data <-
     get_extra_meta_data(
+      frequency = frequency,
       stat_pub_name = stat_pub_name,
       row_names, existing_cols, data_below_top_row, formatting_data
     )
@@ -47,11 +49,17 @@ format_vertical_data <- function(
     y = extra_meta_data,
     by = dplyr::join_by("col", "series")
   )
+
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, unit, .before = value
     )
+
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, statistics_publication_name, .before = 1
+  )
+
+  cleaned_data <- dplyr::relocate(
+    .data = cleaned_data, frequency, .before = unit
   )
 
   if (drop_col) {
@@ -137,7 +145,7 @@ get_column_data <- function(col_num, data) {
 
 #' Takes the pivoted data and cleans the column names and extracts the col column
 #'
-#' @param data data to be cleaned
+#' @param pivoted_data the pivoted data to be cleaned
 #'
 #' @noRd
 #'
@@ -181,13 +189,18 @@ clean_col_names <- function(pivoted_data) {
 #' Generates additional meta data to attach to the output tibble using the
 #' formatting data (i.e unit and column number)
 #'
+#' @param stat_pub_name the name of the statistical publication
 #' @param row_names the tibble containing the row names data
+#' @param existing_cols the existing cols
 #' @param data_below_top_row the tibble containing the data below the row names
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
 #'
 #' @noRd
 #'
 get_extra_meta_data <- function(
     stat_pub_name,
+    frequency,
     row_names,
     existing_cols,
     data_below_top_row,
@@ -205,7 +218,7 @@ get_extra_meta_data <- function(
   extra_meta_data <- clean_unit_data(extra_meta_data)
   extra_meta_data$series <- remove_escape_sequences(extra_meta_data$series)
   extra_meta_data$statistics_publication_name <- stat_pub_name
-  extra_meta_data$statistics_publication_name <- stat_pub_name
+  extra_meta_data$frequency <- frequency
 
   return(extra_meta_data)
 }
@@ -223,20 +236,31 @@ safe_format_vertical_data <- purrr::safely(format_vertical_data)
 #' package
 #' @param formatting_data formatting data extracted from a .xlsx file using the
 #' tidyxl package
+#' @param stat_pub_name the name of the statistical publication
+#' @param col whether or not to drop the column identifier column for each
+#' series
+#' @param call the caller environment
 #'
 #' @keywords internal
 #' @noRd
 #'
 attempt_format_vertical_data <-
-  function(tidyxl_data, formatting_data, stat_pub_name, drop_col = TRUE) {
+  function(
+    tidyxl_data,
+    formatting_data,
+    stat_pub_name,
+    frequency,
+    drop_col = TRUE,
+    call = rlang::caller_env()) {
     outcome <- safe_format_vertical_data(
-      tidyxl_data, formatting_data, stat_pub_name,
+      tidyxl_data, formatting_data, stat_pub_name, frequency,
       drop_col = drop_col
     )
     if (!is.null(outcome$error)) {
       cli::cli_abort(
         message = "The .xlsx file was in an unrecognised structure and could not be imported.",
-        class = "readapra_error_vertical_data_unreadable"
+        class = "readapra_error_vertical_data_unreadable",
+        call = call
       )
     } else {
       return(outcome$result)

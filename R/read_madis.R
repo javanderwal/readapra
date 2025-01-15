@@ -86,6 +86,7 @@ madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
       stat_pub_name = "Monthly Authorised Deposit-taking Institution Statistics",
+      frequency = "Monthly",
       drop_col = FALSE
     )
   madis_data <- add_madis_balance_sheet(madis_data, cur_hist)
