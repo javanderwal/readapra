@@ -15,15 +15,22 @@
 #' \dontrun{
 #' read_qadipexs("current")
 #' }
-read_qadipexs <- function(cur_hist) {
+read_qadipexs <- function(
+    cur_hist,
+    path = tempdir(),
+    overwrite = TRUE,
+    quiet = FALSE,
+    ...) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   temp_file_path <- download_apra(
     publication = "qadipexs",
-    cur_hist = cur_hist
+    cur_hist = cur_hist,
+    path = path,
+    quiet = quiet,
+    overwrite = overwrite,
+    ...
   )
-  tidyxl_data <- read_tidyxl_data(temp_file_path)
-  formatting_data <- read_tidyxl_formatting_data(temp_file_path)
-  qadipexs_data(tidyxl_data, formatting_data)
+  read_qadipexs_local(temp_file_path)
 }
 
 #' Read Quarterly ADI Property Exposure Statistics locally
@@ -45,7 +52,7 @@ read_qadipexs_local <- function(file_path) {
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
-  qpexs_data(tidyxl_data, formatting_data)
+  qadipexs_data(tidyxl_data, formatting_data)
 }
 
 #' Extracts the QADIPEXS data from the various sheets and conducts final
@@ -57,9 +64,23 @@ read_qadipexs_local <- function(file_path) {
 #' @keywords internal
 #' @noRd
 #'
-qadipexs_data <- function(tidyxl_data, formatting_data) {
-  attempt_horizontal_tab_data(tidyxl_data, formatting_data) |>
+qadipexs_data <- function(
+    tidyxl_data,
+    formatting_data,
+    call = rlang::caller_env()) {
+  qadipexs_data <-
+    attempt_format_horizontal_data(
+      tidyxl_data = tidyxl_data,
+      formatting_data = formatting_data,
+      stat_pub_name = "Quarterly Authorised Deposit-taking Institution Property Exposures Statistics",
+      sheet_str_detect = "Tab",
+      frequency = "Quarterly",
+      call = call
+    )
+
+  qadipexs_data <-
     dplyr::mutate(
+      .data = qadipexs_data,
       unit = dplyr::case_when(
         series %in% c(
           "Impaired assets to exposures",
@@ -76,10 +97,7 @@ qadipexs_data <- function(tidyxl_data, formatting_data) {
         ~ "Percent",
         .default = unit
       )
-    ) |>
-    get_sector_from_sheet() |>
-    dplyr::mutate(
-      statistics_publication_name = "Quarterly Authorised Deposit-taking Institution Property Exposures Statistics",
-      .before = date
     )
+
+  return(qadipexs_data )
 }

@@ -82,35 +82,6 @@ clean_unit_data <- function(data) {
     )
 }
 
-#' Tries to determine the sector for the relevant series using the sheet (and series) column
-#'
-#' @param data The data to be cleaned
-#'
-#' @keywords internal
-#' @noRd
-#'
-get_sector_from_sheet <- function(data) {
-  dplyr::mutate(
-    .data = data,
-    sector = dplyr::case_when(
-      stringr::str_detect(sheet, "\\s1[[:alpha:]]|Tab 1") ~ "ADIs (excludes 'other ADIs')",
-      stringr::str_detect(sheet, "\\s2[[:alpha:]]|Tab 2") ~ "Banks",
-      stringr::str_detect(sheet, "\\s3[[:alpha:]]|Tab 3") ~ "Credit unions and building societies",
-      stringr::str_detect(sheet, "\\s4[[:alpha:]]|Tab 4") ~ "Major banks",
-      stringr::str_detect(sheet, "\\s5[[:alpha:]]|Tab 5") ~ "Other domestic banks",
-      stringr::str_detect(sheet, "\\s6[[:alpha:]]|Tab 6") ~ "Foreign subsidiary banks",
-      stringr::str_detect(sheet, "\\s7[[:alpha:]]|Tab 7") ~ "Foreign branch banks",
-      stringr::str_detect(sheet, "\\s8[[:alpha:]]|Tab 8") ~ "Mutual ADIs",
-      stringr::str_detect(sheet, "A\\.1[[:alpha:]]") ~ "Building Societies",
-      stringr::str_detect(sheet, "A\\.2[[:alpha:]]") ~ "Credit Unions",
-      stringr::str_detect(tolower(series), "asset|number") ~ stringr::str_extract(series_hierarchy, "[^;]+$"),
-      stringr::str_detect(series, "ADIs (excludes 'other ADIs')|Banks|Credit unions and building societies") ~ series,
-      .default = "Unknown"
-    ),
-    .after = sheet
-  )
-}
-
 #' Removes escapes sequences from a vector of characters and any trailing spaces.
 #'
 #' @param x vector of characters
@@ -118,8 +89,12 @@ get_sector_from_sheet <- function(data) {
 #' @noRd
 #'
 remove_escape_sequences <- function(x) {
+  superscript_pattern <- "[⁰¹²³⁴⁵⁶⁷⁸⁹ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ]"
+
   x <- stringr::str_replace_all(x, "[\\r\\n\\t]+", " ")
   x <- stringr::str_replace_all(x, "\\s{2,}", " ")
+  x <- stringr::str_replace_all(x, superscript_pattern, "")
   x <- stringr::str_trim(x)
+  return(x)
 }
 

@@ -12,25 +12,30 @@
 #'
 get_series_hierarchy <-
   function(tidyxl_data, formatting_data, sheet_str_detect) {
-    series_hierarchy_data <-
-      dplyr::left_join(
-        tidyxl_data,
-        tibble::tibble(
-          indent = formatting_data$local$alignment$indent,
-          local_format_id = 1:length(formatting_data$local$alignment$indent)
-        ),
-        by =
-          dplyr::join_by(local_format_id)
-      ) |>
-      dplyr::filter(
-        stringr::str_detect(sheet, sheet_str_detect),
-        col == min(col)
-      ) |>
-      dplyr::select(sheet, row, col, data_type, character, numeric, indent)
+
+    indexed_formatting_data <-
+      tibble::tibble(
+      indent = formatting_data$local$alignment$indent,
+      local_format_id = 1:length(formatting_data$local$alignment$indent)
+    )
 
     series_hierarchy_data <-
-      series_hierarchy_data |>
-      dplyr::mutate(character = clean_series_names(character))
+      dplyr::left_join(tidyxl_data,indexed_formatting_data, "local_format_id")
+
+    series_hierarchy_data <-
+      dplyr::filter(
+        .data = series_hierarchy_data,
+        stringr::str_detect(sheet, sheet_str_detect), col == min(col)
+      )
+
+    series_hierarchy_data <-
+      dplyr::select(
+        .data = series_hierarchy_data,
+        sheet, row, col, data_type, character, numeric, indent
+        )
+
+    series_hierarchy_data$character <-
+      remove_escape_sequences(series_hierarchy_data$character)
 
     series_hierarchy_data <-
       dplyr::mutate(
@@ -50,42 +55,41 @@ get_series_hierarchy <-
         )
       )
 
-    cleaned_series_hierarchy_data <-
-      split(series_hierarchy_data, series_hierarchy_data$sheet) |>
-      purrr::map(iterate_series_hierarchy) |>
-      dplyr::bind_rows() |>
-      dplyr::arrange(match(sheet, unique(series_hierarchy_data$sheet))) |>
-      dplyr::select(sheet, row, series_hierarchy, series = character)
+    series_hierarchy_data <-
+      dplyr::bind_rows(
+        purrr::map(
+          .x = split(series_hierarchy_data, series_hierarchy_data$sheet),
+          .f = iterate_series_hierarchy
+        )
+      )
 
-    return(cleaned_series_hierarchy_data)
+    series_hierarchy_data <-
+      dplyr::arrange(
+        .data = series_hierarchy_data,
+        match(sheet, unique(series_hierarchy_data$sheet))
+      )
+
+    series_hierarchy_data <-
+      dplyr::select(
+        .data = series_hierarchy_data,
+        sheet, sheet_details, row, series_hierarchy, series = character
+      )
+
+    return(series_hierarchy_data)
   }
-
-
-#' Cleans the series column of any unusual/unwanted strings
-#'
-#' @param series The series column to be cleaned (character)
-#'
-#' @keywords internal
-#' @noRd
-#'
-clean_series_names <- function(series) {
-  series_cleaned <- stringr::str_trim(series)
-  series_cleaned <- stringr::str_remove_all(series_cleaned, "[\u2070-\u209F]") # Remove superscript
-  return(series_cleaned)
-}
 
 #' Takes the data computed inside get_series_hierarchy() and iterates through
 #' each row to work out the series hierarchy
 #'
-#' @param data Data computed inside get_series_hierarchy()
+#' @param data data computed inside get_series_hierarchy()
 #'
 #' @keywords internal
 #' @noRd
 #'
 iterate_series_hierarchy <- function(data) {
-  data <-
-    adjust_indent(data) |>
-    dplyr::mutate(series_hierarchy = vector("list", dplyr::n()))
+  data <- create_sheet_details_col(data)
+  data <- adjust_indent(data)
+  data <- dplyr::mutate(data, series_hierarchy = vector("list", dplyr::n()))
 
   for (i in seq_len(nrow(data))) {
     current_indent <- data$adjusted_indent[i]
@@ -109,10 +113,23 @@ iterate_series_hierarchy <- function(data) {
   return(data)
 }
 
+#' Creates a sheet_details column in the provided data based on the first row
+#' of the character column
+#'
+#' @param data data to create the sheet_details column in.
+#'
+#' @keywords internal
+#' @noRd
+#'
+create_sheet_details_col <- function(data) {
+  data[["sheet_details"]] <- data$character[1]
+  dplyr::relocate(.data = data, sheet_details, .after = sheet)
+}
+
 #' Combines the indent and which_identifier columns generated inside
 #' get_series_hierarchy() to create an adjusted_indent column
 #'
-#' @param data Data computed inside get_series_hierarchy()
+#' @param data data computed inside get_series_hierarchy()
 #'
 #' @keywords internal
 #' @noRd
