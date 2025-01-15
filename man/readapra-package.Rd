@@ -4,7 +4,7 @@
 \name{readapra-package}
 \alias{readapra}
 \alias{readapra-package}
-\title{readapra: Download and tidy data from the Australian Prudential Regulation}
+\title{readapra: Download and Tidy Data from the Australian Prudential Regulation}
 \description{
 Download data from the Australian Prudential Regulation Authority and import it into R as a tidy data frame.
 }
