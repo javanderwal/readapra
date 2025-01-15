@@ -32,7 +32,7 @@ url_selector <- function(
       table = files_to_compare,
       nomatch = NULL,
       method = "jw",
-      maxDist = 100
+      maxDist = 10
     )
 
   if (is.null(stringdist_match_result) |
