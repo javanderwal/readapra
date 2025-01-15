@@ -89,7 +89,7 @@ clean_unit_data <- function(data) {
 #' @noRd
 #'
 remove_escape_sequences <- function(x) {
-  superscript_pattern <- "[⁰¹²³⁴⁵⁶⁷⁸⁹ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ]"
+  superscript_pattern <- "[\u2070\u00B9\u00B2\u00B3\u2074\u2075\u2076\u2077\u2078\u2079\u1D43\u1D47\u1D9C\u1D48\u1D49\u1D4D\u1D4F\u02B0\u2071\u02B2\u1D4A\u02E1\u1D50\u207F\u1D52\u1D56\u1D57\u1D58\u1D5B\u02B3\u02E2\u1D5C\u1D5D\u1D5E\u1D5F\u02B7\u02E3\u02B8\u1DBB]"
 
   x <- stringr::str_replace_all(x, "[\\r\\n\\t]+", " ")
   x <- stringr::str_replace_all(x, "\\s{2,}", " ")
