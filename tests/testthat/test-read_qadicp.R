@@ -1,6 +1,7 @@
 test_that("read_qadicp() real download", {
   skip_if_offline()
   skip_on_cran()
+  skip_on_ci()
 
   with_tempdir({
     qadicp_data <- read_qadicp(quiet = TRUE)
