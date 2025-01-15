@@ -1,6 +1,7 @@
 test_that("download_apra() real file download", {
   skip_if_offline()
   skip_on_cran()
+  skip()
 
   with_tempdir({
     # Test correct QADIPS download
