@@ -58,9 +58,11 @@ read_qadips_local <- function(file_path) {
 
 #' Combines the various QADIP data tibbles together alongside final formatting
 #'
-#' @param tidyxl_data The QADIP data sourced using the tidyxl package
-#' @param formatting_data The QADIP excel formatting data sourced using the
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
 #' tidyxl package
+#' @param call the caller environment
 #'
 #' @keywords internal
 #' @noRd

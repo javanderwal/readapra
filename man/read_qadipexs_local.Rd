@@ -4,20 +4,27 @@
 \alias{read_qadipexs_local}
 \title{Read Quarterly ADI Property Exposure Statistics locally}
 \usage{
-read_qadipexs_local(file_path)
+read_qadipexs_local(file_path, cur_hist)
 }
 \arguments{
-\item{file_path}{The file path to the local QPEXS .xlsx file.}
+\item{file_path}{path to the local .xlsx file.}
+
+\item{cur_hist}{character vector determining whether to download the current
+publication (\code{"current"}) or the historic publication (\code{"historic"}).}
 }
 \value{
 A tibble containing the Quarterly ADI Performance Statistics data.
 }
 \description{
 Import the Quarterly Authorised Deposit-taking Institution
-Property Exposure Statistics (QPEXS) from a local file.
+Property Exposure Statistics (QPEXS) from a local file. Both the current and
+historic versions of this statistical publication are available.
 }
 \examples{
 \dontrun{
-read_qadipexs_local(file_path = ~path/to/xlsx/file)
+read_qadipexs_local(
+  file_path = "path/to/xlsx/file.xlsx",
+  cur_hist = "current"
+)
 }
 }

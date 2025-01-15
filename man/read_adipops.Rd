@@ -18,7 +18,7 @@ the file.}
 \item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
 }
 \value{
-A tibble containing the ADIPOPS data.
+A tibble containing the ADI Points of Presence Statistics data.
 }
 \description{
 Download and import the Authorised Deposit-taking Institution Points of
@@ -26,6 +26,6 @@ Presence Statistics (ADIPOPS) from APRA's website.
 }
 \examples{
 \dontrun{
-read_adipops("current")
+read_adipops()
 }
 }

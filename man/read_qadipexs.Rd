@@ -4,11 +4,21 @@
 \alias{read_qadipexs}
 \title{Read Quarterly ADI Property Exposure Statistics}
 \usage{
-read_qadipexs(cur_hist)
+read_qadipexs(cur_hist, path = tempdir(), overwrite = TRUE, quiet = FALSE, ...)
 }
 \arguments{
-\item{cur_hist}{Whether to access the current or historical series. Valid
-values are \code{"current"} and \code{"historical"}.}
+\item{cur_hist}{character vector determining whether to download the current
+publication (\code{"current"}) or the historic publication (\code{"historic"}).}
+
+\item{path}{path to where the downloaded file should be saved. Uses
+\code{\link[base:tempfile]{base::tempdir()}} by default.}
+
+\item{overwrite}{whether to overwrite the downloaded file when re-downloading
+the file.}
+
+\item{quiet}{whether to suppress the download progress bar.}
+
+\item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
 }
 \value{
 A tibble containing the Quarterly ADI Property Exposure Statistics
@@ -16,10 +26,11 @@ data.
 }
 \description{
 Download and import the Quarterly Authorised Deposit-taking Institution
-Property Exposure Statistics (QADIPEXS) from APRA's website.
+Property Exposure Statistics (QADIPEXS) from APRA's website. Both the
+current and historic versions of this statistical publication are available.
 }
 \examples{
 \dontrun{
-read_qadipexs("current")
+read_qadipexs(cur_hist = "current")
 }
 }

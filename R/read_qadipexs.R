@@ -72,8 +72,13 @@ read_qadipexs_local <- function(file_path, cur_hist) {
 #' Extracts the QADIPEXS data from the various sheets and conducts final
 #' formatting tweaks
 #'
-#' @param tidyxl_data The data sourced using the tidyxl package
-#' @param formatting_data The formatting data sourced using the tidyxl package
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
+#' @param call the caller environment
 #'
 #' @keywords internal
 #' @noRd

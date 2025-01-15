@@ -1,8 +1,15 @@
 #' Extracts and formats the data from a horizontal statistical publication
 #'
-#' @param tidyxl_data The tidyxl data sourced using the tidyxl package
-#' @param formatting_data The excel formatting data sourced using the
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
 #' tidyxl package
+#' @param stat_pub_name the name of the statistical publication
+#' @param sheet_str_detect the regex used to identify the sheets to extract
+#' @param frequency the frequency of the statistical publication
+#' @param series_hierarchy_fn a function to apply to the series_hierarchy data
+#' @param series_hierarchy_args list of args to be passed to the function in
+#' series_hierarchy_fn
 #'
 #' @keywords internal
 #' @noRd
@@ -96,9 +103,11 @@ format_horizontal_data <- function(
   return(final_joined_data)
 }
 
-#' Title
+#' Extracts the horizontal date data and cleans it
 #'
-#' @param tidyxl_data tidyxl data
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param sheet_str_detect the regex used to identify the sheets to extract
 #'
 #' @keywords internal
 #' @noRd
@@ -147,9 +156,19 @@ safe_format_horizontal_data <- purrr::safely(format_horizontal_data)
 #' Attempts to get the QADIPS Key Stats sheet data and if it encounters an error
 #' it throws a warning and returns a empty tibble
 #'
-#' @param tidyxl_data The QADIPS data sourced using the tidyxl package
-#' @param formatting_data The formatting data sourced using
-#' read_tidyxl_formatting_data()
+#' @param tidyxl_data cell data extracted from a .xlsx file using the tidyxl
+#' package
+#' @param formatting_data formatting data extracted from a .xlsx file using the
+#' tidyxl package
+#' @param stat_pub_name the name of the statistical publication
+#' @param sheet_str_detect the regex used to identify the sheets to extract
+#' @param frequency the frequency of the statistical publication
+#' @param series_hierarchy_fn a function to apply to the series_hierarchy data
+#' @param series_hierarchy_args list of args to be passed to the function in
+#' series_hierarchy_fn
+#' @param error_or_warning whether to display an error or warning if safely fails
+#' @param message the message to display in the message or warning.
+#' @param call the caller environment
 #'
 #' @keywords internal
 #' @noRd

@@ -7,7 +7,7 @@
 read_madis_local(file_path, cur_hist)
 }
 \arguments{
-\item{file_path}{path to the .xlsx file.}
+\item{file_path}{path to the local .xlsx file.}
 
 \item{cur_hist}{character vector determining whether to download the current
 publication (\code{"current"}) or the historic publication (\code{"historic"}).}
@@ -17,11 +17,14 @@ A tibble containing the Monthly ADI Statistics data.
 }
 \description{
 Import the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
-from a local file. Both the current and historical versions of this
+from a local file. Both the current and historic versions of this
 statistical publication are available.
 }
 \examples{
 \dontrun{
-read_madis_local(file_path = ~ path / to / xlsx / file, cur_hist = "current")
+read_madis_local(
+  file_path = "path/to/xlsx/file.xlsx"
+  cur_hist = "current"
+)
 }
 }

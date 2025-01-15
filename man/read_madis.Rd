@@ -25,11 +25,11 @@ A tibble containing the Monthly ADI Statistics data.
 }
 \description{
 Download and import the Monthly Authorised Deposit-taking Institution
-Statistics (MADIS) from APRA's website. Both the current and historical
+Statistics (MADIS) from APRA's website. Both the current and historic
 versions of this statistical publication are available.
 }
 \examples{
 \dontrun{
-read_madis("current")
+read_madis(cur_hist = "current")
 }
 }

@@ -4,7 +4,18 @@
 \alias{read_qadips}
 \title{Read Quarterly ADI Performance Statistics}
 \usage{
-read_qadips()
+read_qadips(path = tempdir(), overwrite = TRUE, quiet = FALSE, ...)
+}
+\arguments{
+\item{path}{path to where the downloaded file should be saved. Uses
+\code{\link[base:tempfile]{base::tempdir()}} by default.}
+
+\item{overwrite}{whether to overwrite the downloaded file when re-downloading
+the file.}
+
+\item{quiet}{whether to suppress the download progress bar.}
+
+\item{...}{additional arguments to be passed to \code{\link[utils:download.file]{utils::download.file()}}.}
 }
 \value{
 A tibble containing the Quarterly ADI Performance Statistics data.
@@ -14,5 +25,7 @@ Download and import the Quarterly Authorised Deposit-taking Institution
 Performance Statistics (QADIPS) from APRA's website.
 }
 \examples{
+\dontrun{
 read_qadips()
+}
 }

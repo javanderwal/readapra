@@ -7,7 +7,7 @@
 read_qadips_local(file_path)
 }
 \arguments{
-\item{file_path}{The file path to the local QADIPS .xlsx file.}
+\item{file_path}{path to the local .xlsx file.}
 }
 \value{
 A tibble containing the Quarterly ADI Performance Statistics data.
@@ -18,6 +18,6 @@ Performance Statistics (QADIPS) from a local file.
 }
 \examples{
 \dontrun{
-read_qadips_local(file_path = ~path/to/xlsx/file)
+read_qadips_local(file_path = "path/to/xlsx/file.xlsx")
 }
 }

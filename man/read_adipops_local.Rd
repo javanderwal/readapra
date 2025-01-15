@@ -7,17 +7,17 @@
 read_adipops_local(file_path)
 }
 \arguments{
-\item{file_path}{path to the .xlsx file.}
+\item{file_path}{path to the local .xlsx file.}
 }
 \value{
-A tibble containing the ADIPOPS data.
+A tibble containing the ADI Points of Presence Statistics data.
 }
 \description{
 Import the Authorised Deposit-taking Institution Points of Presence
-Statistics (ADIPOPS) from a local file.
+Read ADI Points of Presence Statistics from a local file.
 }
 \examples{
 \dontrun{
-read_adipops_local(file_path = ~ path / to / xlsx / file)
+read_adipops_local(file_path = "path/to/xlsx/file.xlsx")
 }
 }

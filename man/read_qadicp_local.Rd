@@ -7,7 +7,7 @@
 read_qadicp_local(file_path)
 }
 \arguments{
-\item{file_path}{path to the .xlsx file.}
+\item{file_path}{path to the local .xlsx file.}
 }
 \value{
 A tibble containing the Quarterly ADI Centralised Publication data.
