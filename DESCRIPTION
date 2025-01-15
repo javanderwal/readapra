@@ -1,6 +1,6 @@
 Package: readapra
 Title: Download and tidy data from the Australian Prudential Regulation Authority (APRA)
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Jarrod", 
            family = "van der Wal", 
