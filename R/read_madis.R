@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Download and import the Monthly Authorised Deposit-taking Institution
-#' Statistics (MADIS) from APRA's website. Both the current and historical
+#' Statistics (MADIS) from APRA's website. Both the current and historic
 #' versions of this statistical publication are available.
 #'
 #' @param cur_hist character vector determining whether to download the current
@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' read_madis("current")
+#' read_madis(cur_hist = "current")
 #' }
 read_madis <- function(
     cur_hist,
@@ -44,10 +44,10 @@ read_madis <- function(
 #'
 #' @description
 #' Import the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
-#' from a local file. Both the current and historical versions of this
+#' from a local file. Both the current and historic versions of this
 #' statistical publication are available.
 #'
-#' @param file_path path to the .xlsx file.
+#' @param file_path path to the local .xlsx file.
 #' @param cur_hist character vector determining whether to download the current
 #' publication (`"current"`) or the historic publication (`"historic"`).
 #'
@@ -56,7 +56,10 @@ read_madis <- function(
 #'
 #' @examples
 #' \dontrun{
-#' read_madis_local(file_path = ~ path / to / xlsx / file, cur_hist = "current")
+#' read_madis_local(
+#'   file_path = "path/to/xlsx/file.xlsx"
+#'   cur_hist = "current"
+#' )
 #' }
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))

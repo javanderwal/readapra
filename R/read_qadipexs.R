@@ -2,10 +2,17 @@
 #'
 #' @description
 #' Download and import the Quarterly Authorised Deposit-taking Institution
-#' Property Exposure Statistics (QADIPEXS) from APRA's website.
+#' Property Exposure Statistics (QADIPEXS) from APRA's website. Both the
+#' current and historic versions of this statistical publication are available.
 #'
-#' @param cur_hist Whether to access the current or historical series. Valid
-#' values are `"current"` and `"historical"`.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
+#' @param path path to where the downloaded file should be saved. Uses
+#' [base::tempdir()] by default.
+#' @param overwrite whether to overwrite the downloaded file when re-downloading
+#' the file.
+#' @param quiet whether to suppress the download progress bar.
+#' @param ... additional arguments to be passed to [utils::download.file()].
 #'
 #' @return A tibble containing the Quarterly ADI Property Exposure Statistics
 #' data.
@@ -13,7 +20,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' read_qadipexs("current")
+#' read_qadipexs(cur_hist = "current")
 #' }
 read_qadipexs <- function(
     cur_hist,
@@ -37,22 +44,29 @@ read_qadipexs <- function(
 #'
 #' @description
 #' Import the Quarterly Authorised Deposit-taking Institution
-#' Property Exposure Statistics (QPEXS) from a local file.
+#' Property Exposure Statistics (QPEXS) from a local file. Both the current and
+#' historic versions of this statistical publication are available.
 #'
-#' @param file_path The file path to the local QPEXS .xlsx file.
+#' @param file_path path to the local .xlsx file.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @return A tibble containing the Quarterly ADI Performance Statistics data.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' read_qadipexs_local(file_path = ~path/to/xlsx/file)
+#' read_qadipexs_local(
+#'   file_path = "path/to/xlsx/file.xlsx",
+#'   cur_hist = "current"
+#' )
 #' }
-read_qadipexs_local <- function(file_path) {
+read_qadipexs_local <- function(file_path, cur_hist) {
+  rlang::arg_match(cur_hist, c("current", "historic"))
   check_valid_file_path(file_path)
   tidyxl_data <- read_tidyxl_data(file_path)
   formatting_data <- read_tidyxl_formatting_data(file_path)
-  qadipexs_data(tidyxl_data, formatting_data)
+  qadipexs_data(tidyxl_data, formatting_data, cur_hist)
 }
 
 #' Extracts the QADIPEXS data from the various sheets and conducts final
@@ -78,7 +92,8 @@ qadipexs_data <- function(
       call = call
     )
 
-  qadipexs_data <-
+  if (cur_hist == "current") {
+      qadipexs_data <-
     dplyr::mutate(
       .data = qadipexs_data,
       unit = dplyr::case_when(
@@ -98,6 +113,7 @@ qadipexs_data <- function(
         .default = unit
       )
     )
+  }
 
   return(qadipexs_data )
 }

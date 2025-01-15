@@ -14,7 +14,7 @@ format_horizontal_data <- function(
     sheet_str_detect,
     frequency,
     series_hierarchy_fn = NULL,
-    ...) {
+    series_hierarchy_args = NULL) {
   series_hierarchy_data <-
     get_series_hierarchy(
       tidyxl_data = tidyxl_data,
@@ -23,7 +23,10 @@ format_horizontal_data <- function(
     )
 
   if (!is.null(series_hierarchy_fn)) {
-    series_hierarchy_data <- series_hierarchy_fn(series_hierarchy_data, ...)
+    do.call(
+      series_hierarchy_fn,
+      c(list(series_hierarchy_data), series_hierarchy_args)
+    )
   }
 
   relevant_tidyxl_data <-
@@ -158,10 +161,10 @@ attempt_format_horizontal_data <- function(
     sheet_str_detect,
     frequency,
     series_hierarchy_fn = NULL,
+    series_hierarchy_args = NULL,
     error_or_warning = "error",
     message = "The .xlsx file was in an unrecognised structure and could not be imported.",
-    call = rlang::caller_env(),
-    ...) {
+    call = rlang::caller_env()) {
   rlang::arg_match(error_or_warning, c("error", "warning"))
 
   outcome <-
@@ -172,8 +175,9 @@ attempt_format_horizontal_data <- function(
       sheet_str_detect = sheet_str_detect,
       frequency = frequency,
       series_hierarchy_fn = series_hierarchy_fn,
-      ...
+      series_hierarchy_args = series_hierarchy_args
     )
+
   if (!is.null(outcome$error)) {
     if (error_or_warning == "error") {
       cli::cli_abort(
@@ -184,7 +188,7 @@ attempt_format_horizontal_data <- function(
     } else {
       cli::cli_warn(
         message = message,
-        class = "readapra_error_horizontal_data_unreadable",
+        class = "readapra_warning_horizontal_data_unreadable",
         call = call
       )
     }

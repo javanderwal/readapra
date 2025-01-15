@@ -11,12 +11,12 @@
 #' @param quiet whether to suppress the download progress bar.
 #' @param ... additional arguments to be passed to [utils::download.file()].
 #'
-#' @return A tibble containing the ADIPOPS data.
+#' @return A tibble containing the ADI Points of Presence Statistics data.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' read_adipops("current")
+#' read_adipops()
 #' }
 read_adipops <- function(
     path = tempdir(),
@@ -38,16 +38,16 @@ read_adipops <- function(
 #'
 #' @description
 #' Import the Authorised Deposit-taking Institution Points of Presence
-#' Statistics (ADIPOPS) from a local file.
+#' Read ADI Points of Presence Statistics from a local file.
 #'
-#' @param file_path path to the .xlsx file.
+#' @param file_path path to the local .xlsx file.
 #'
-#' @return A tibble containing the ADIPOPS data.
+#' @return A tibble containing the ADI Points of Presence Statistics data.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' read_adipops_local(file_path = ~ path / to / xlsx / file)
+#' read_adipops_local(file_path = "path/to/xlsx/file.xlsx")
 #' }
 read_adipops_local <- function(file_path) {
   check_valid_file_path(file_path)
