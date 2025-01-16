@@ -1,7 +1,6 @@
 test_that("read_qadipexs() behaves as expected", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     current_qadipexs <- read_qadipexs(cur_hist = "current", quiet = TRUE)

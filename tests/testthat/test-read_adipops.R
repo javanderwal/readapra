@@ -1,7 +1,6 @@
 test_that("read_adipops() real download", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     adipops <- read_adipops(quiet = TRUE)

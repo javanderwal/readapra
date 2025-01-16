@@ -1,7 +1,6 @@
 test_that("download_apra() real file download", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     # Test correct QADIPS download
@@ -183,7 +182,6 @@ test_that("get_http_status() returns http details", {
 test_that("download_file() real file download", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     expect_true(
@@ -221,7 +219,6 @@ test_that("attempt_polite_file_download() error behaviour", {
 test_that("attempt_polite_file_download() real file download", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     expect_true(

@@ -1,7 +1,6 @@
 test_that("read_madis() real download", {
   skip_if_offline()
   skip_on_cran()
-  skip_on_ci()
 
   with_tempdir({
     current_madis <- read_madis(cur_hist = "current", quiet = TRUE)
