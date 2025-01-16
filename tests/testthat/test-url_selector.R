@@ -25,9 +25,7 @@ test_that("url_selector() behaves as expected", {
     input_urls_to_check[4]
   )
 
-  skip_on_cran()
   skip_on_ci()
-
   # Stringdist accounts for minor spelling error
   input_urls_to_check[4] <- "https://www.apra.gov.au/sites/default/files/2024-10/20241031%20-%20Month%20authorised%20deposi-taking%20instiution%20%20back-series%20March%202019%20-%20September%202024.xlsx"
   expect_equal(
@@ -37,6 +35,8 @@ test_that("url_selector() behaves as expected", {
 })
 
 test_that("url_selector() errors correctly", {
+  skip_on_ci()
+
   input_selected_stat_pub <-
     dplyr::filter(
       .data = apra_stat_pub_details,
