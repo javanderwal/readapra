@@ -35,8 +35,6 @@ test_that("url_selector() behaves as expected", {
 })
 
 test_that("url_selector() errors correctly", {
-  skip_on_ci()
-
   input_selected_stat_pub <-
     dplyr::filter(
       .data = apra_stat_pub_details,

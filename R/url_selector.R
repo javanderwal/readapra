@@ -26,24 +26,21 @@ url_selector <- function(
   file_to_find <- prepare_name_comparison(selected_stat_pub$file_name)
   files_to_compare <- prepare_name_comparison(basename(urls_to_check))
 
-  stringdist_match_result <-
-    stringdist::amatch(
-      x = file_to_find,
-      table = files_to_compare,
-      nomatch = NULL,
-      method = "jw",
-      maxDist = Inf
-    )
-
-  if (is.null(stringdist_match_result) |
-    length(stringdist_match_result) != 1 |
-    length(files_to_compare) < 1) {
+  if (length(files_to_compare) < 1 | length(file_to_find) != 1) {
     cli::cli_abort(
       message = "Could not determine correct URL to download.",
       class = "readapra_could_not_find_right_file_url",
       call = call
     )
   }
+
+  stringdist_match_result <-
+    stringdist::amatch(
+      x = file_to_find,
+      table = files_to_compare,
+      method = "jw",
+      maxDist = Inf
+    )
 
   return(urls_to_check[stringdist_match_result])
 }
