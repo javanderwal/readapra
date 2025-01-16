@@ -232,3 +232,21 @@ test_that("attempt_polite_file_download() real file download", {
     )
   })
 })
+
+test_that("attempt_polite_file_download() wininet download warning", {
+  skip_if_offline()
+  skip_on_cran()
+
+  with_tempdir({
+    with_envvar(c(R_READAPRA_DL_METHOD = "wininet"), {
+      expect_warning(
+        attempt_polite_file_download(
+          bow = bow_wrapper("https://httpbin.org/bytes/512"),
+          url = "https://httpbin.org/bytes/512",
+          quiet = TRUE
+        ),
+        regexp = "wininet.*deprecated"
+      )
+    })
+  })
+})
