@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Jarrod", 
            family = "van der Wal", 
            email = "jarvanderwal@gmail.com",
-           role = c("aut", "cre")
+           role = c("aut", "cre", "cph")
            )
 Description: Download the latest data from the Australian Prudential Regulation
     Authority and import it into R as a tidy data frame. 

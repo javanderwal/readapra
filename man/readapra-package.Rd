@@ -6,7 +6,7 @@
 \alias{readapra-package}
 \title{readapra: Download and Tidy Data from the Australian Prudential Regulation}
 \description{
-Download data from the Australian Prudential Regulation Authority and import it into R as a tidy data frame.
+Download the latest data from the Australian Prudential Regulation Authority and import it into R as a tidy data frame.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jarrod van der Wal \email{jarvanderwal@gmail.com}
+\strong{Maintainer}: Jarrod van der Wal \email{jarvanderwal@gmail.com} [copyright holder]
 
 }
 \keyword{internal}
