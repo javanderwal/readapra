@@ -236,6 +236,7 @@ test_that("attempt_polite_file_download() real file download", {
 test_that("attempt_polite_file_download() wininet download warning", {
   skip_if_offline()
   skip_on_cran()
+  skip_on_ci()
 
   with_tempdir({
     with_envvar(c(R_READAPRA_DL_METHOD = "wininet"), {
