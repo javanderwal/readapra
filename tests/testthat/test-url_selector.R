@@ -25,13 +25,14 @@ test_that("url_selector() behaves as expected", {
     input_urls_to_check[4]
   )
 
-  skip_on_ci()
   # Stringdist accounts for minor spelling error
-  input_urls_to_check[4] <- "https://www.apra.gov.au/sites/default/files/2024-10/20241031%20-%20Month%20authorised%20deposi-taking%20instiution%20%20back-series%20March%202019%20-%20September%202024.xlsx"
-  expect_equal(
-    url_selector(input_urls_to_check, input_selected_stat_pub),
-    input_urls_to_check[4]
-  )
+  withr::with_options(list(sd_num_thread = 1), {
+    input_urls_to_check[4] <- "https://www.apra.gov.au/sites/default/files/2024-10/20241031%20-%20Month%20authorised%20deposi-taking%20instiution%20%20back-series%20March%202019%20-%20September%202024.xlsx"
+    expect_equal(
+      url_selector(input_urls_to_check, input_selected_stat_pub),
+      input_urls_to_check[4]
+    )
+  })
 })
 
 test_that("url_selector() errors correctly", {
