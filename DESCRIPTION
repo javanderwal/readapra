@@ -7,7 +7,7 @@ Authors@R:
            email = "jarvanderwal@gmail.com",
            role = c("aut", "cre")
            )
-Description: Download data from the Australian Prudential Regulation
+Description: Download the latest data from the Australian Prudential Regulation
     Authority and import it into R as a tidy data frame. 
 License: MIT + file LICENSE
 Encoding: UTF-8
