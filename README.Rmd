@@ -79,10 +79,10 @@ And then finally we can plot the data, showing total resident assets for the ind
 
 ```{r plot_madis, dpi=300, out.width = "70%", fig.align='center'}
 ggplot(
-  data = major_bank_assets, 
+  data = major_bank_assets,
   mapping = aes(date, value, colour = institution_name)
-  ) + 
-  geom_line() + 
+) +
+  geom_line() +
   theme_classic() +
   theme(legend.position = "bottom") +
   guides(colour = guide_legend(ncol = 1))

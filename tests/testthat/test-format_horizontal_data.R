@@ -14,7 +14,7 @@ test_that("format_horizontal_data() behaves as expected", {
 
   expect_equal(output_table, format_horizontal_data_table_output())
 
-# Testing key stats data
+  # Testing key stats data
   output_key_stats <-
     format_horizontal_data(
       tidyxl_data = tidyxl_data_input,

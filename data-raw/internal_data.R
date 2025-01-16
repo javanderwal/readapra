@@ -1,4 +1,3 @@
-
 # URL data for download_apra ----------------------------------------------
 clean_apra_url <- function(url) {
   cleaned_url <- stringr::str_replace_all(

@@ -99,27 +99,27 @@ qadipexs_data <- function(
     )
 
   if (cur_hist == "current") {
-      qadipexs_data <-
-    dplyr::mutate(
-      .data = qadipexs_data,
-      unit = dplyr::case_when(
-        series %in% c(
-          "Impaired assets to exposures",
-          "Specific provisions to exposures",
-          "Specific provisions to impaired exposures",
-          "Specific provisions and security held to impaired exposures",
-          "Non-performing to total exposures",
-          "Specific provisions to total exposures",
-          "Specific provisions to non-performing exposures",
-          "Specific provisions and security held to non-performing exposures",
-          "Weighted average variable rate of new loans funded",
-          "Weighted average assessment rate used for serviceability"
+    qadipexs_data <-
+      dplyr::mutate(
+        .data = qadipexs_data,
+        unit = dplyr::case_when(
+          series %in% c(
+            "Impaired assets to exposures",
+            "Specific provisions to exposures",
+            "Specific provisions to impaired exposures",
+            "Specific provisions and security held to impaired exposures",
+            "Non-performing to total exposures",
+            "Specific provisions to total exposures",
+            "Specific provisions to non-performing exposures",
+            "Specific provisions and security held to non-performing exposures",
+            "Weighted average variable rate of new loans funded",
+            "Weighted average assessment rate used for serviceability"
+          )
+          ~ "Percent",
+          .default = unit
         )
-        ~ "Percent",
-        .default = unit
       )
-    )
   }
 
-  return(qadipexs_data )
+  return(qadipexs_data)
 }

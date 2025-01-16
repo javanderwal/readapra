@@ -26,4 +26,3 @@ scrape_wrapper <- polite::scrape
 file_exists_wrapper <- function(...) {
   base::file.exists(...)
 }
-

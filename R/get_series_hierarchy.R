@@ -12,15 +12,14 @@
 #'
 get_series_hierarchy <-
   function(tidyxl_data, formatting_data, sheet_str_detect) {
-
     indexed_formatting_data <-
       tibble::tibble(
-      indent = formatting_data$local$alignment$indent,
-      local_format_id = 1:length(formatting_data$local$alignment$indent)
-    )
+        indent = formatting_data$local$alignment$indent,
+        local_format_id = 1:length(formatting_data$local$alignment$indent)
+      )
 
     series_hierarchy_data <-
-      dplyr::left_join(tidyxl_data,indexed_formatting_data, "local_format_id")
+      dplyr::left_join(tidyxl_data, indexed_formatting_data, "local_format_id")
 
     series_hierarchy_data <-
       dplyr::filter(
@@ -32,7 +31,7 @@ get_series_hierarchy <-
       dplyr::select(
         .data = series_hierarchy_data,
         sheet, row, col, data_type, character, numeric, indent
-        )
+      )
 
     series_hierarchy_data$character <-
       remove_escape_sequences(series_hierarchy_data$character)

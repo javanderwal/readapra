@@ -57,7 +57,7 @@ read_madis <- function(
 #' @examples
 #' \dontrun{
 #' read_madis_local(
-#'   file_path = "path/to/xlsx/file.xlsx"
+#'   file_path = "path/to/xlsx/file.xlsx",
 #'   cur_hist = "current"
 #' )
 #' }

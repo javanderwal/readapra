@@ -52,7 +52,7 @@ format_vertical_data <- function(
 
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, unit, .before = value
-    )
+  )
 
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, statistics_publication_name, .before = 1
@@ -246,12 +246,12 @@ safe_format_vertical_data <- purrr::safely(format_vertical_data)
 #'
 attempt_format_vertical_data <-
   function(
-    tidyxl_data,
-    formatting_data,
-    stat_pub_name,
-    frequency,
-    drop_col = TRUE,
-    call = rlang::caller_env()) {
+      tidyxl_data,
+      formatting_data,
+      stat_pub_name,
+      frequency,
+      drop_col = TRUE,
+      call = rlang::caller_env()) {
     outcome <- safe_format_vertical_data(
       tidyxl_data, formatting_data, stat_pub_name, frequency,
       drop_col = drop_col

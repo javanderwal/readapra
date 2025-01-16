@@ -1,5 +1,4 @@
 test_that("format_vertical_data() behaves as expected", {
-
   # Standard case
   expect_equal(
     format_vertical_data(
@@ -7,7 +6,7 @@ test_that("format_vertical_data() behaves as expected", {
       formatting_data = vertical_formatting_input(),
       stat_pub_name = "Test",
       frequency = "Test frequency"
-      ),
+    ),
     vertical_data_output()
   )
 
@@ -19,7 +18,7 @@ test_that("format_vertical_data() behaves as expected", {
       drop_col = FALSE,
       stat_pub_name = "Test",
       frequency = "Test frequency"
-      ),
+    ),
     dplyr::mutate(.data = vertical_data_output(), col = rep(4:8, 6))
   )
 })
@@ -70,7 +69,6 @@ test_that("extra_meta_data() behaves as expected", {
 })
 
 test_that("attempt_format_vertical_data() behaves as expected", {
-
   # Standard case
   expect_equal(
     attempt_format_vertical_data(

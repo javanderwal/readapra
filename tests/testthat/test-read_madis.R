@@ -43,10 +43,8 @@ test_that("read_madis() real download", {
 })
 
 test_that("add_madis_balance_sheet() behaves as expected", {
-
-
-# MADIS current testing ---------------------------------------------------
-set.seed(123)
+  # MADIS current testing ---------------------------------------------------
+  set.seed(123)
   madis_current_input_data <-
     tibble::tibble(
       date = as.Date("2024-12-31"),
@@ -62,7 +60,7 @@ set.seed(123)
       .data = madis_current_input_data,
       balance_sheet_category = madis_current_balance_sheet$balance_sheet_category,
       .before = series
-      )
+    )
 
   # Standard test
   expect_equal(
@@ -83,7 +81,7 @@ set.seed(123)
     class = "readapra_warning_nas_in_madis_balance_sheet_category"
   )
 
-# MADIS historic testing --------------------------------------------------
+  # MADIS historic testing --------------------------------------------------
   set.seed(123)
   madis_historic_input_data <-
     tibble::tibble(

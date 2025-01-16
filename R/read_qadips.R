@@ -71,7 +71,6 @@ qadips_data <- function(
     tidyxl_data,
     formatting_data,
     call = rlang::caller_env()) {
-
   qadips_name <- "Quarterly Authorised Deposit-taking Institution Performance Statistics"
   qadips_frequency <- "Quarterly"
 
@@ -99,8 +98,7 @@ qadips_data <- function(
       call = call
     )
 
-  qadips_data <- dplyr::bind_rows(qadips_key_stats_data,qadips_tab_data)
+  qadips_data <- dplyr::bind_rows(qadips_key_stats_data, qadips_tab_data)
 
   return(qadips_data)
 }
-

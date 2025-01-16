@@ -97,4 +97,3 @@ remove_escape_sequences <- function(x) {
   x <- stringr::str_trim(x)
   return(x)
 }
-
