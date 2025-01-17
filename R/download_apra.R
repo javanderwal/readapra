@@ -8,7 +8,8 @@
 #' publication you want to download.
 #' @param cur_hist character vector determining whether to download the current
 #' publication (`"current"`) or the historic publication (`"historic"`). Please
-#' note that not all statistical publications have a historic publication.
+#' note that not all statistical publications have a historic publication. By
+#' default this is set to (`"current"`).
 #' @param path path to where the downloaded file should be saved. Uses
 #' [base::tempdir()] by default.
 #' @param overwrite whether to overwrite the downloaded file when re-downloading
@@ -29,11 +30,10 @@
 
 download_apra <- function(
     publication,
-    cur_hist,
+    cur_hist = "current",
     path = tempdir(),
     overwrite = TRUE,
     quiet = FALSE,
-    call = rlang::caller_env(),
     ...) {
   download_apra_with_caller(
     publication = publication,
