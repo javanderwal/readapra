@@ -8,7 +8,8 @@ Authors@R:
            role = c("aut", "cre", "cph")
            )
 Description: Download the latest data from the Australian Prudential Regulation
-    Authority and import it into R as a tidy data frame. 
+    Authority <https://www.apra.gov.au/> and import it into R as a tidy data 
+    frame. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
