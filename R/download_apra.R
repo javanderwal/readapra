@@ -27,7 +27,6 @@
 #'
 #' print(download_path)
 #' }
-
 download_apra <- function(
     publication,
     cur_hist = "current",

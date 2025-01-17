@@ -17,7 +17,11 @@ Import the Authorised Deposit-taking Institution Points of Presence
 Read ADI Points of Presence Statistics from a local file.
 }
 \examples{
-\dontrun{
-read_adipops_local(file_path = "path/to/xlsx/file.xlsx")
+\donttest{
+# Downloading the latest ADIPOPS file
+adipops_file_path <- download_apra(publication = "adipops")
+
+# Importing the data into R
+read_adipops_local(file_path = adipops_file_path)
 }
 }

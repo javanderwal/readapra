@@ -25,7 +25,7 @@ Download and import the Authorised Deposit-taking Institution Points of
 Presence Statistics (ADIPOPS) from APRA's website.
 }
 \examples{
-\dontrun{
+\donttest{
 read_adipops()
 }
 }

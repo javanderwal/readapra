@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_adipops()
 #' }
 read_adipops <- function(
@@ -23,14 +23,15 @@ read_adipops <- function(
     overwrite = TRUE,
     quiet = FALSE,
     ...) {
-  temp_file_path <- download_apra(
-    publication = "adipops",
-    cur_hist = "current",
-    path = path,
-    quiet = quiet,
-    overwrite = overwrite,
-    ...
-  )
+  temp_file_path <-
+    download_apra_with_caller(
+      publication = "adipops",
+      cur_hist = "current",
+      path = path,
+      quiet = quiet,
+      overwrite = overwrite,
+      ...
+    )
   read_adipops_local(temp_file_path)
 }
 
@@ -46,8 +47,12 @@ read_adipops <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' read_adipops_local(file_path = "path/to/xlsx/file.xlsx")
+#' \donttest{
+#' # Downloading the latest ADIPOPS file
+#' adipops_file_path <- download_apra(publication = "adipops")
+#'
+#' # Importing the data into R
+#' read_adipops_local(file_path = adipops_file_path)
 #' }
 read_adipops_local <- function(file_path) {
   check_valid_file_path(file_path)

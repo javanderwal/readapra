@@ -21,10 +21,12 @@ from a local file. Both the current and historic versions of this
 statistical publication are available.
 }
 \examples{
-\dontrun{
-read_madis_local(
-  file_path = "path/to/xlsx/file.xlsx",
-  cur_hist = "current"
-)
+\donttest{
+
+# Downloading the latest MADIS file
+madis_file_path <- download_apra(publication = "madis")
+
+# Importing the data into R
+read_madis_local(file_path = madis_file_path, cur_hist = "current")
 }
 }

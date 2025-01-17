@@ -17,7 +17,11 @@ Import the Quarterly Authorised Deposit-taking Institution
 Performance Statistics (QADIPS) from a local file.
 }
 \examples{
-\dontrun{
-read_qadips_local(file_path = "path/to/xlsx/file.xlsx")
+\donttest{
+# Downloading the latest QADIPS file
+qadips_file_path <- download_apra(publication = "qadips")
+
+# Importing the data into R
+read_qadips_local(file_path = qadips_file_path)
 }
 }

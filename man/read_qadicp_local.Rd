@@ -17,7 +17,11 @@ Import the Quarterly Authorised Deposit-taking Institution Centralised
 Publication (QADICP) from a local file.
 }
 \examples{
-\dontrun{
-read_qadicp_local(file_path = ~ path / to / xlsx / file)
+\donttest{
+# Downloading the latest QADICP file
+qadicp_file_path <- download_apra(publication = "qadicp")
+
+# Importing the data into R
+read_qadicp_local(file_path = qadicp_file_path)
 }
 }

@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_qadicp()
 #' }
 read_qadicp <- function(
@@ -24,7 +24,7 @@ read_qadicp <- function(
     quiet = FALSE,
     ...) {
   temp_file_path <-
-    download_apra(
+    download_apra_with_caller(
       publication = "qadicp",
       cur_hist = "current",
       path = path,
@@ -47,8 +47,12 @@ read_qadicp <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' read_qadicp_local(file_path = ~ path / to / xlsx / file)
+#' \donttest{
+#' # Downloading the latest QADICP file
+#' qadicp_file_path <- download_apra(publication = "qadicp")
+#'
+#' # Importing the data into R
+#' read_qadicp_local(file_path = qadicp_file_path)
 #' }
 read_qadicp_local <- function(file_path) {
   check_valid_file_path(file_path)

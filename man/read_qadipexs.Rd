@@ -30,7 +30,7 @@ Property Exposure Statistics (QADIPEXS) from APRA's website. Both the
 current and historic versions of this statistical publication are available.
 }
 \examples{
-\dontrun{
+\donttest{
 read_qadipexs(cur_hist = "current")
 }
 }

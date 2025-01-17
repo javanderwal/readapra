@@ -72,14 +72,14 @@ joined_formatting_data <- function(tidyxl_data, formatting_data) {
 #' @noRd
 #'
 clean_unit_data <- function(data) {
-    dplyr::mutate(
-      .data = data,
-      unit = dplyr::case_when(
-        stringr::str_detect(unit, "\\%") ~ "Percent",
-        stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
-        .default = "$ million"
-      )
+  dplyr::mutate(
+    .data = data,
+    unit = dplyr::case_when(
+      stringr::str_detect(unit, "\\%") ~ "Percent",
+      stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
+      .default = "$ million"
     )
+  )
 }
 
 #' Removes escapes sequences from a vector of characters and any trailing spaces.
@@ -115,4 +115,3 @@ is_arg_logical <- function(
     )
   }
 }
-

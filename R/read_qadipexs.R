@@ -19,7 +19,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_qadipexs(cur_hist = "current")
 #' }
 read_qadipexs <- function(
@@ -29,14 +29,15 @@ read_qadipexs <- function(
     quiet = FALSE,
     ...) {
   rlang::arg_match(cur_hist, c("current", "historic"))
-  temp_file_path <- download_apra(
-    publication = "qadipexs",
-    cur_hist = cur_hist,
-    path = path,
-    quiet = quiet,
-    overwrite = overwrite,
-    ...
-  )
+  temp_file_path <-
+    download_apra_with_caller(
+      publication = "qadipexs",
+      cur_hist = cur_hist,
+      path = path,
+      quiet = quiet,
+      overwrite = overwrite,
+      ...
+    )
   read_qadipexs_local(temp_file_path, cur_hist)
 }
 
@@ -55,11 +56,12 @@ read_qadipexs <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' read_qadipexs_local(
-#'   file_path = "path/to/xlsx/file.xlsx",
-#'   cur_hist = "current"
-#' )
+#' \donttest{
+#' # Downloading the latest QADIPEXS file
+#' qadipexs_file_path <- download_apra(publication = "qadipexs")
+#'
+#' # Importing the data into R
+#' read_qadipexs_local(file_path = qadipexs_file_path, cur_hist = "current")
 #' }
 read_qadipexs_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))

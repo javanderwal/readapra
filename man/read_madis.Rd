@@ -29,7 +29,7 @@ Statistics (MADIS) from APRA's website. Both the current and historic
 versions of this statistical publication are available.
 }
 \examples{
-\dontrun{
+\donttest{
 read_madis(cur_hist = "current")
 }
 }

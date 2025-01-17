@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_madis(cur_hist = "current")
 #' }
 read_madis <- function(
@@ -29,7 +29,7 @@ read_madis <- function(
     ...) {
   rlang::arg_match(cur_hist, c("current", "historic"))
   temp_file_path <-
-    download_apra(
+    download_apra_with_caller(
       publication = "madis",
       cur_hist = cur_hist,
       path = path,
@@ -55,11 +55,13 @@ read_madis <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' read_madis_local(
-#'   file_path = "path/to/xlsx/file.xlsx",
-#'   cur_hist = "current"
-#' )
+#' \donttest{
+#'
+#' # Downloading the latest MADIS file
+#' madis_file_path <- download_apra(publication = "madis")
+#'
+#' # Importing the data into R
+#' read_madis_local(file_path = madis_file_path, cur_hist = "current")
 #' }
 read_madis_local <- function(file_path, cur_hist) {
   rlang::arg_match(cur_hist, c("current", "historic"))

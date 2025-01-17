@@ -6,7 +6,7 @@
 \alias{readapra-package}
 \title{readapra: Download and Tidy Data from the Australian Prudential Regulation}
 \description{
-Download the latest data from the Australian Prudential Regulation Authority and import it into R as a tidy data frame.
+Download the latest data from the Australian Prudential Regulation Authority \url{https://www.apra.gov.au/} and import it into R as a tidy data frame.
 }
 \seealso{
 Useful links:

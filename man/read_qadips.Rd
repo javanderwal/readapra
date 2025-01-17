@@ -25,7 +25,7 @@ Download and import the Quarterly Authorised Deposit-taking Institution
 Performance Statistics (QADIPS) from APRA's website.
 }
 \examples{
-\dontrun{
+\donttest{
 read_qadips()
 }
 }

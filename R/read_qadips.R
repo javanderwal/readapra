@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' read_qadips()
 #' }
 read_qadips <- function(
@@ -23,14 +23,15 @@ read_qadips <- function(
     overwrite = TRUE,
     quiet = FALSE,
     ...) {
-  temp_file_path <- download_apra(
-    publication = "qadips",
-    cur_hist = "current",
-    path = path,
-    quiet = quiet,
-    overwrite = overwrite,
-    ...
-  )
+  temp_file_path <-
+    download_apra_with_caller(
+      publication = "qadips",
+      cur_hist = "current",
+      path = path,
+      quiet = quiet,
+      overwrite = overwrite,
+      ...
+    )
   read_qadips_local(temp_file_path)
 }
 
@@ -46,8 +47,12 @@ read_qadips <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' read_qadips_local(file_path = "path/to/xlsx/file.xlsx")
+#' \donttest{
+#' # Downloading the latest QADIPS file
+#' qadips_file_path <- download_apra(publication = "qadips")
+#'
+#' # Importing the data into R
+#' read_qadips_local(file_path = qadips_file_path)
 #' }
 read_qadips_local <- function(file_path) {
   check_valid_file_path(file_path)
