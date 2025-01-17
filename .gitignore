@@ -1,5 +1,9 @@
+# Ignore
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 *.xlsx
+
+# Allow
+!/tests/testthat/test_data/*.xlsx
