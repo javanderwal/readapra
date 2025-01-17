@@ -34,6 +34,12 @@ test_that("download_apra() error handling", {
   # Wrong cur_hist argument
   expect_error(download_apra(publication = "qadips", cur_hist = "NULL"))
 
+  # Invalid cur_hist input given publication input
+  expect_error(
+    download_apra(publication = "qadips", cur_hist = "historic"),
+    class = "readapra_error_invalid_historic_selection"
+  )
+
   # Error if can't get connection
   local_mocked_bindings(
     get_http_status = function(...) {
@@ -75,6 +81,17 @@ test_that("download_apra() error handling", {
     class = "readapra_error_could_not_download_file"
   )
 })
+
+test_that("check_valid_cur_hist() behaves as expected", {
+  expect_error(
+    check_valid_cur_hist("qadips", "historic"),
+    class = "readapra_error_invalid_historic_selection"
+  )
+
+  expect_no_error(check_valid_cur_hist("qadips", "current"))
+  expect_no_error(check_valid_cur_hist("madis", "historic"))
+})
+
 
 test_that("scrape_urls() behaves as expected", {
   enable(quiet = TRUE)

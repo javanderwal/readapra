@@ -72,8 +72,8 @@ joined_formatting_data <- function(tidyxl_data, formatting_data) {
 #' @noRd
 #'
 clean_unit_data <- function(data) {
-  data |>
     dplyr::mutate(
+      .data = data,
       unit = dplyr::case_when(
         stringr::str_detect(unit, "\\%") ~ "Percent",
         stringr::str_detect(series, stringr::regex("Number", ignore_case = TRUE)) ~ "No.",
@@ -97,3 +97,22 @@ remove_escape_sequences <- function(x) {
   x <- stringr::str_trim(x)
   return(x)
 }
+
+#' Checks that an argument input is a logical vector of length 1
+#'
+#' @param x vector of characters
+#'
+#' @noRd
+#'
+is_arg_logical <- function(
+    logical_arg,
+    arg = rlang::caller_arg(logical_arg),
+    call = rlang::caller_env()) {
+  if (!is.logical(logical_arg) || length(logical_arg) != 1) {
+    cli::cli_abort(
+      message = "{.arg {arg}} must be either {.code TRUE} or {.code FALSE}.",
+      class = "readapra_error_arg_is_not_logical_length_one"
+    )
+  }
+}
+

@@ -1,18 +1,71 @@
-#' Downloads the required files from APRA's website
+#' Download a Statistical Publication File from APRA's Website
 #'
-#' @param publication The publication that you want to download
-#' @param cur_hist Whether to download the current or historic publication
-#' @param path path where to save the destfile.
-#' @param overwrite if `TRUE` will overwrite file on disk
-#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
-#' @param call Caller environment for error handling
-#' @param ... Other parameters passed on to download.file
+#' @description
+#' Downloads a specified statistical publication file from APRA's website. By
+#' default files are saved to a temporary directory.
 #'
-#' @noRd
+#' @param publication character vector containing the acronym of the statistical
+#' publication you want to download.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`). Please
+#' note that not all statistical publications have a historic publication.
+#' @param path path to where the downloaded file should be saved. Uses
+#' [base::tempdir()] by default.
+#' @param overwrite whether to overwrite the downloaded file when re-downloading
+#' the file.
+#' @param quiet whether to suppress the download progress bar.
+#' @param ... additional arguments to be passed to [utils::download.file()].
 #'
+#' @return A character vector detailing the file path to the downloaded file.
+#'
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' download_path <- download_apra(publication = "qadips", cur_hist = "current")
+#'
+#' print(download_path)
+#' }
+
 download_apra <- function(
     publication,
     cur_hist,
+    path = tempdir(),
+    overwrite = TRUE,
+    quiet = FALSE,
+    call = rlang::caller_env(),
+    ...) {
+  download_apra_with_caller(
+    publication = publication,
+    cur_hist = cur_hist,
+    path = path,
+    overwrite = overwrite,
+    quiet = quiet,
+    ...
+  )
+}
+
+#' Download a statistical publication file from APRA's website with caller
+#' environment control
+#'
+#' @param publication character vector containing the acronym of the statistical
+#' publication you want to download.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`). Please
+#' note that not all statistical publications have a historic publication.
+#' @param path path to where the downloaded file should be saved. Uses
+#' [base::tempdir()] by default.
+#' @param overwrite whether to overwrite the downloaded file when re-downloading
+#' the file.
+#' @param quiet whether to suppress the download progress bar.
+#' @param call Caller environment for error handling
+#' @param ... additional arguments to be passed to [utils::download.file()].
+#'
+#' @noRd
+#'
+download_apra_with_caller <- function(
+    publication,
+    cur_hist = "current",
     path = tempdir(),
     overwrite = TRUE,
     quiet = FALSE,
@@ -28,6 +81,11 @@ download_apra <- function(
     values = c("current", "historic"),
     error_call = call
   )
+
+  check_valid_file_path(path, call)
+  check_valid_cur_hist(publication, cur_hist, call)
+  is_arg_logical(overwrite, call = call)
+  is_arg_logical(quiet, call = call)
 
   selected_stat_pub <-
     dplyr::filter(
@@ -57,6 +115,39 @@ download_apra <- function(
     )
 
   return(download_location)
+}
+
+#' Check whether the publication and cur_hist inputs are a valid combination.
+#'
+#' @param publication character vector containing the acronym of the statistical
+#' publication you want to check.
+#' @param cur_hist the character
+#' @param call the caller environment
+#'
+#' @noRd
+#'
+check_valid_cur_hist <- function(
+    publication,
+    cur_hist,
+    call = rlang::caller_env()) {
+  pub_check_result <-
+    dplyr::filter(
+      .data = apra_stat_pub_details,
+      publication == !!publication,
+      cur_hist == !!cur_hist
+    )
+
+  if (nrow(pub_check_result) != 1) {
+    cli::cli_abort(
+      message =
+        c(
+          "The {.code {toupper(publication)}} statistical publication does not have a historic publication.",
+          c("x" = "Please change the input to {.arg cur_hist} from {.code \"historic\"} to {.code \"current\"}")
+        ),
+      class = "readapra_error_invalid_historic_selection",
+      call = call
+    )
+  }
 }
 
 #' Scrape URLs from a webpage
