@@ -16,7 +16,7 @@ test_that("url_selector() behaves as expected", {
   input_selected_stat_pub <-
     dplyr::filter(
       .data = apra_stat_pub_details,
-      publication == "madis", cur_hist == "current"
+      statistical_publication_acronym == "madis", cur_hist == "current"
     )
 
   # Regex behaves as expected
@@ -37,7 +37,7 @@ test_that("url_selector() errors correctly", {
   input_selected_stat_pub <-
     dplyr::filter(
       .data = apra_stat_pub_details,
-      publication == "madis", cur_hist == "current"
+      statistical_publication_acronym == "madis", cur_hist == "current"
     )
 
   expect_error(
