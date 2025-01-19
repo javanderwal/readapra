@@ -3,8 +3,10 @@ test_that("read_qadipexs() behaves as expected", {
   skip_on_cran()
 
   with_tempdir({
-    current_qadipexs <- read_qadipexs(cur_hist = "current", quiet = TRUE)
-    historic_qadipexs <- read_qadipexs(cur_hist = "historic", quiet = TRUE)
+    current_qadipexs_path <- download_apra("qadipexs", "current", quiet = TRUE)
+    current_qadipexs <- read_qadipexs(current_qadipexs_path, "current")
+    historic_qadipexs_path <- download_apra("qadipexs", "current", quiet = TRUE)
+    historic_qadipexs <- read_qadipexs(current_qadipexs_path, "historic")
   })
 
   # Testing current QADIPEXS

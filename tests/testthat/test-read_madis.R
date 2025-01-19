@@ -3,8 +3,10 @@ test_that("read_madis() real download", {
   skip_on_cran()
 
   with_tempdir({
-    current_madis <- read_madis(cur_hist = "current", quiet = TRUE)
-    historic_madis <- read_madis(cur_hist = "historic", quiet = TRUE)
+    current_madis_path <- download_apra("madis", "current", quiet = TRUE)
+    current_madis <- read_madis(current_madis_path, "current")
+    historic_madis_path <- download_apra("madis", "historic", quiet = TRUE)
+    historic_madis <- read_madis(historic_madis_path, "historic")
   })
 
   # Testing current MADIS

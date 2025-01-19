@@ -3,7 +3,8 @@ test_that("read_qadips() behaves as expected", {
   skip_on_cran()
 
   with_tempdir({
-    qadips <- read_qadips(quiet = TRUE)
+    qadips_path <- download_apra("qadips", "current", quiet = TRUE)
+    qadips <- read_qadips(qadips_path, "current")
     expect_s3_class(qadips, "tbl_df")
     expect_equal(
       purrr::map(qadips, class),

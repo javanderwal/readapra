@@ -3,7 +3,8 @@ test_that("read_adipops() real download", {
   skip_on_cran()
 
   with_tempdir({
-    adipops <- read_adipops(quiet = TRUE)
+    adipos_path <- download_apra("adipops", "current", quiet = TRUE)
+    adipops <- read_adipops(adipos_path, "current")
     expect_s3_class(adipops, "tbl_df")
     expect_equal(
       purrr::map(adipops, class),
