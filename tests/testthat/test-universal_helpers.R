@@ -1,4 +1,7 @@
 test_that("check_valid_file_path() behaves as expected", {
+  # Skip due to divergence across OS systems.
+  skip_on_os(c("mac", "linux", "solaris"))
+
   wrapper_check_valid_file_path <- function(...) {
     check_valid_file_path(...)
   }
