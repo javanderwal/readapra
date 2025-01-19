@@ -32,7 +32,7 @@ statistical publications are available in \code{readapra}.
 \donttest{
 # Download the current MADIS data and get the file path:
 current_madis_file_path <-
-  download_apra(publication = "madis", cur_hist = "current")
+  download_apra(stat_pub = "madis", cur_hist = "current")
 
 # Import the current MADIS data:
 current_madis_data <-
