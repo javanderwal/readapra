@@ -76,39 +76,3 @@ check_standard_user_inputs <- function(stat_pub,
   return(stat_pub_selected)
 }
 
-#' Check whether an input to an argument is a character vector of length one.
-#' Throws an error if not.
-#'
-#' @param check_obj the object that is to be checked.
-#' @param call_arg the caller argument for the object.
-#' @param call the caller environment.
-#'
-#' @noRd
-#'
-check_character_length_one <- function(check_obj,
-                                       call_arg = rlang::caller_arg(check_obj),
-                                       call = rlang::caller_env()) {
-  if (!is.vector(check_obj)) {
-    cli::cli_abort(
-      message = "{.arg {call_arg}} must be a {.cls character} vector, not a {.cls {class(check_obj)}} object.",
-      class = "readapra_error_input_arg_not_vector",
-      call = call
-    )
-  }
-
-  if (!is.character(check_obj)) {
-    cli::cli_abort(
-      message = "{.arg {call_arg}} must be a {.cls character} vector, not a {.cls {class(check_obj)}} vector.",
-      class = "readapra_error_input_arg_not_character",
-      call = call
-    )
-  }
-
-  if (length(check_obj) != 1) {
-    cli::cli_abort(
-      message = "{.arg {call_arg}} must be a character vector of length {.val {1}}, not length {.val {length(check_obj)}}.",
-      class = "readapra_error_input_arg_not_length_1",
-      call = call
-    )
-  }
-}

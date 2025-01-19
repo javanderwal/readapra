@@ -27,19 +27,7 @@ test_that("download_apra() real file download", {
   })
 })
 
-test_that("download_apra() error handling", {
-
-  # Invalid stat_pub input
-  expect_error(
-    download_apra(stat_pub = "qadip", cur_hist = "historic"),
-    class = "readapra_error_invalid_stat_pub_input"
-  )
-
-  # Invalid cur_hist input given publication input
-  expect_error(
-    download_apra(stat_pub = "qadips", cur_hist = "historic"),
-    class = "readapra_error_invalid_cur_hist_input"
-  )
+test_that("download_apra() download error handling", {
 
   # Error if can't get connection
   local_mocked_bindings(

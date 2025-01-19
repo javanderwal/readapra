@@ -6,27 +6,7 @@
 #' @noRd
 #'
 check_valid_file_path <- function(file_path, call = rlang::caller_env()) {
-  if (!is.character(file_path)) {
-    cli::cli_abort(
-      message = c(
-        "{.arg file_path} must be a string of length 1.",
-        c("x" = "Supplied argument is of class {.cls {class(file_path)}}.")
-      ),
-      class = "read_apra_error_file_path_not_string",
-      call = call
-    )
-  }
-
-  if (length(file_path) != 1) {
-    cli::cli_abort(
-      message = c(
-        "{.arg file_path} must be a string of length 1.",
-        c("x" = "Supplied argument is of length {.val {length(file_path)}}.")
-      ),
-      class = "read_apra_error_file_path_not_length_one",
-      call = call
-    )
-  }
+  check_character_length_one(check_obj = file_path, call = call)
 
   suppressWarnings(normalised_file_path <- normalizePath(file_path))
 
@@ -98,20 +78,76 @@ remove_escape_sequences <- function(x) {
   return(x)
 }
 
-#' Checks that an argument input is a logical vector of length 1
+#' Check whether an input to an argument is a logical vector of length one.
+#' Throws an error if not.
 #'
-#' @param x vector of characters
+#' @param check_obj the object that is to be checked.
+#' @param call_arg the caller argument for the object.
+#' @param call the caller environment.
 #'
 #' @noRd
 #'
-is_arg_logical <- function(
-    logical_arg,
-    arg = rlang::caller_arg(logical_arg),
-    call = rlang::caller_env()) {
-  if (!is.logical(logical_arg) || length(logical_arg) != 1) {
+check_logical_length_one <- function(check_obj,
+                                     call_arg = rlang::caller_arg(check_obj),
+                                     call = rlang::caller_env()) {
+  if (!is.vector(check_obj)) {
     cli::cli_abort(
-      message = "{.arg {arg}} must be either {.code TRUE} or {.code FALSE}.",
-      class = "readapra_error_arg_is_not_logical_length_one"
+      message = "{.arg {call_arg}} must be a {.cls logical} vector, not a {.cls {class(check_obj)}} object.",
+      class = "readapra_error_input_arg_not_vector",
+      call = call
+    )
+  }
+
+  if (!is.logical(check_obj)) {
+    cli::cli_abort(
+      message = "{.arg {call_arg}} must be a {.cls logical} vector, not a {.cls {class(check_obj)}} vector.",
+      class = "readapra_error_input_arg_not_logical",
+      call = call
+    )
+  }
+
+  if (length(check_obj) != 1) {
+    cli::cli_abort(
+      message = "{.arg {call_arg}} must be a logical vector of length {.val {1}}, not length {.val {length(check_obj)}}.",
+      class = "readapra_error_input_arg_not_length_1",
+      call = call
+    )
+  }
+}
+
+#' Check whether an input to an argument is a character vector of length one.
+#' Throws an error if not.
+#'
+#' @param check_obj the object that is to be checked.
+#' @param call_arg the caller argument for the object.
+#' @param call the caller environment.
+#'
+#' @noRd
+#'
+check_character_length_one <- function(check_obj,
+                                       call_arg = rlang::caller_arg(check_obj),
+                                       call = rlang::caller_env()) {
+  if (!is.vector(check_obj)) {
+    cli::cli_abort(
+      message = "{.arg {call_arg}} must be a {.cls character} vector, not a {.cls {class(check_obj)}} object.",
+      class = "readapra_error_input_arg_not_vector",
+      call = call
+    )
+  }
+
+  if (!is.character(check_obj)) {
+    cli::cli_abort(
+      message = "{.arg {call_arg}} must be a {.cls character} vector, not a {.cls {class(check_obj)}} vector.",
+      class = "readapra_error_input_arg_not_character",
+      call = call
+    )
+  }
+
+  if (length(check_obj) != 1) {
+    cli::cli_abort(
+      message = "{.arg {call_arg}} must be a character vector of length {.val {1}}, not length {.val {length(check_obj)}}.",
+      class = "readapra_error_input_arg_not_length_1",
+      call = call
     )
   }
 }

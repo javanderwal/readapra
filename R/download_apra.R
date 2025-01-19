@@ -77,8 +77,8 @@ download_apra_with_caller <- function(
     ...) {
   check_valid_file_path(path, call)
   check_standard_user_inputs(stat_pub, cur_hist, call = call)
-  is_arg_logical(overwrite, call = call)
-  is_arg_logical(quiet, call = call)
+  check_logical_length_one(overwrite, call = call)
+  check_logical_length_one(quiet, call = call)
 
   selected_stat_pub <-
     dplyr::filter(
