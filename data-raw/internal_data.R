@@ -14,7 +14,7 @@ clean_apra_url <- function(url) {
   return(cleaned_url)
 }
 
-apra_stat_pub_details <-
+apra_stat_pubs_details <-
   dplyr::mutate(
     .data = readr::read_csv("data-raw/apra_statistical_publication_record.csv"),
     regex_link = clean_apra_url(file_link),
@@ -34,7 +34,7 @@ qadicp_risk_metric_category <-
 
 # Building system data ----------------------------------------------------
 usethis::use_data(
-  apra_stat_pub_details,
+  apra_stat_pubs_details,
   madis_current_balance_sheet,
   madis_historic_balance_sheet,
   qadicp_risk_metric_category,
