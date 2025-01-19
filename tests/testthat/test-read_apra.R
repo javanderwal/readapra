@@ -25,6 +25,9 @@ test_that("read_apra_local() behaves as expected", {
 })
 
 test_that("read_apra() error snapshots", {
+  skip_on_cran()
+  skip_on_os(c("mac", "linux", "solaris"))
+
   # Misspelled stat_pub input
   testthat::expect_snapshot(
     {
@@ -273,6 +276,8 @@ test_that("read_apra() errors are correct class", {
 })
 
 test_that("read_apra_local() error snapshots", {
+  skip_on_os(c("mac", "linux", "solaris"))
+
   # Invalid file_path
   testthat::expect_snapshot(
     {
