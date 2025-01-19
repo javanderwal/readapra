@@ -54,7 +54,7 @@ qadips_data <- function(tidyxl_data,
       frequency = qadips_frequency,
       series_hierarchy_fn = qadip_key_stats_names,
       error_or_warning = "warning",
-      message = "Could not extract data from the {.code Key stats} sheet. Data from the {.code Key stats} sheet has been omitted.",
+      message = "Could not extract data from the {.code Key Stats} sheet. Data from the {.code Key Stats} sheet has been omitted.",
       series_hierarchy_args = list(tidyxl_data = tidyxl_data),
       call = call
     )

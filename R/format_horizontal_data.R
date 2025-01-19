@@ -29,10 +29,11 @@ format_horizontal_data <- function(tidyxl_data,
     )
 
   if (!is.null(series_hierarchy_fn)) {
-    do.call(
-      series_hierarchy_fn,
-      c(list(series_hierarchy_data), series_hierarchy_args)
-    )
+    series_hierarchy_data <-
+      do.call(
+        series_hierarchy_fn,
+        c(list(series_hierarchy_data), series_hierarchy_args)
+      )
   }
 
   relevant_tidyxl_data <-
