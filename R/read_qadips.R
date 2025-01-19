@@ -29,10 +29,9 @@ read_qadips <- function(file_path, cur_hist, call = rlang::caller_env()) {
 #' @keywords internal
 #' @noRd
 #'
-qadips_data <- function(
-    tidyxl_data,
-    formatting_data,
-    call = rlang::caller_env()) {
+qadips_data <- function(tidyxl_data,
+                        formatting_data,
+                        call = rlang::caller_env()) {
   qadips_name <- "Quarterly Authorised Deposit-taking Institution Performance Statistics"
   qadips_frequency <- "Quarterly"
 

@@ -27,10 +27,9 @@ read_adipops <- function(file_path, cur_hist, call = rlang::caller_env()) {
 #'
 #' @noRd
 #'
-adipops_data <- function(
-    tidyxl_data,
-    formatting_data,
-    call = rlang::caller_env()) {
+adipops_data <- function(tidyxl_data,
+                         formatting_data,
+                         call = rlang::caller_env()) {
   adipops_data <-
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,

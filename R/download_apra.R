@@ -67,14 +67,13 @@ download_apra <- function(
 #'
 #' @noRd
 #'
-download_apra_with_caller <- function(
-    stat_pub,
-    cur_hist,
-    path = tempdir(),
-    overwrite = TRUE,
-    quiet = FALSE,
-    call = rlang::caller_env(),
-    ...) {
+download_apra_with_caller <- function(stat_pub,
+                                      cur_hist,
+                                      path = tempdir(),
+                                      overwrite = TRUE,
+                                      quiet = FALSE,
+                                      call = rlang::caller_env(),
+                                      ...) {
   check_valid_file_path(path, call)
   check_standard_user_inputs(stat_pub, cur_hist, call = call)
   check_logical_length_one(overwrite, call = call)

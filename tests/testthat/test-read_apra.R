@@ -18,7 +18,7 @@ test_that("read_apra_local() behaves as expected", {
       file_path = download_apra("qadips", "current", quiet = TRUE),
       stat_pub = "qadips",
       cur_hist = "current"
-      )
+    )
   )
 
   expect_s3_class(qadips_data, "tbl")

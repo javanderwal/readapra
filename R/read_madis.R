@@ -30,11 +30,10 @@ read_madis <- function(file_path, cur_hist, call = rlang::caller_env()) {
 #'
 #' @noRd
 #'
-madis_data <- function(
-    tidyxl_data,
-    formatting_data,
-    cur_hist,
-    call = rlang::caller_env()) {
+madis_data <- function(tidyxl_data,
+                       formatting_data,
+                       cur_hist,
+                       call = rlang::caller_env()) {
   madis_data <-
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,
@@ -60,10 +59,9 @@ madis_data <- function(
 #' @keywords internal
 #' @noRd
 #'
-add_madis_balance_sheet <- function(
-    madis_data,
-    cur_hist,
-    call = rlang::caller_env()) {
+add_madis_balance_sheet <- function(madis_data,
+                                    cur_hist,
+                                    call = rlang::caller_env()) {
   original_col <- madis_data$col
   madis_data$col <- madis_data$col - min(madis_data$col) + 1
 

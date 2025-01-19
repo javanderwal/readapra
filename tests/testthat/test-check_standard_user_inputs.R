@@ -1,5 +1,4 @@
 test_that("check_standard_user_inputs() behaves as expected", {
-
   # Expect success
   expect_equal(
     check_standard_user_inputs("madis", "historic"),
@@ -24,7 +23,7 @@ test_that("check_standard_user_inputs() behaves as expected", {
   expect_error(
     check_standard_user_inputs("madisa", "historical"),
     class = "readapra_error_invalid_stat_pub_input"
-    )
+  )
 
   # Error if invalid cur_hist input
   expect_error(
@@ -34,7 +33,6 @@ test_that("check_standard_user_inputs() behaves as expected", {
 })
 
 test_that("check_character_length_one() behaves as expected", {
-
   # Error if arg not vector
   expect_error(
     check_character_length_one(data.frame()),

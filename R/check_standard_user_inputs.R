@@ -75,4 +75,3 @@ check_standard_user_inputs <- function(stat_pub,
 
   return(stat_pub_selected)
 }
-

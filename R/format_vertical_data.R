@@ -10,12 +10,11 @@
 #'
 #' @noRd
 #'
-format_vertical_data <- function(
-    tidyxl_data,
-    formatting_data,
-    stat_pub_name,
-    frequency,
-    drop_col = TRUE) {
+format_vertical_data <- function(tidyxl_data,
+                                 formatting_data,
+                                 stat_pub_name,
+                                 frequency,
+                                 drop_col = TRUE) {
   existing_cols <- sort(unique(tidyxl_data$col))
 
   row_names <- get_col_names(tidyxl_data, existing_cols)
@@ -104,10 +103,9 @@ get_col_names <- function(tidyxl_data, existing_cols) {
 #'
 #' @noRd
 #'
-restructure_as_in_xlsx <- function(
-    existing_cols,
-    row_names,
-    data_below_top_row) {
+restructure_as_in_xlsx <- function(existing_cols,
+                                   row_names,
+                                   data_below_top_row) {
   list_column_data <-
     purrr::map(
       .x = existing_cols,
@@ -198,13 +196,12 @@ clean_col_names <- function(pivoted_data) {
 #'
 #' @noRd
 #'
-get_extra_meta_data <- function(
-    stat_pub_name,
-    frequency,
-    row_names,
-    existing_cols,
-    data_below_top_row,
-    formatting_data) {
+get_extra_meta_data <- function(stat_pub_name,
+                                frequency,
+                                row_names,
+                                existing_cols,
+                                data_below_top_row,
+                                formatting_data) {
   column_binder <-
     dplyr::mutate(
       .data = tibble::tibble(series = row_names$character),
@@ -245,13 +242,12 @@ safe_format_vertical_data <- purrr::safely(format_vertical_data)
 #' @noRd
 #'
 attempt_format_vertical_data <-
-  function(
-      tidyxl_data,
-      formatting_data,
-      stat_pub_name,
-      frequency,
-      drop_col = TRUE,
-      call = rlang::caller_env()) {
+  function(tidyxl_data,
+           formatting_data,
+           stat_pub_name,
+           frequency,
+           drop_col = TRUE,
+           call = rlang::caller_env()) {
     outcome <- safe_format_vertical_data(
       tidyxl_data, formatting_data, stat_pub_name, frequency,
       drop_col = drop_col

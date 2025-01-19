@@ -27,10 +27,9 @@ read_qadicp <- function(file_path, cur_hist, call = rlang::caller_env()) {
 #'
 #' @noRd
 #'
-qadicp_data <- function(
-    tidyxl_data,
-    formatting_data,
-    call = rlang::caller_env()) {
+qadicp_data <- function(tidyxl_data,
+                        formatting_data,
+                        call = rlang::caller_env()) {
   qadicp_data <-
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,
@@ -53,10 +52,8 @@ qadicp_data <- function(
 #' @keywords internal
 #' @noRd
 #'
-add_qadicp_regulatory_category <- function(
-    qadicp_data,
-    call = rlang::caller_env()
-    ) {
+add_qadicp_regulatory_category <- function(qadicp_data,
+                                           call = rlang::caller_env()) {
   original_col <- qadicp_data$col
   qadicp_data$col <- qadicp_data$col - min(qadicp_data$col) + 1
 

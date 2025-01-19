@@ -33,11 +33,10 @@ read_qadipexs <- function(file_path, cur_hist, call = rlang::caller_env()) {
 #' @keywords internal
 #' @noRd
 #'
-qadipexs_data <- function(
-    tidyxl_data,
-    formatting_data,
-    cur_hist,
-    call = rlang::caller_env()) {
+qadipexs_data <- function(tidyxl_data,
+                          formatting_data,
+                          cur_hist,
+                          call = rlang::caller_env()) {
   qadipexs_data <-
     attempt_format_horizontal_data(
       tidyxl_data = tidyxl_data,

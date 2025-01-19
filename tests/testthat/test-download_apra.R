@@ -28,7 +28,6 @@ test_that("download_apra() real file download", {
 })
 
 test_that("download_apra() download error handling", {
-
   # Error if can't get connection
   local_mocked_bindings(
     get_http_status = function(...) {

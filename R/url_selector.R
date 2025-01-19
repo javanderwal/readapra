@@ -9,10 +9,9 @@
 #'
 #' @noRd
 #'
-url_selector <- function(
-    urls_to_check,
-    selected_stat_pub,
-    call = rlang::caller_env()) {
+url_selector <- function(urls_to_check,
+                         selected_stat_pub,
+                         call = rlang::caller_env()) {
   regex_matched_url <-
     stringr::str_subset(
       urls_to_check,
