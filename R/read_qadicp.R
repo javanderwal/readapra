@@ -1,64 +1,21 @@
 #' Read Quarterly ADI Centralised Publication
 #'
 #' @description
-#' Download and import the Quarterly Authorised Deposit-taking
-#' Institution Centralised Publication (QADICP) from APRA's website.
-#'
-#' @param path path to where the downloaded file should be saved. Uses
-#' [base::tempdir()] by default.
-#' @param overwrite whether to overwrite the downloaded file when re-downloading
-#' the file.
-#' @param quiet whether to suppress the download progress bar.
-#' @param ... additional arguments to be passed to [utils::download.file()].
-#'
-#' @return A tibble containing the Quarterly ADI Centralised Publication data.
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' read_qadicp()
-#' }
-read_qadicp <- function(
-    path = tempdir(),
-    overwrite = TRUE,
-    quiet = FALSE,
-    ...) {
-  temp_file_path <-
-    download_apra_with_caller(
-      publication = "qadicp",
-      cur_hist = "current",
-      path = path,
-      quiet = quiet,
-      overwrite = overwrite,
-      ...
-    )
-  read_qadicp_local(temp_file_path)
-}
-
-#' Read Quarterly ADI Centralised Publication locally
-#'
-#' @description
 #' Import the Quarterly Authorised Deposit-taking Institution Centralised
 #' Publication (QADICP) from a local file.
 #'
 #' @param file_path path to the local .xlsx file.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @return A tibble containing the Quarterly ADI Centralised Publication data.
-#' @export
 #'
-#' @examples
-#' \donttest{
-#' # Downloading the latest QADICP file
-#' qadicp_file_path <- download_apra(publication = "qadicp")
+#' @noRd
 #'
-#' # Importing the data into R
-#' read_qadicp_local(file_path = qadicp_file_path)
-#' }
-read_qadicp_local <- function(file_path) {
-  check_valid_file_path(file_path)
-  tidyxl_data <- read_tidyxl_data(file_path, "table.*4")
+read_qadicp <- function(file_path, cur_hist, call = rlang::caller_env()) {
+  tidyxl_data <- read_tidyxl_data(file_path, "table.*4", call = call)
   formatting_data <- read_tidyxl_formatting_data(file_path)
-  qadicp_data(tidyxl_data, formatting_data)
+  qadicp_data(tidyxl_data, formatting_data, call = call)
 }
 
 #' Combines the various QADICP data tibbles together alongside final formatting
@@ -70,16 +27,20 @@ read_qadicp_local <- function(file_path) {
 #'
 #' @noRd
 #'
-qadicp_data <- function(tidyxl_data, formatting_data) {
+qadicp_data <- function(
+    tidyxl_data,
+    formatting_data,
+    call = rlang::caller_env()) {
   qadicp_data <-
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
       stat_pub_name = "Quarterly Authorised Deposit-taking Institution Centralised Publication",
       frequency = "Quarterly",
-      drop_col = FALSE
+      drop_col = FALSE,
+      call = call
     )
-  qadicp_data <- add_qadicp_regulatory_category(qadicp_data)
+  qadicp_data <- add_qadicp_regulatory_category(qadicp_data, call = call)
   qadicp_data <- dplyr::select(.data = qadicp_data, !col)
   return(qadicp_data)
 }
@@ -92,7 +53,10 @@ qadicp_data <- function(tidyxl_data, formatting_data) {
 #' @keywords internal
 #' @noRd
 #'
-add_qadicp_regulatory_category <- function(qadicp_data) {
+add_qadicp_regulatory_category <- function(
+    qadicp_data,
+    call = rlang::caller_env()
+    ) {
   original_col <- qadicp_data$col
   qadicp_data$col <- qadicp_data$col - min(qadicp_data$col) + 1
 

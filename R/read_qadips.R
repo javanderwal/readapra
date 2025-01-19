@@ -1,64 +1,21 @@
 #' Read Quarterly ADI Performance Statistics
 #'
 #' @description
-#' Download and import the Quarterly Authorised Deposit-taking Institution
-#' Performance Statistics (QADIPS) from APRA's website.
-#'
-#' @param path path to where the downloaded file should be saved. Uses
-#' [base::tempdir()] by default.
-#' @param overwrite whether to overwrite the downloaded file when re-downloading
-#' the file.
-#' @param quiet whether to suppress the download progress bar.
-#' @param ... additional arguments to be passed to [utils::download.file()].
-#'
-#' @return A tibble containing the Quarterly ADI Performance Statistics data.
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' read_qadips()
-#' }
-read_qadips <- function(
-    path = tempdir(),
-    overwrite = TRUE,
-    quiet = FALSE,
-    ...) {
-  temp_file_path <-
-    download_apra_with_caller(
-      publication = "qadips",
-      cur_hist = "current",
-      path = path,
-      quiet = quiet,
-      overwrite = overwrite,
-      ...
-    )
-  read_qadips_local(temp_file_path)
-}
-
-#' Read Quarterly ADI Performance Statistics locally
-#'
-#' @description
 #' Import the Quarterly Authorised Deposit-taking Institution
 #' Performance Statistics (QADIPS) from a local file.
 #'
 #' @param file_path path to the local .xlsx file.
+#' @param cur_hist character vector determining whether to download the current
+#' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @return A tibble containing the Quarterly ADI Performance Statistics data.
-#' @export
 #'
-#' @examples
-#' \donttest{
-#' # Downloading the latest QADIPS file
-#' qadips_file_path <- download_apra(publication = "qadips")
+#' @noRd
 #'
-#' # Importing the data into R
-#' read_qadips_local(file_path = qadips_file_path)
-#' }
-read_qadips_local <- function(file_path) {
-  check_valid_file_path(file_path)
-  tidyxl_data <- read_tidyxl_data(file_path)
+read_qadips <- function(file_path, cur_hist, call = rlang::caller_env()) {
+  tidyxl_data <- read_tidyxl_data(file_path, call = call)
   formatting_data <- read_tidyxl_formatting_data(file_path)
-  qadips_data(tidyxl_data, formatting_data)
+  qadips_data(tidyxl_data, formatting_data, call = call)
 }
 
 #' Combines the various QADIP data tibbles together alongside final formatting
