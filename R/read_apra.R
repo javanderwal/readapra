@@ -82,7 +82,7 @@ read_apra <- function(stat_pub,
 #' # Import the current MADIS data:
 #' current_madis_data <-
 #'   read_apra_local(
-#'     publication = "madis",
+#'     stat_pub = "madis",
 #'     cur_hist = "current",
 #'     file_path = current_madis_file_path
 #'   )
