@@ -7,7 +7,7 @@ test_that("download_apra() real file download", {
     expect_true(
       file.exists(
         download_apra(
-          publication = "qadips",
+          stat_pub = "qadips",
           cur_hist = "current",
           quiet = TRUE
         )
@@ -18,7 +18,7 @@ test_that("download_apra() real file download", {
     expect_true(
       file.exists(
         download_apra(
-          publication = "madis",
+          stat_pub = "madis",
           cur_hist = "historic",
           quiet = TRUE
         )
@@ -28,16 +28,17 @@ test_that("download_apra() real file download", {
 })
 
 test_that("download_apra() error handling", {
-  # Wrong publication argument
-  expect_error(download_apra(publication = "NULL", cur_hist = "current"))
 
-  # Wrong cur_hist argument
-  expect_error(download_apra(publication = "qadips", cur_hist = "NULL"))
+  # Invalid stat_pub input
+  expect_error(
+    download_apra(stat_pub = "qadip", cur_hist = "historic"),
+    class = "readapra_error_invalid_stat_pub_input"
+  )
 
   # Invalid cur_hist input given publication input
   expect_error(
-    download_apra(publication = "qadips", cur_hist = "historic"),
-    class = "readapra_error_invalid_historic_selection"
+    download_apra(stat_pub = "qadips", cur_hist = "historic"),
+    class = "readapra_error_invalid_cur_hist_input"
   )
 
   # Error if can't get connection
@@ -52,7 +53,7 @@ test_that("download_apra() error handling", {
   )
 
   expect_error(
-    download_apra(publication = "qadips", cur_hist = "current"),
+    download_apra(stat_pub = "qadips", cur_hist = "current"),
     regexp = "Could not scrape url to download from:",
     class = "readapra_error_http_status_error"
   )
@@ -76,22 +77,11 @@ test_that("download_apra() error handling", {
   })
 
   expect_error(
-    download_apra(publication = "qadips", cur_hist = "current"),
+    download_apra(stat_pub = "qadips", cur_hist = "current"),
     regexp = "Could not download file from:",
     class = "readapra_error_could_not_download_file"
   )
 })
-
-test_that("check_valid_cur_hist() behaves as expected", {
-  expect_error(
-    check_valid_cur_hist("qadips", "historic"),
-    class = "readapra_error_invalid_historic_selection"
-  )
-
-  expect_no_error(check_valid_cur_hist("qadips", "current"))
-  expect_no_error(check_valid_cur_hist("madis", "historic"))
-})
-
 
 test_that("scrape_urls() behaves as expected", {
   enable(quiet = TRUE)
