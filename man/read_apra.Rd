@@ -46,7 +46,7 @@ statistical publications are available in \code{readapra}.
 \donttest{
 # Download and import the current MADIS data:
 current_madis_data <-
-  read_apra(publication = "madis", cur_hist = "current")
+  read_apra(stat_pub = "madis", cur_hist = "current")
 
 # Examine the current MADIS data:
 print(current_madis_data)
