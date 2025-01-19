@@ -1,19 +1,20 @@
-#' Download a Publication Statistics File from APRA's Website
+#' Download a Statistical Publication File from APRA's Website
 #'
 #' @description
-#' Downloads a specified publication statistics file from APRA's website. By
+#' Download a statistical publication file from APRA's website. By
 #' default files are saved to a temporary directory.
 #'
-#' @param stat_pub character vector containing the acronym of the statistical
-#' publication you want to download.
-#' @param cur_hist character vector determining whether to download the current
-#' (`"current"`) or the historic (`"historic"`) statistical publication. Please
-#' note that not all statistical publications have a historic version. By
-#' default this is set to (`"current"`).
+#' @param stat_pub character vector detailing a statistical publication to be
+#' downloaded. Must match a valid value in the
+#' `apra_stat_pubs_acronym` variable of the [apra_stat_pubs] dataset.
+#' @param cur_hist character vector detailing whether to download a current
+#' or historic statistical publication. Must match a
+#' valid value in the `cur_hist` variable of the [apra_stat_pubs]
+#' dataset.
 #' @param path path to where the downloaded file should be saved. Uses
 #' [base::tempdir()] by default.
-#' @param overwrite whether to overwrite the downloaded file when re-downloading
-#' the file.
+#' @param overwrite whether to overwrite a previously downloaded statistical
+#' publication file when re-running this function.
 #' @param quiet whether to suppress the download progress bar.
 #' @param ... additional arguments to be passed to [utils::download.file()].
 #'

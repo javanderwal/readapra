@@ -5,7 +5,7 @@
 \title{Download a Statistical Publication File from APRA's Website}
 \usage{
 download_apra(
-  publication,
+  stat_pub,
   cur_hist = "current",
   path = tempdir(),
   overwrite = TRUE,
@@ -14,19 +14,20 @@ download_apra(
 )
 }
 \arguments{
-\item{publication}{character vector containing the acronym of the statistical
-publication you want to download.}
+\item{stat_pub}{character vector detailing a statistical publication to be
+downloaded. Must match a valid value in the
+\code{apra_stat_pubs_acronym} variable of the \link{apra_stat_pubs} dataset.}
 
-\item{cur_hist}{character vector determining whether to download the current
-publication (\code{"current"}) or the historic publication (\code{"historic"}). Please
-note that not all statistical publications have a historic publication. By
-default this is set to (\code{"current"}).}
+\item{cur_hist}{character vector detailing whether to download a current
+or historic statistical publication. Must match a
+valid value in the \code{cur_hist} variable of the \link{apra_stat_pubs}
+dataset.}
 
 \item{path}{path to where the downloaded file should be saved. Uses
 \code{\link[base:tempfile]{base::tempdir()}} by default.}
 
-\item{overwrite}{whether to overwrite the downloaded file when re-downloading
-the file.}
+\item{overwrite}{whether to overwrite a previously downloaded statistical
+publication file when re-running this function.}
 
 \item{quiet}{whether to suppress the download progress bar.}
 
@@ -36,13 +37,17 @@ the file.}
 A character vector detailing the file path to the downloaded file.
 }
 \description{
-Downloads a specified statistical publication file from APRA's website. By
+Download a statistical publication file from APRA's website. By
 default files are saved to a temporary directory.
 }
 \examples{
 \donttest{
-download_path <- download_apra(publication = "qadips", cur_hist = "current")
+# Download a statistical publication file:
+download_path <-
+  download_apra(stat_pub = "qadips", cur_hist = "current")
 
+# View the file path of the statistical publication file:
 print(download_path)
 }
+
 }
