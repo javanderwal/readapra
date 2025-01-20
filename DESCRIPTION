@@ -1,6 +1,6 @@
 Package: readapra
 Title: Download and Tidy Data from the Australian Prudential Regulation
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: 
     person(given = "Jarrod", 
            family = "van der Wal", 
