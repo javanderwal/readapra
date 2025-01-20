@@ -1,19 +1,20 @@
 #' Download a Statistical Publication File from APRA's Website
 #'
 #' @description
-#' Downloads a specified statistical publication file from APRA's website. By
+#' Download a statistical publication file from APRA's website. By
 #' default files are saved to a temporary directory.
 #'
-#' @param publication character vector containing the acronym of the statistical
-#' publication you want to download.
-#' @param cur_hist character vector determining whether to download the current
-#' publication (`"current"`) or the historic publication (`"historic"`). Please
-#' note that not all statistical publications have a historic publication. By
-#' default this is set to (`"current"`).
+#' @param stat_pub character vector detailing a statistical publication to be
+#' downloaded. Must match a valid value in the
+#' `apra_stat_pubs_acronym` variable of the [apra_stat_pubs] dataset.
+#' @param cur_hist character vector detailing whether to download a current
+#' or historic statistical publication. Must match a
+#' valid value in the `cur_hist` variable of the [apra_stat_pubs]
+#' dataset.
 #' @param path path to where the downloaded file should be saved. Uses
 #' [base::tempdir()] by default.
-#' @param overwrite whether to overwrite the downloaded file when re-downloading
-#' the file.
+#' @param overwrite whether to overwrite a previously downloaded statistical
+#' publication file when re-running this function.
 #' @param quiet whether to suppress the download progress bar.
 #' @param ... additional arguments to be passed to [utils::download.file()].
 #'
@@ -23,19 +24,23 @@
 #'
 #' @examples
 #' \donttest{
-#' download_path <- download_apra(publication = "qadips", cur_hist = "current")
+#' # Download a statistical publication file:
+#' download_path <-
+#'   download_apra(stat_pub = "qadips", cur_hist = "current")
 #'
+#' # View the file path of the statistical publication file:
 #' print(download_path)
 #' }
+#'
 download_apra <- function(
-    publication,
+    stat_pub,
     cur_hist = "current",
     path = tempdir(),
     overwrite = TRUE,
     quiet = FALSE,
     ...) {
   download_apra_with_caller(
-    publication = publication,
+    stat_pub = stat_pub,
     cur_hist = cur_hist,
     path = path,
     overwrite = overwrite,
@@ -44,11 +49,11 @@ download_apra <- function(
   )
 }
 
-#' Download a statistical publication file from APRA's website with caller
+#' Download a Publication Statistics File from APRA's Website with caller
 #' environment control
 #'
-#' @param publication character vector containing the acronym of the statistical
-#' publication you want to download.
+#' @param stat_pub character vector containing the acronym of the publication
+#' statistics you want to download.
 #' @param cur_hist character vector determining whether to download the current
 #' publication (`"current"`) or the historic publication (`"historic"`). Please
 #' note that not all statistical publications have a historic publication.
@@ -62,44 +67,32 @@ download_apra <- function(
 #'
 #' @noRd
 #'
-download_apra_with_caller <- function(
-    publication,
-    cur_hist = "current",
-    path = tempdir(),
-    overwrite = TRUE,
-    quiet = FALSE,
-    call = rlang::caller_env(),
-    ...) {
-  rlang::arg_match(
-    arg = publication,
-    values = unique(apra_stat_pub_details$publication),
-    error_call = call
-  )
-  rlang::arg_match(
-    arg = cur_hist,
-    values = c("current", "historic"),
-    error_call = call
-  )
-
+download_apra_with_caller <- function(stat_pub,
+                                      cur_hist,
+                                      path = tempdir(),
+                                      overwrite = TRUE,
+                                      quiet = FALSE,
+                                      call = rlang::caller_env(),
+                                      ...) {
   check_valid_file_path(path, call)
-  check_valid_cur_hist(publication, cur_hist, call)
-  is_arg_logical(overwrite, call = call)
-  is_arg_logical(quiet, call = call)
+  check_standard_user_inputs(stat_pub, cur_hist, call = call)
+  check_logical_length_one(overwrite, call = call)
+  check_logical_length_one(quiet, call = call)
 
   selected_stat_pub <-
     dplyr::filter(
-      apra_stat_pub_details,
-      publication == {{ publication }},
+      apra_stat_pubs_details,
+      stat_pub_acronym == stat_pub,
       cur_hist == {{ cur_hist }}
     )
 
   check_http_status(
-    url = selected_stat_pub$webpage,
+    url = selected_stat_pub$webpage_link,
     error_message = "Could not scrape url to download from:",
     call = call
   )
 
-  bow_obj <- bow_wrapper(selected_stat_pub$webpage)
+  bow_obj <- bow_wrapper(selected_stat_pub$webpage_link)
   extracted_urls <- scrape_urls(bow_obj)
   url_to_download <- url_selector(extracted_urls, selected_stat_pub)
 
@@ -114,39 +107,6 @@ download_apra_with_caller <- function(
     )
 
   return(download_location)
-}
-
-#' Check whether the publication and cur_hist inputs are a valid combination.
-#'
-#' @param publication character vector containing the acronym of the statistical
-#' publication you want to check.
-#' @param cur_hist the character
-#' @param call the caller environment
-#'
-#' @noRd
-#'
-check_valid_cur_hist <- function(
-    publication,
-    cur_hist,
-    call = rlang::caller_env()) {
-  pub_check_result <-
-    dplyr::filter(
-      .data = apra_stat_pub_details,
-      publication == !!publication,
-      cur_hist == !!cur_hist
-    )
-
-  if (nrow(pub_check_result) != 1) {
-    cli::cli_abort(
-      message =
-        c(
-          "The {.code {toupper(publication)}} statistical publication does not have a historic publication.",
-          c("x" = "Please change the input to {.arg cur_hist} from {.code \"historic\"} to {.code \"current\"}")
-        ),
-      class = "readapra_error_invalid_historic_selection",
-      call = call
-    )
-  }
 }
 
 #' Scrape URLs from a webpage

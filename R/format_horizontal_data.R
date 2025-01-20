@@ -14,14 +14,13 @@
 #' @keywords internal
 #' @noRd
 #'
-format_horizontal_data <- function(
-    tidyxl_data,
-    formatting_data,
-    stat_pub_name,
-    sheet_str_detect,
-    frequency,
-    series_hierarchy_fn = NULL,
-    series_hierarchy_args = NULL) {
+format_horizontal_data <- function(tidyxl_data,
+                                   formatting_data,
+                                   stat_pub_name,
+                                   sheet_str_detect,
+                                   frequency,
+                                   series_hierarchy_fn = NULL,
+                                   series_hierarchy_args = NULL) {
   series_hierarchy_data <-
     get_series_hierarchy(
       tidyxl_data = tidyxl_data,
@@ -30,10 +29,11 @@ format_horizontal_data <- function(
     )
 
   if (!is.null(series_hierarchy_fn)) {
-    do.call(
-      series_hierarchy_fn,
-      c(list(series_hierarchy_data), series_hierarchy_args)
-    )
+    series_hierarchy_data <-
+      do.call(
+        series_hierarchy_fn,
+        c(list(series_hierarchy_data), series_hierarchy_args)
+      )
   }
 
   relevant_tidyxl_data <-
@@ -173,17 +173,16 @@ safe_format_horizontal_data <- purrr::safely(format_horizontal_data)
 #' @keywords internal
 #' @noRd
 #'
-attempt_format_horizontal_data <- function(
-    tidyxl_data,
-    formatting_data,
-    stat_pub_name,
-    sheet_str_detect,
-    frequency,
-    series_hierarchy_fn = NULL,
-    series_hierarchy_args = NULL,
-    error_or_warning = "error",
-    message = "The .xlsx file was in an unrecognised structure and could not be imported.",
-    call = rlang::caller_env()) {
+attempt_format_horizontal_data <- function(tidyxl_data,
+                                           formatting_data,
+                                           stat_pub_name,
+                                           sheet_str_detect,
+                                           frequency,
+                                           series_hierarchy_fn = NULL,
+                                           series_hierarchy_args = NULL,
+                                           error_or_warning = "error",
+                                           message = "The .xlsx file was in an unrecognised structure and could not be imported.",
+                                           call = rlang::caller_env()) {
   rlang::arg_match(error_or_warning, c("error", "warning"))
 
   outcome <-

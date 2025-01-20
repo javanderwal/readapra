@@ -1,48 +1,6 @@
 #' Read Monthly ADI Statistics
 #'
 #' @description
-#' Download and import the Monthly Authorised Deposit-taking Institution
-#' Statistics (MADIS) from APRA's website. Both the current and historic
-#' versions of this statistical publication are available.
-#'
-#' @param cur_hist character vector determining whether to download the current
-#' publication (`"current"`) or the historic publication (`"historic"`).
-#' @param path path to where the downloaded file should be saved. Uses
-#' [base::tempdir()] by default.
-#' @param overwrite whether to overwrite the downloaded file when re-downloading
-#' the file.
-#' @param quiet whether to suppress the download progress bar.
-#' @param ... additional arguments to be passed to [utils::download.file()].
-#'
-#' @return A tibble containing the Monthly ADI Statistics data.
-#' @export
-#'
-#' @examples
-#' \donttest{
-#' read_madis(cur_hist = "current")
-#' }
-read_madis <- function(
-    cur_hist,
-    path = tempdir(),
-    overwrite = TRUE,
-    quiet = FALSE,
-    ...) {
-  rlang::arg_match(cur_hist, c("current", "historic"))
-  temp_file_path <-
-    download_apra_with_caller(
-      publication = "madis",
-      cur_hist = cur_hist,
-      path = path,
-      quiet = quiet,
-      overwrite = overwrite,
-      ...
-    )
-  read_madis_local(temp_file_path, cur_hist)
-}
-
-#' Read Monthly ADI Statistics locally
-#'
-#' @description
 #' Import the Monthly Authorised Deposit-taking Institution Statistics (MADIS)
 #' from a local file. Both the current and historic versions of this
 #' statistical publication are available.
@@ -52,21 +10,11 @@ read_madis <- function(
 #' publication (`"current"`) or the historic publication (`"historic"`).
 #'
 #' @return A tibble containing the Monthly ADI Statistics data.
-#' @export
 #'
-#' @examples
-#' \donttest{
+#' @noRd
 #'
-#' # Downloading the latest MADIS file
-#' madis_file_path <- download_apra(publication = "madis")
-#'
-#' # Importing the data into R
-#' read_madis_local(file_path = madis_file_path, cur_hist = "current")
-#' }
-read_madis_local <- function(file_path, cur_hist) {
-  rlang::arg_match(cur_hist, c("current", "historic"))
-  check_valid_file_path(file_path)
-  tidyxl_data <- read_tidyxl_data(file_path, "table.*1")
+read_madis <- function(file_path, cur_hist, call = rlang::caller_env()) {
+  tidyxl_data <- read_tidyxl_data(file_path, "table.*1", call = call)
   formatting_data <- read_tidyxl_formatting_data(file_path)
   madis_data(tidyxl_data, formatting_data, cur_hist)
 }
@@ -82,16 +30,20 @@ read_madis_local <- function(file_path, cur_hist) {
 #'
 #' @noRd
 #'
-madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
+madis_data <- function(tidyxl_data,
+                       formatting_data,
+                       cur_hist,
+                       call = rlang::caller_env()) {
   madis_data <-
     attempt_format_vertical_data(
       tidyxl_data = tidyxl_data,
       formatting_data = formatting_data,
       stat_pub_name = "Monthly Authorised Deposit-taking Institution Statistics",
       frequency = "Monthly",
-      drop_col = FALSE
+      drop_col = FALSE,
+      call = call
     )
-  madis_data <- add_madis_balance_sheet(madis_data, cur_hist)
+  madis_data <- add_madis_balance_sheet(madis_data, cur_hist, call)
   madis_data <- dplyr::select(.data = madis_data, !col)
 
   return(madis_data)
@@ -107,10 +59,9 @@ madis_data <- function(tidyxl_data, formatting_data, cur_hist) {
 #' @keywords internal
 #' @noRd
 #'
-add_madis_balance_sheet <- function(
-    madis_data,
-    cur_hist,
-    call = rlang::caller_env()) {
+add_madis_balance_sheet <- function(madis_data,
+                                    cur_hist,
+                                    call = rlang::caller_env()) {
   original_col <- madis_data$col
   madis_data$col <- madis_data$col - min(madis_data$col) + 1
 

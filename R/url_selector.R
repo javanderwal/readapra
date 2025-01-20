@@ -1,18 +1,17 @@
 #' Takes a vector of URLs and tries to identify the URL to use as a download
-#' link use the filtered URL from the apra_stat_pub_details data
+#' link use the filtered URL from the apra_stat_pubs_details data
 #'
 #' @param urls_to_check a vector of URLs from which the correct on needs to be
 #' extracted
-#' @param selected_stat_pub the filtered apra_stat_pub_details containging the
+#' @param selected_stat_pub the filtered apra_stat_pubs_details containing the
 #' required URL
 #' @param call caller environment for error message handling
 #'
 #' @noRd
 #'
-url_selector <- function(
-    urls_to_check,
-    selected_stat_pub,
-    call = rlang::caller_env()) {
+url_selector <- function(urls_to_check,
+                         selected_stat_pub,
+                         call = rlang::caller_env()) {
   regex_matched_url <-
     stringr::str_subset(
       urls_to_check,

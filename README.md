@@ -86,10 +86,10 @@ library(ggplot2)
 ```
 
 We then download and import the Monthly Authorised Deposit-taking
-Institution Statistics (MADIS) data using the `read_madis()` function:
+Institution Statistics (MADIS) data using the `read_apra()` function:
 
 ``` r
-madis_data <- read_madis("current")
+madis_data <- read_apra(stat_pub = "madis", cur_hist = "current")
 ```
 
 We then filter the desired data like so:

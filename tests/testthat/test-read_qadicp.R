@@ -3,7 +3,8 @@ test_that("read_qadicp() real download", {
   skip_on_cran()
 
   with_tempdir({
-    qadicp_data <- read_qadicp(quiet = TRUE)
+    qadicp_path <- download_apra("qadicp", "current", quiet = TRUE)
+    qadicp_data <- read_qadicp(qadicp_path, "current")
     expect_s3_class(qadicp_data, "tbl_df")
     expect_equal(
       purrr::map(qadicp_data, class),
