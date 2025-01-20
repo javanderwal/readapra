@@ -70,5 +70,35 @@ qadipexs_data <- function(tidyxl_data,
       )
   }
 
+  qadipexs_data <-
+    replace_columns_patterns(
+      data = qadipexs_data,
+      cols = c("series_hierarchy", "series"),
+      match = qadipexs_string_replacement$match,
+      replace = qadipexs_string_replacement$replacement
+    )
+
   return(qadipexs_data)
 }
+
+#' Malformed strings in the QADIPEXS that need replacing
+#'
+#' @noRd
+#'
+qadipexs_string_replacement <-
+  tibble::tribble(
+    ~match, ~replacement,
+    "Number of entitiesa", "Number of entities",
+    "Number of entitiesb", "Number of entities",
+    "Impaired Commercial property exposuresa", "Impaired Commercial property exposures",
+    "Specific provisions and securitya", "Specific provisions and security",
+    "Impaired assets to exposuresa", "Impaired assets to exposures",
+    "Specific provisions to exposuresa", "Specific provisions to exposures",
+    "Specific provisions and security held to impaired exposuresa", "Specific provisions and security held to impaired exposures",
+    "All ADIsb", "All ADIs",
+    "of which:a", "of which:",
+    "of which:b", "of which:",
+    "of which:c", "of which:",
+    "All other domestic banksa", "All other domestic banks",
+    "All foreign subsidiary banksa", "All foreign subsidiary banks"
+  )

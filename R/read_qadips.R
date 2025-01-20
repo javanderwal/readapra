@@ -61,5 +61,28 @@ qadips_data <- function(tidyxl_data,
 
   qadips_data <- dplyr::bind_rows(qadips_key_stats_data, qadips_tab_data)
 
+  qadips_data <-
+    replace_columns_patterns(
+      data = qadips_data,
+      cols = c("series_hierarchy", "series"),
+      match = qadips_string_replacement$match,
+      replace = qadips_string_replacement$replacement
+  )
+
   return(qadips_data)
 }
+
+#' Malformed strings in the QADIPS that need replacing
+#'
+#' @noRd
+#'
+qadips_string_replacement <-
+  tibble::tribble(
+  ~match, ~replacement,
+  "All ADIs a", "All ADIs",
+  "Return on assets (after tax) a", "Return on assets (after tax)",
+  "Return on equity (after tax) a", "Return on equity (after tax)",
+  "Net profit (loss) after taxa", "Net profit (loss) after tax"
+)
+
+
