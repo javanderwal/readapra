@@ -151,3 +151,24 @@ check_character_length_one <- function(check_obj,
     )
   }
 }
+
+#' Replaces a set of character columns contents in a data frame
+#'
+#' @param data the data frame in which character columns need their values replaced
+#' @param cols the character columns to replace
+#' @param match the matching regex
+#' @param replace the replacement for the matching regex
+#'
+#' @noRd
+#'
+replace_columns_patterns <- function(data, cols, match, replace) {
+  names(replace) <- match
+
+  dplyr::mutate(
+    .data = data,
+    dplyr::across(
+      .cols = {{cols}},
+      .fns = ~stringr::str_replace_all(.x, pattern = stringr::fixed(replace))
+    )
+  )
+}

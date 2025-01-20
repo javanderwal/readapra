@@ -148,3 +148,44 @@ test_that("check_character_length_one() behaves as expected", {
     error = TRUE
   )
 })
+
+test_that("replace_columns_patterns() behaves as expected", {
+  input_data <-
+    tibble::tribble(
+      ~col1, ~col2,
+      "This is (a test) example a", "This is (a test) example a",
+      "A dollar ($) sign example", "A dollar ($) sign example",
+      "A percentage sign % example", "A percentage sign % example",
+      "Some of example z", "Some of example z",
+      "An unaltered value", "An unaltered value"
+    )
+
+  match_replacement_inputs <-
+    tibble::tribble(
+      ~match, ~replacement,
+      "This is (a test) example a", "This is (a test) example",
+      "A dollar ($) sign example", "A dollar sign example",
+      "A percentage sign % example", "A percentage sign example",
+      "Some of example z", "Some of example"
+    )
+
+  expected_output <-
+    tibble::tribble(
+      ~col1, ~col2,
+      "This is (a test) example", "This is (a test) example",
+      "A dollar sign example", "A dollar sign example",
+      "A percentage sign example", "A percentage sign example",
+      "Some of example", "Some of example",
+      "An unaltered value", "An unaltered value"
+    )
+
+  expect_equal(
+    replace_columns_patterns(
+      data = input_data,
+      cols = c("col1", "col2"),
+      match = match_replacement_inputs$match,
+      replace = match_replacement_inputs$replacement
+    ),
+    expected_output
+  )
+})
