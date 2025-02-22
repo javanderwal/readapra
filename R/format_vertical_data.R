@@ -218,7 +218,7 @@ get_extra_meta_data <- function(stat_pub_name,
       .data = extra_meta_data,
       count = dplyr::n(),
       .by = c(col, unit)
-      )
+    )
   extra_meta_data <- dplyr::slice_max(.data = extra_meta_data, count, by = col)
   extra_meta_data <- dplyr::select(.data = extra_meta_data, col, unit)
 
