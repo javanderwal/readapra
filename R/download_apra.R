@@ -181,8 +181,8 @@ polite_file_download <- function(url,
                                  quiet = FALSE,
                                  ...) {
   temp_link <-
-    polite::nod(bow, url) |>
     polite::rip(
+      bow = polite::nod(bow, url),
       method = method,
       path = path,
       overwrite = overwrite,
