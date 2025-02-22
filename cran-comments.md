@@ -9,6 +9,7 @@ Small patch to fix an issue where data would be multiplied due to inconsistent c
 * ubuntu-latest (on GitHub Actions), oldrel-1
 * win-builder (devel)
 * win-builder (release)
+* win-builder (oldrelease)
 
 ## R CMD check results
 
