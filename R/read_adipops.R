@@ -50,13 +50,15 @@ adipops_data <- function(tidyxl_data,
 #'
 convert_adipops_units <- function(data) {
   adipops_correct_units <-
-    data |>
-    dplyr::mutate(unit = dplyr::case_when(
-      stringr::str_detect(
-        string = series,
-        pattern = stringr::regex("number", ignore_case = TRUE)
-      ) ~ unit,
-      .default = series
-    ))
+    dplyr::mutate(
+      .data = data,
+      unit = dplyr::case_when(
+        stringr::str_detect(
+          string = series,
+          pattern = stringr::regex("number", ignore_case = TRUE)
+        ) ~ unit,
+        .default = series
+      )
+    )
   return(adipops_correct_units)
 }

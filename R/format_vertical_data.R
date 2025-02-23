@@ -43,11 +43,13 @@ format_vertical_data <- function(tidyxl_data,
       row_names, existing_cols, data_below_top_row, formatting_data
     )
 
-  cleaned_data <- dplyr::left_join(
-    x = name_cleaned_data,
-    y = extra_meta_data,
-    by = dplyr::join_by("col", "series")
-  )
+  cleaned_data <-
+    dplyr::left_join(
+      x = name_cleaned_data,
+      y = extra_meta_data,
+      by = dplyr::join_by("col", "series"),
+      relationship = "many-to-one"
+    )
 
   cleaned_data <- dplyr::relocate(
     .data = cleaned_data, unit, .before = value
@@ -209,8 +211,18 @@ get_extra_meta_data <- function(stat_pub_name,
     )
 
   extra_meta_data <- joined_formatting_data(data_below_top_row, formatting_data)
+
+  # Sometimes formatting changes across column. Taking most frequent formatting.
+  extra_meta_data <-
+    dplyr::summarise(
+      .data = extra_meta_data,
+      count = dplyr::n(),
+      .by = c(col, unit)
+    )
+  extra_meta_data <- dplyr::slice_max(.data = extra_meta_data, count, by = col)
   extra_meta_data <- dplyr::select(.data = extra_meta_data, col, unit)
-  extra_meta_data <- dplyr::distinct(.data = extra_meta_data)
+
+  # Joining data together
   extra_meta_data <- dplyr::left_join(column_binder, extra_meta_data, by = "col")
   extra_meta_data <- clean_unit_data(extra_meta_data)
   extra_meta_data$series <- remove_escape_sequences(extra_meta_data$series)
