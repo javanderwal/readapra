@@ -33,15 +33,17 @@ check_valid_file_path <- function(file_path, call = rlang::caller_env()) {
 #' @noRd
 #'
 joined_formatting_data <- function(tidyxl_data, formatting_data) {
-  dplyr::left_join(
-    tidyxl_data,
-    tibble::tibble(
-      unit = formatting_data$local$numFmt,
-      local_format_id = 1:length(formatting_data$local$numFmt)
-    ),
-    by = dplyr::join_by(local_format_id)
-  ) |>
-    dplyr::select(sheet, row, col, unit)
+  joined_data <-
+    dplyr::left_join(
+      tidyxl_data,
+      tibble::tibble(
+        unit = formatting_data$local$numFmt,
+        local_format_id = 1:length(formatting_data$local$numFmt)
+      ),
+      by = dplyr::join_by(local_format_id)
+    )
+
+  dplyr::select(.data = joined_data, sheet, row, col, unit)
 }
 
 #' Takes a tibble containing a column named "unit" and cleans it
@@ -167,8 +169,8 @@ replace_columns_patterns <- function(data, cols, match, replace) {
   dplyr::mutate(
     .data = data,
     dplyr::across(
-      .cols = {{cols}},
-      .fns = ~stringr::str_replace_all(.x, pattern = stringr::fixed(replace))
+      .cols = {{ cols }},
+      .fns = ~ stringr::str_replace_all(.x, pattern = stringr::fixed(replace))
     )
   )
 }

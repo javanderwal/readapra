@@ -1,3 +1,7 @@
+# readapra 0.2.1
+-   Fixed issue where inconsistent formatting would cause multiplication of data. 
+-   Removed usage of the native pipe operator (|>).
+
 # readapra 0.2.0
 
 -   Replaced `read_x()` and `read_x_local()` style functions with `read_apra()` and `read_apra_local()`.
