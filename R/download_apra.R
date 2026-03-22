@@ -130,8 +130,11 @@ scrape_urls <- function(url) {
 
   page <- httr::content(resp, as = "parsed")
 
-  urls <- rvest::html_elements(page, "a") |>
-    rvest::html_attr("href")
+  urls <-
+    rvest::html_attr(
+      x = rvest::html_elements(page, "a"),
+      "href"
+    )
 
   urls <- urls[
     !is.na(urls) &

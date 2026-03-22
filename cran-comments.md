@@ -1,4 +1,4 @@
-Small patch to fix an issue where data would be multiplied due to inconsistent cell formatting.
+Small patch to fix the issue flagged on CRAN.
 
 ## Test environments
 * local R installation, R release
