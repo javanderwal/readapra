@@ -41,6 +41,15 @@ qadicp_data <- function(tidyxl_data,
     )
   qadicp_data <- add_qadicp_regulatory_category(qadicp_data, call = call)
   qadicp_data <- dplyr::select(.data = qadicp_data, !col)
+  qadicp_data <-
+    dplyr::arrange(
+      .data = qadicp_data,
+      date,
+      entity,
+      risk_metric_category,
+      series
+    )
+
   return(qadicp_data)
 }
 
