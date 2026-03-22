@@ -55,11 +55,10 @@ test_that("download_apra() download error handling", {
       )
     }
   )
-  local_mocked_bindings(bow_wrapper = function(...) NULL)
   local_mocked_bindings(scrape_urls = function(...) NULL)
   local_mocked_bindings(url_selector = function(...) NULL)
   local_mocked_bindings(sys_sleep_wrapper = function(...) NULL)
-  local_mocked_bindings(safe_polite_file_download = function(...) {
+  local_mocked_bindings(safe_file_download = function(...) {
     list(result = NULL, error = "Error")
   })
 
@@ -90,16 +89,7 @@ test_that("scrape_urls() behaves as expected", {
     headers = list("Content-Type" = "text/html; charset=utf-8")
   )
 
-  wi_th(
-    .data = stub_request("get", uri = "https://example.com/robots.txt"),
-    headers = list(
-      "Accept" = "application/json, text/xml, application/xml, */*",
-      "user-agent" = "polite R package"
-    )
-  )
-
-  session <- polite::bow("https://example.com")
-  urls <- scrape_urls(session)
+  urls <- scrape_urls("https://example.com")
 
   expect_equal(urls, c("https://example.com/link1", "https://example.com/link2"))
 
@@ -173,75 +163,46 @@ test_that("get_http_status() returns http details", {
   disable(quiet = TRUE)
 })
 
-test_that("download_file() real file download", {
+test_that("file_download() real file download", {
   skip_if_offline()
   skip_on_cran()
 
   with_tempdir({
     expect_true(
       file.exists(
-        polite_file_download(
-          bow = bow_wrapper("https://httpbin.org/bytes/512"),
-          url = "https://httpbin.org/bytes/512", quiet = TRUE
+        file_download(
+          url = "https://httpbin.org/bytes/512",
+          quiet = TRUE
         )
       )
     )
   })
 })
 
-test_that("attempt_polite_file_download() error behaviour", {
-  # Invalid method supplied
-  expect_error(
-    attempt_polite_file_download(
-      url = "dummy_url",
-      bow = "dummy_bow",
-      method = "invalid_method"
-    )
-  )
-
+test_that("attempt_file_download() error behaviour", {
   # Checking safe fall backs
   local_mocked_bindings(sys_sleep_wrapper = function(...) NULL)
-  local_mocked_bindings(safe_polite_file_download = function(...) list(result = NULL, error = "Error"))
+  local_mocked_bindings(safe_file_download = function(...) list(result = NULL, error = "Error"))
   local_mocked_bindings(get_http_status = function(...) list(message = "get_http_status_message"))
 
   expect_error(
-    attempt_polite_file_download(url = "dummy_url", bow = "dummy_bow"),
+    attempt_file_download(url = "dummy_url"),
     class = "readapra_error_could_not_download_file"
   )
 })
 
-test_that("attempt_polite_file_download() real file download", {
+test_that("attempt_file_download() real file download", {
   skip_if_offline()
   skip_on_cran()
 
   with_tempdir({
     expect_true(
       file.exists(
-        attempt_polite_file_download(
-          bow = bow_wrapper("https://httpbin.org/bytes/512"),
+        attempt_file_download(
           url = "https://httpbin.org/bytes/512",
           quiet = TRUE
         )
       )
     )
-  })
-})
-
-test_that("attempt_polite_file_download() wininet download warning", {
-  skip_if_offline()
-  skip_on_cran()
-  skip_on_ci()
-
-  with_tempdir({
-    with_envvar(c(R_READAPRA_DL_METHOD = "wininet"), {
-      expect_warning(
-        attempt_polite_file_download(
-          bow = bow_wrapper("https://httpbin.org/bytes/512"),
-          url = "https://httpbin.org/bytes/512",
-          quiet = TRUE
-        ),
-        regexp = "wininet.*deprecated"
-      )
-    })
   })
 })
