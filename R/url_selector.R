@@ -18,7 +18,7 @@ url_selector <- function(urls_to_check,
       selected_stat_pub$regex_link
     )
 
-  if (length(regex_matched_url == 1)) {
+  if (length(regex_matched_url) == 1) {
     return(regex_matched_url)
   }
 

@@ -45,6 +45,14 @@ madis_data <- function(tidyxl_data,
     )
   madis_data <- add_madis_balance_sheet(madis_data, cur_hist, call)
   madis_data <- dplyr::select(.data = madis_data, !col)
+  madis_data <-
+    dplyr::arrange(
+      .data = madis_data,
+      date,
+      institution_name,
+      balance_sheet_category,
+      series
+    )
 
   return(madis_data)
 }

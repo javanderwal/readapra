@@ -1,6 +1,6 @@
 Package: readapra
 Title: Download and Tidy Data from the Australian Prudential Regulation Authority
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
     person(given = "Jarrod", 
            family = "van der Wal", 
@@ -28,12 +28,8 @@ Imports:
     httr (>= 1.0.0),
     janitor,
     lubridate (>= 1.0.0),
-    memoise,
-    polite (>= 0.1.0),
     purrr (>= 1.0.0),
-    ratelimitr,
     rlang (>= 1.0.0),
-    robotstxt,
     rvest (>= 1.0.0),
     stringdist,
     stringr (>= 1.0.0),
@@ -41,7 +37,8 @@ Imports:
     tidyr (>= 1.0.0),
     tidyselect (>= 1.0.0),
     tidyxl (>= 1.0.0),
-    utils
+    utils,
+    xml2
 Depends: 
     R (>= 3.5)
 RoxygenNote: 7.3.2

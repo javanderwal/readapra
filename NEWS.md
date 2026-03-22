@@ -1,3 +1,7 @@
+# readapra 0.2.2
+-   Removed dependency on polite, robotstxt, ratelimitr and  memoise. 
+-   The returned ADIPOPS, MADIS and QADICP tibbles are now sorted by date.
+
 # readapra 0.2.1
 -   Fixed issue where inconsistent formatting would cause multiplication of data. 
 -   Removed usage of the native pipe operator (|>).

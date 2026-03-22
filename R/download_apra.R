@@ -92,14 +92,12 @@ download_apra_with_caller <- function(stat_pub,
     call = call
   )
 
-  bow_obj <- bow_wrapper(selected_stat_pub$webpage_link)
-  extracted_urls <- scrape_urls(bow_obj)
+  extracted_urls <- scrape_urls(selected_stat_pub$webpage_link)
   url_to_download <- url_selector(extracted_urls, selected_stat_pub)
 
   download_location <-
-    attempt_polite_file_download(
+    attempt_file_download(
       url = url_to_download,
-      bow = bow_obj,
       path = path,
       overwrite = overwrite,
       quiet = quiet,
@@ -111,15 +109,51 @@ download_apra_with_caller <- function(stat_pub,
 
 #' Scrape URLs from a webpage
 #'
-#' @param url_session The polite bow object to extract the URLs from
+#' @param url The URL of the webpage to extract links from
 #'
 #' @noRd
 #'
-scrape_urls <- function(url_session) {
-  scraped_urls <- polite::scrape(url_session)
-  scraped_urls <- rvest::html_elements(scraped_urls, "a")
-  scraped_urls <- rvest::html_attr(scraped_urls, "href")
-  return(scraped_urls)
+scrape_urls <- function(url) {
+  resp <- httr::GET(
+    url,
+    httr::user_agent("readapra R package")
+  )
+
+  if (httr::http_error(resp)) {
+    cli::cli_abort(
+      c(
+        "Could not scrape URL: {.url {url}}",
+        "x" = httr::http_status(resp)$message
+      )
+    )
+  }
+
+  page <- httr::content(resp, as = "parsed")
+
+  urls <-
+    rvest::html_attr(
+      x = rvest::html_elements(page, "a"),
+      "href"
+    )
+
+  urls <- urls[
+    !is.na(urls) &
+      nzchar(urls) &
+      !grepl("^#", urls) &
+      !grepl("^javascript:", urls)
+  ]
+
+  urls <- xml2::url_absolute(urls, base = url)
+
+  return(urls)
+}
+
+#' Get the download method from the R_READAPRA_DL_METHOD environment variable
+#'
+#' @noRd
+#'
+get_dl_method <- function() {
+  Sys.getenv("R_READAPRA_DL_METHOD", unset = "auto")
 }
 
 #' Use the httr package to get status information about a URL
@@ -129,10 +163,6 @@ scrape_urls <- function(url_session) {
 #' @noRd
 #'
 get_http_status <- function(url) {
-  old_dl_method <- getOption("download.file.method")
-  on.exit(options(old_dl_method))
-  readapra_dl_method <- Sys.getenv("R_READAPRA_DL_METHOD", unset = "auto")
-  options("download.file.method" = readapra_dl_method)
   httr::http_status(httr::GET(url))
 }
 
@@ -161,66 +191,65 @@ check_http_status <- function(url,
   return()
 }
 
-#' Politely download a file
+#' Download a file using utils::download.file
 #'
 #' @param url the URL of the file to be downloaded
-#' @param bow host introduction object of class polite, session created by bow() or nod()
-#' @param method Method to be used for downloading files.
 #' @param path path where to save the destfile.
 #' @param overwrite if `TRUE` will overwrite file on disk
-#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
-#' @param ... Other parameters passed on to download.file
+#' @param quiet If `TRUE`, suppress the download progress bar.
+#' @param ... Other parameters passed on to [utils::download.file()]
 #'
 #' @noRd
 #'
-polite_file_download <- function(url,
-                                 bow,
-                                 method = Sys.getenv("R_READAPRA_DL_METHOD", unset = "auto"),
-                                 path = tempdir(),
-                                 overwrite = TRUE,
-                                 quiet = FALSE,
-                                 ...) {
-  temp_link <-
-    polite::rip(
-      bow = polite::nod(bow, url),
-      method = method,
-      path = path,
-      overwrite = overwrite,
-      quiet = quiet,
-      ...
-    )
+file_download <- function(url,
+                          path = tempdir(),
+                          overwrite = TRUE,
+                          quiet = FALSE,
+                          ...) {
+  destfile <- file.path(path, basename(url))
 
-  return(temp_link)
+  if (file.exists(destfile) && !overwrite) {
+    return(destfile)
+  }
+
+  utils::download.file(
+    url = url,
+    destfile = destfile,
+    method = get_dl_method(),
+    quiet = quiet,
+    mode = "wb",
+    ...
+  )
+
+  return(destfile)
 }
 
-#' Safely and politely download a file
+#' Safely download a file
 #'
 #' @noRd
 #'
-safe_polite_file_download <- purrr::safely(polite_file_download)
+safe_file_download <- purrr::safely(file_download)
 
-#' Attempt to politely download a file
+#' Attempt to download a file, retrying once on failure
 #'
 #' @param url the URL of the file to be downloaded
-#' @param bow host introduction object of class polite, session created by bow() or nod()
 #' @param path path where to save the destfile.
 #' @param overwrite if `TRUE` will overwrite file on disk
-#' @param quiet If `TRUE`, suppress status messages (if any), and the progress bar.
-#' @param ... Other parameters passed on to download.file
+#' @param quiet If `TRUE`, suppress the download progress bar.
+#' @param call The caller environment
+#' @param ... Other parameters passed on to [utils::download.file()]
 #'
 #' @noRd
 #'
-attempt_polite_file_download <- function(url,
-                                         bow,
-                                         path = tempdir(),
-                                         overwrite = TRUE,
-                                         quiet = FALSE,
-                                         call = rlang::caller_env(),
-                                         ...) {
+attempt_file_download <- function(url,
+                                  path = tempdir(),
+                                  overwrite = TRUE,
+                                  quiet = FALSE,
+                                  call = rlang::caller_env(),
+                                  ...) {
   download_outcome <-
-    safe_polite_file_download(
+    safe_file_download(
       url = url,
-      bow = bow,
       path = path,
       overwrite = overwrite,
       quiet = quiet,
@@ -230,9 +259,8 @@ attempt_polite_file_download <- function(url,
   if (!is.null(download_outcome$error)) {
     sys_sleep_wrapper(5)
     download_outcome <-
-      safe_polite_file_download(
+      safe_file_download(
         url = url,
-        bow = bow,
         path = path,
         overwrite = overwrite,
         quiet = quiet,

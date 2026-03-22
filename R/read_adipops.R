@@ -39,6 +39,17 @@ adipops_data <- function(tidyxl_data,
       call = call
     )
   adipops_data <- convert_adipops_units(adipops_data)
+  adipops_data <-
+    dplyr::arrange(
+      .data = adipops_data,
+      date,
+      institution_name,
+      service_channel_type,
+      sa4_name,
+      sa3_name,
+      sa2_name
+    )
+
   return(adipops_data)
 }
 
