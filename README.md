@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readapra <img src="man/figures/readapra_hex_sticker.png" align="right" height="139"/>
+<img src="reference/figures/readapra_hex_sticker.png" align="right" style="max-height: 139px; width: auto;">
 
 <!-- badges: start -->
 
@@ -81,8 +81,7 @@ We start by first librarying the required packages:
 
 ``` r
 library(readapra)
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 ```
 
 We then download and import the Monthly Authorised Deposit-taking
@@ -92,15 +91,26 @@ Institution Statistics (MADIS) data using the `read_apra()` function:
 madis_data <- read_apra(stat_pub = "madis", cur_hist = "current")
 ```
 
-We then filter the desired data like so:
+We then filter and clean-up the desired data like so:
 
 ``` r
-major_bank_assets <-
+major_bank_assets <- 
   madis_data %>%
   filter(
     abn %in% c(48123123124, 33007457141, 12004044937, 11005357522),
-    series == "Total residents assets"
-  )
+    series == "Total residents loans and finance leases"
+  ) %>%
+  mutate(
+    short_name = dplyr::case_when(
+      abn == 48123123124 ~ "CBA",
+      abn == 33007457141 ~ "WBC",
+      abn == 12004044937 ~ "NAB",
+      abn == 11005357522 ~ "ANZ",
+    )
+  ) %>%
+  group_by(short_name) %>%
+  mutate(value = 100 * value / first(value)) %>%
+  ungroup()
 ```
 
 And then finally we can plot the data using `ggplot2`:
@@ -108,15 +118,30 @@ And then finally we can plot the data using `ggplot2`:
 ``` r
 ggplot(
   data = major_bank_assets,
-  mapping = aes(date, value, colour = institution_name)
+  mapping = aes(date, value, colour = short_name)
 ) +
-  geom_line() +
-  theme_classic() +
-  theme(legend.position = "bottom") +
-  guides(colour = guide_legend(ncol = 1))
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Major Australian Banks Total Resident Loans and Finance Leases",
+    subtitle = "Indexed to March 2019",
+    caption = "Source: APRA"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.title = element_blank(),
+    axis.text = element_text(colour = "black")
+  ) +
+  scale_colour_manual(values = c(
+    "CBA" = "#FECA0A",
+    "WBC" = "#DF0000",
+    "NAB" = "#000000",
+    "ANZ" = "#009FE1"
+  ))
 ```
 
-<img src="man/figures/README-plot_madis-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="man/figures/README-plot_madis-1.svg" width="100%" style="display: block; margin: auto;" />
 
 ## Managing Network Connections
 

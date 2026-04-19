@@ -20,7 +20,7 @@ Suggests:
     webmockr,
     withr
 Config/testthat/edition: 3
-URL: https://github.com/javanderwal/readapra
+URL: https://github.com/javanderwal/readapra, https://javanderwal.github.io/readapra/
 BugReports: https://github.com/javanderwal/readapra/issues
 Imports: 
     cli (>= 3.0.0),
