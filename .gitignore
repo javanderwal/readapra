@@ -7,3 +7,4 @@
 
 # Allow
 !/tests/testthat/test_data/*.xlsx
+docs
