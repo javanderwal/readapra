@@ -1,4 +1,4 @@
-Small patch to fix the issue flagged on CRAN.
+Small patch to fix a column infrequently appearing as a string rather than being numeric. 
 
 ## Test environments
 * local R installation, R release

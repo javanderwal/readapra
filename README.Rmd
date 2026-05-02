@@ -105,16 +105,17 @@ ggplot(
 ) +
   geom_line(linewidth = 1) +
   labs(
-    title = "Major Australian Banks Total Resident Loans and Finance Leases",
+    title = "Major Australian Banks' Total Resident Loans and Finance Leases",
     subtitle = "Indexed to March 2019",
     caption = "Source: APRA"
   ) +
   theme_bw() +
   theme(
+    plot.title = element_text(face = "bold"),
     legend.position = "top",
     legend.title = element_blank(),
     axis.title = element_blank(),
-    axis.text = element_text(colour = "black")
+    axis.text = element_text(colour = "black") 
   ) +
   scale_colour_manual(values = c(
     "CBA" = "#FECA0A",

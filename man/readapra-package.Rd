@@ -12,6 +12,7 @@ Download the latest data from the Australian Prudential Regulation Authority \ur
 Useful links:
 \itemize{
   \item \url{https://github.com/javanderwal/readapra}
+  \item \url{https://javanderwal.github.io/readapra/}
   \item Report bugs at \url{https://github.com/javanderwal/readapra/issues}
 }
 
