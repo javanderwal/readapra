@@ -174,3 +174,15 @@ replace_columns_patterns <- function(data, cols, match, replace) {
     )
   )
 }
+
+#' Convert ABN column to numeric if present
+#'
+#' @param data a data frame or tibble
+#'
+#' @noRd
+convert_abn <- function(data) {
+  if ("abn" %in% names(data)) {
+    data <- dplyr::mutate(data, abn = as.numeric(abn))
+  }
+  data
+}
