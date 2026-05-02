@@ -6,5 +6,5 @@ utils::globalVariables(c(
   "sheet_details", "sheet", "data_type", "series_hierarchy",
   "unit", "value", "error", "local_format_id", "statistics_publication_name",
   "indent", "measure_type", "stat_pub_acronym", "count", "institution_name",
-  "service_channel_type", "sa4_name", "sa3_name", "sa2_name", "entity"
+  "service_channel_type", "sa4_name", "sa3_name", "sa2_name", "entity", "abn"
 ))

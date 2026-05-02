@@ -1,3 +1,6 @@
+# readapra 0.2.3
+-   The ABN field in the MADIS, QADICP and ADIPOPS datasets will now always be numeric.
+
 # readapra 0.2.2
 -   Removed dependency on polite, robotstxt, ratelimitr and  memoise. 
 -   The returned ADIPOPS, MADIS and QADICP tibbles are now sorted by date.
