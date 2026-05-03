@@ -67,6 +67,6 @@ download_path <-
 
 # View the file path of the statistical publication file:
 print(download_path)
-#> [1] "/tmp/RtmpBwnmaL/Quarterly%20authorised%20deposit-taking%20institution%20performance-September%202004%20to%20December%202025.xlsx"
+#> [1] "/tmp/RtmpcKLgiu/Quarterly%20authorised%20deposit-taking%20institution%20performance-September%202004%20to%20December%202025.xlsx"
 # }
 ```
