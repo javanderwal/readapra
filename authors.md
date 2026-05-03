@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/javanderwal/readapra/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/javanderwal/readapra/blob/v0.2.3/DESCRIPTION)
 
 van der Wal J (2026). *readapra: Download and Tidy Data from the
 Australian Prudential Regulation Authority*. R package version 0.2.3,
